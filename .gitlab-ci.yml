@@ -1,7 +1,7 @@
 image: maven:latest
 
-compile:
-  stage: compile
+build:
+  stage: build
   script:
     - 'mvn compile'
   only:
