@@ -3,6 +3,10 @@ image: maven:latest
 build:
   stage: build
   script:
-    - 'mvn compile'
+    - 'mvn package'
   only:
     - master
+
+artifacts:
+  paths:
+    - ./target/swagger-spring-*.jar
