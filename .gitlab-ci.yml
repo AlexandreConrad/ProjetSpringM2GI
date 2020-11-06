@@ -1,0 +1,8 @@
+image: maven:latest
+
+compile:
+  stage: compile
+  script:
+    - 'mvn compile'
+  only:
+    - master
