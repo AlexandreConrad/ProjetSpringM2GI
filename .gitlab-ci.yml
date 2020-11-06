@@ -7,6 +7,6 @@ build:
   only:
     - master
 
-artifacts:
-  paths:
-    - ./target/swagger-spring-*.jar
+  artifacts:
+    paths:
+      - ./target/swagger-spring-*.jar
