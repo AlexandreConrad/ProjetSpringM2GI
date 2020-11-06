@@ -6,7 +6,13 @@ build:
     - 'mvn package'
   only:
     - master
-
   artifacts:
     paths:
       - ./target/swagger-spring-*.jar
+      
+test:
+  stage: test
+  script:
+    - 'mvn test'
+  only:
+    - merge_requests
