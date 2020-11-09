@@ -19,7 +19,7 @@ sonarqube:
   except:
     - master
   script:
-    - 'mvn build sonar:sonar'
+    - 'mvn package sonar:sonar'
 
 test:
   stage: test
