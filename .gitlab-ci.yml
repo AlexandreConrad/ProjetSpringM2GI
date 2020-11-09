@@ -1,5 +1,9 @@
 image: maven:latest
 
+stages:
+  - build
+  - test
+
 build:
   stage: build
   script:
@@ -9,7 +13,14 @@ build:
   artifacts:
     paths:
       - ./target/swagger-spring-*.jar
-      
+
+sonarqube:
+  stage: test
+  except:
+    - master
+  script:
+    - 'mvn package sonar:sonar'
+
 test:
   stage: test
   script:
