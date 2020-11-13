@@ -56,7 +56,7 @@ Pipline d'intégration avec :
 
 ## Documentation
 
-* [Swagger Editor](https://gitlab.cedricmtta.com/Alexandre/surveys/docs/swagger.txt) - Document réalisé en Swagger
+* [Swagger Editor](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/alexandre_conrad/docs/swagger.txt) - Document réalisé en Swagger
 * [Carnet de bord](https://gitlab.cedricmtta.com/Alexandre/surveys/) - Carnet de bord  #A FAIRE#
 * [Gantt](https://gitlab.cedricmtta.com/Alexandre/surveys/) - Diagramme de Gantt  #A FAIRE#
 * [Postman](https://gitlab.cedricmtta.com/Alexandre/surveys/) - Document Postman  #A FAIRE#

@@ -1,6 +1,11 @@
 package io.swagger.api;
 
 import io.swagger.model.InlineResponse201;
+import io.swagger.util.HibernateUtil;
+import org.hibernate.*;
+import org.hibernate.Transaction;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.threeten.bp.OffsetDateTime;
 import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.validation.constraints.*;
 import javax.validation.Valid;
@@ -86,6 +92,17 @@ public class SurveysApiController implements SurveysApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
+                /*CODE A FAIRE*/
+                System.out.println("------------------------------------ BITE");
+                Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
+                Transaction tx = session.beginTransaction();
+                System.out.println("------------------------------------ Session");
+                Survey survey = session.get(Survey.class,new Long(1));
+                tx.commit();
+                session.close();
+                System.out.println("------------------------------------ Fin");
+                System.out.println(survey.getName());
+                System.out.println("------------------------------------ fin 2");
                 return new ResponseEntity<List<Survey>>(objectMapper.readValue("[ {  \"isAvailable\" : false,  \"comments\" : [ \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\", \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\" ],  \"endDate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"description\" : \"description\",  \"votes\" : [ {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  }, {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  } ],  \"id\" : 0}, {  \"isAvailable\" : false,  \"comments\" : [ \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\", \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\" ],  \"endDate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"description\" : \"description\",  \"votes\" : [ {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  }, {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  } ],  \"id\" : 0} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
