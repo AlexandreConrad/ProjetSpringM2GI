@@ -24,10 +24,12 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.validation.Configuration;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
 
@@ -93,16 +95,14 @@ public class SurveysApiController implements SurveysApi {
         if (accept != null && accept.contains("application/json")) {
             try {
                 /*CODE A FAIRE*/
-                System.out.println("------------------------------------ BITE");
-                Session session = HibernateUtil.getSessionAnnotationFactory().getCurrentSession();
-                Transaction tx = session.beginTransaction();
-                System.out.println("------------------------------------ Session");
-                Survey survey = session.get(Survey.class,new Long(1));
-                tx.commit();
-                session.close();
-                System.out.println("------------------------------------ Fin");
+                Session session = HibernateUtil.getSessionFactory().openSession();//Ouverture d'une session
+                Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
+                Survey survey = session.load(Survey.class, 1);//Récupération du sondage 1
                 System.out.println(survey.getName());
-                System.out.println("------------------------------------ fin 2");
+                transaction.commit();
+                session.close();
+                HibernateUtil.getSessionFactory().close();
+                //return survey;
                 return new ResponseEntity<List<Survey>>(objectMapper.readValue("[ {  \"isAvailable\" : false,  \"comments\" : [ \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\", \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\" ],  \"endDate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"description\" : \"description\",  \"votes\" : [ {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  }, {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  } ],  \"id\" : 0}, {  \"isAvailable\" : false,  \"comments\" : [ \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\", \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\" ],  \"endDate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"description\" : \"description\",  \"votes\" : [ {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  }, {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  } ],  \"id\" : 0} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);

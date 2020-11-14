@@ -4,25 +4,20 @@
         "https://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <!-- Database connection properties - Driver, URL, user, password -->
+
+        <!-- Propriétés de connexion à la base de données - Driver, URL, user, password -->
         <property name="hibernate.connection.driver_class">org.h2.Driver</property>
-        <property name="hibernate.connection.url">jdbc:h2:file:E:\Projet M2GI\surveys\devdb</property>
+        <property name="hibernate.connection.url">jdbc:h2:file:.\devdb</property>
         <property name="hibernate.connection.username">sa</property>
         <property name="hibernate.connection.password"></property>
-        <!-- Connection Pool Size
-        <property name="hibernate.connection.pool_size">1</property>-->
 
-        <!-- org.hibernate.HibernateException: No CurrentSessionContext configured! -->
+        <!-- Type de communication -->
         <property name="hibernate.current_session_context_class">thread</property>
 
-        <!--  Outputs the SQL queries, should be disabled in Production
-        <property name="hibernate.show_sql">true</property>-->
+        <!-- Affichage des requêtes SQL -->
+        <property name="hibernate.show_sql">true</property>
 
-        <!-- Dialect is required to let Hibernate know the Database Type, MySQL, Oracle etc
-            Hibernate 4 automatically figure out Dialect from Database Connection Metadata
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>-->
-
-        <!-- Mapping with model class containing annotations -->
+        <!-- Mappage avec les classes de modèle contenant des annotations  -->
         <mapping class="io.swagger.model.Survey"/>
     </session-factory>
 </hibernate-configuration>
