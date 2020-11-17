@@ -5,49 +5,44 @@
  */
 package io.swagger.api;
 
+import io.swagger.annotations.*;
 import io.swagger.model.Choice1;
 import io.swagger.model.InlineResponse2001;
-import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
 import java.util.List;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
 
 @Api(value = "comments", description = "the comments API")
 @RequestMapping(value = "/Alex57x/Projet/1.0.0")
 public interface CommentsApi {
 
-    @ApiOperation(value = "Ajoute un commentaire", nickname = "addComments", notes = "Ajoute un commentaire d'un sondage", response = Choice1.class, tags={ "comments", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "opération réussie", response = Choice1.class),
-        @ApiResponse(code = 400, message = "Manque des informations dans le corps."),
-        @ApiResponse(code = 409, message = "Certaines informations ne respectent pas les conditions."),
-        @ApiResponse(code = 500, message = "Echec de connexion à la base de données.") })
+    @ApiOperation(value = "Ajoute un commentaire", nickname = "addComments", notes = "Ajoute un commentaire d'un sondage", response = Choice1.class, tags = {"comments",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "opération réussie", response = Choice1.class),
+            @ApiResponse(code = 400, message = "Manque des informations dans le corps."),
+            @ApiResponse(code = 409, message = "Certaines informations ne respectent pas les conditions."),
+            @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
     @RequestMapping(value = "/comments/{surveyID}",
-        produces = { "application/json" }, 
-        method = RequestMethod.POST)
-    ResponseEntity<Choice1> addComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires",required=true) @PathVariable("surveyID") Long surveyID,@ApiParam(value = "Ajout d'un choix." ,required=true )  @Valid @RequestBody Choice1 choice);
+            produces = {"application/json"},
+            method = RequestMethod.POST)
+    ResponseEntity<Choice1> addComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Ajout d'un choix.", required = true) @Valid @RequestBody Choice1 choice);
 
 
-    @ApiOperation(value = "Recupère tous les commentaires", nickname = "getComments", notes = "Recupère tous les commentaires d'un sondage", response = InlineResponse2001.class, responseContainer = "List", tags={ "comments", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "opération réussie", response = InlineResponse2001.class, responseContainer = "List"),
-        @ApiResponse(code = 404, message = "Ressource introuvable."),
-        @ApiResponse(code = 500, message = "Echec de connexion à la base de données.") })
+    @ApiOperation(value = "Recupère tous les commentaires", nickname = "getComments", notes = "Recupère tous les commentaires d'un sondage", response = InlineResponse2001.class, responseContainer = "List", tags = {"comments",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "opération réussie", response = InlineResponse2001.class, responseContainer = "List"),
+            @ApiResponse(code = 404, message = "Ressource introuvable."),
+            @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
     @RequestMapping(value = "/comments/{surveyID}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<List<InlineResponse2001>> getComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires",required=true) @PathVariable("surveyID") Long surveyID);
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    ResponseEntity<List<InlineResponse2001>> getComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID);
 
 }

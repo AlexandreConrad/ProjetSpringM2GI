@@ -15,7 +15,7 @@
         <property name="hibernate.current_session_context_class">thread</property>
 
         <!-- Chargement du SQL avec Hibernate / none pour production -->
-        <property name="hibernate.hbm2ddl.auto">create-drop</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
 
         <!-- Affichage des requêtes SQL -->
         <property name="hibernate.show_sql">true</property>
