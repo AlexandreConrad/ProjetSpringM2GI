@@ -1,28 +1,10 @@
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS votes;
+DROP TABLE IF EXISTS survey;
 
-CREATE TABLE IF NOT EXISTS survey
-(
-    id_survey                   INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name                        VARCHAR(65) NOT NULL,
-    description                 TEXT(255) NOT NULL,
-    isAvailable                 BOOLEAN NOT NULL,
-    endDate                     DATETIME NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS comments
-(
-    id_comments                 INT(11) PRIMARY KEY,
-    id_survey                   INT(11) NOT NULL REFERENCES survey (id_survey),
-    message                     TEXT(255)
-);
-
-CREATE TABLE IF NOT EXISTS votes
-(
-    id_votes                    INT(11) PRIMARY KEY NOT NULL,
-    id_survey                   INT(11) NOT NULL REFERENCES survey (id_survey),
-    option                      DATETIME NOT NULL,
-    answers                     VARCHAR(65),
-    name                        VARCHAR(65)
-);
+CREATE TABLE IF NOT EXISTS survey ( id_survey INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` VARCHAR(65) NOT NULL, description TEXT(255) NOT NULL, isAvailable BOOLEAN NOT NULL, endDate DATETIME NOT NULL);
+CREATE TABLE IF NOT EXISTS comments ( id_comments INT(11) PRIMARY KEY, id_survey INT(11) NOT NULL REFERENCES survey (id_survey), message TEXT(255));
+CREATE TABLE IF NOT EXISTS votes ( id_votes INT(11) PRIMARY KEY NOT NULL, id_survey INT(11) NOT NULL REFERENCES survey (id_survey), `option` DATETIME NOT NULL, answers VARCHAR(65), `name` VARCHAR(65));
 
 INSERT INTO survey VALUES (1, 'Mon premier sondage',  'Mon tout premier sondage !', true, '2020-11-06 12:35:45');
 
@@ -51,3 +33,4 @@ INSERT INTO votes VALUES (14, 2,  '2020-11-15 12:00:00', 'unknown', 'Alexandre')
 INSERT INTO votes VALUES (15, 2,  '2020-11-15 12:00:00', 'unknown', 'Clément');
 INSERT INTO votes VALUES (16, 2,  '2020-11-15 12:00:00', 'unknown', 'Liam');
 INSERT INTO votes VALUES (17, 2,  '2020-11-15 12:00:00', 'unavailable', 'Vincent');
+
