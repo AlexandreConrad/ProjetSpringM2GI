@@ -20,6 +20,9 @@
         <!-- Affichage des requêtes SQL -->
         <property name="hibernate.show_sql">true</property>
 
+        <!-- UTC utilisé dans la base de données -->
+        <property name="hibernate.jdbc.time_zone">Europe/Paris</property>
+
         <!-- Mappage avec les classes de modèle contenant des annotations  -->
         <mapping class="io.swagger.model.Survey"/>
     </session-factory>

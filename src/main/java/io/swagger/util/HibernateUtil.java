@@ -12,7 +12,9 @@ public class HibernateUtil {
     private static final Logger log = LoggerFactory.getLogger(SurveysApiController.class);
     private static Session session;
 
-    // Retourne une session à la base de données
+    /**
+     * Ouvre une session de connexion avec la base de données
+     */
     private static void openSession() {
         try {
             //Création de la "SessionFactory" à partir de hibernate.cfg.xml
@@ -27,6 +29,10 @@ public class HibernateUtil {
         }
     }
 
+    /**
+     * Retourne une session avec la base de données
+     * @return session
+     */
     public static Session getSession(){
         if(session == null)
             openSession();

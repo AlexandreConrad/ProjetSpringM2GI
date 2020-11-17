@@ -1,5 +1,6 @@
 package io.swagger.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -10,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 
 /**
@@ -31,10 +32,10 @@ import java.util.Date;
 
 /** Hibernate*/
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Survey implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    //private  static  final  long serialVersionUID =  1L;
     @JsonProperty("id_survey")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,5 +55,5 @@ public class Survey implements Serializable {
 
     @JsonProperty("endDate")
     @NonNull
-    Date endDate;
+    Timestamp endDate;
 }

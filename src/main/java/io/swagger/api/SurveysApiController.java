@@ -1,6 +1,7 @@
 package io.swagger.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import io.swagger.annotations.ApiParam;
 import io.swagger.model.InlineResponse201;
 import io.swagger.model.Sondage;
@@ -70,19 +71,17 @@ public class SurveysApiController implements SurveysApi {
         return new ResponseEntity<OffsetDateTime>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    /**
+     * Récupération d'un survey à l'aide d'un ID
+     * @param surveyID
+     * @return survey
+     */
     public ResponseEntity<Survey> getSurvey(@ApiParam(value = "ID du sondage", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                Survey survey = SurveyService.getSurveyByID(surveyID);
-                log.info(survey.getName());
-                return new ResponseEntity<Survey>(objectMapper.readValue("{  \"isAvailable\" : false,  \"comments\" : [ \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\", \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\" ],  \"endDate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"description\" : \"description\",  \"votes\" : [ {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  }, {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  } ],  \"id\" : 0}", Survey.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            Survey survey = SurveyService.getSurveyByID(surveyID);
+            return new ResponseEntity<Survey>(survey, HttpStatus.ACCEPTED);
         }
-
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
     }
 

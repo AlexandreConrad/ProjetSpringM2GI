@@ -9,18 +9,19 @@ import java.sql.Timestamp;
  */
 public class ServiceSurveyTest {
 
-    @Test
+
     /**
      * Fonction getSurveyByID
      * Doit retourner le survey en fonction d'une ID.
      */
+    @Test
     public void getSurveyByID(){
         Survey surveyTest = SurveyService.getSurveyByID(1L);
         Assert.assertEquals(surveyTest.getId_survey(),(Long)1L);
         Assert.assertEquals(surveyTest.getName(), "Mon premier sondage");
         Assert.assertEquals(surveyTest.getIsAvailable(),true);
         Assert.assertEquals(surveyTest.getDescription(),"Mon tout premier sondage !");
-        Timestamp date = new Timestamp(1604662545000L);
+        Timestamp date = Timestamp.valueOf("2020-06-11 12:22:44");
         Assert.assertEquals(surveyTest.getEndDate(),date);
     }
 }
