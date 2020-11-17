@@ -21,5 +21,13 @@ public class ModelSurveyTest {
         surveyMock.setName(name);
         doReturn(name).when(surveyMock).getName();
         //assertSame( "Object must be the same", name, surveyMock.getName() );
+        //Mockito.when(surveyMock.getName()).thenReturn("Mon premier sondage");
+        //doReturn("Mon premier sondage").when(surveyMock).getName();
+        //when(surveyMock.getName()).thenReturn("Mon premier sondage");
+        //when(surveyMock.getId_survey()).thenReturn(1L);
+        //when(surveyMock.getName()).thenReturn("Mon premier sondage");
+        //when(surveyMock.getDescription()).thenReturn("Mon tout premier sondage !");
+        //when(surveyMock.getIsAvailable()).thenReturn(true);
+        //when(surveyMock.getEndDate()).thenReturn(new Date(1604666145));*/
     }
 }

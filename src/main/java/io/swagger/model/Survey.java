@@ -26,8 +26,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id", "name", "description", "isAvailable", "endDate"})
-@ToString(of = {"id", "name", "description", "isAvailable", "endDate"})
+@EqualsAndHashCode(of = {"id_survey", "name", "description", "isAvailable", "endDate"})
+@ToString(of = {"id_survey", "name", "description", "isAvailable", "endDate"})
 
 /** Hibernate*/
 @Entity
