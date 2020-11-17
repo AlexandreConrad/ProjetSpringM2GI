@@ -1,16 +1,14 @@
 package io.swagger.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiParam;
 import io.swagger.model.InlineResponse201;
-import io.swagger.util.HibernateUtil;
-import org.hibernate.*;
-import org.hibernate.Transaction;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.threeten.bp.OffsetDateTime;
 import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+import io.swagger.service.SurveyService;
+import io.swagger.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,19 +16,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
+import org.threeten.bp.OffsetDateTime;
 
-
-import javax.validation.Configuration;
-import javax.validation.constraints.*;
-import javax.validation.Valid;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
 
 @Controller
@@ -48,7 +42,7 @@ public class SurveysApiController implements SurveysApi {
         this.request = request;
     }
 
-    public ResponseEntity<Survey> deleteSurvey(@ApiParam(value = "Identifiant du sondage à supprimer.",required=true) @PathVariable("surveyID") Long surveyID) {
+    public ResponseEntity<Survey> deleteSurvey(@ApiParam(value = "Identifiant du sondage à supprimer.", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/xml")) {
             try {
@@ -62,7 +56,7 @@ public class SurveysApiController implements SurveysApi {
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<OffsetDateTime> endSurveys(@ApiParam(value = "ID du sondage pour lequel on souhaite la fin",required=true) @PathVariable("surveyID") Long surveyID) {
+    public ResponseEntity<OffsetDateTime> endSurveys(@ApiParam(value = "ID du sondage pour lequel on souhaite la fin", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
@@ -76,10 +70,12 @@ public class SurveysApiController implements SurveysApi {
         return new ResponseEntity<OffsetDateTime>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Survey> getSurvey(@ApiParam(value = "ID du sondage",required=true) @PathVariable("surveyID") Long surveyID) {
+    public ResponseEntity<Survey> getSurvey(@ApiParam(value = "ID du sondage", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
+                Survey survey = SurveyService.getSurveyByID(surveyID);
+                log.info(survey.getName());
                 return new ResponseEntity<Survey>(objectMapper.readValue("{  \"isAvailable\" : false,  \"comments\" : [ \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\", \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\" ],  \"endDate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"description\" : \"description\",  \"votes\" : [ {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  }, {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  } ],  \"id\" : 0}", Survey.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
@@ -95,13 +91,17 @@ public class SurveysApiController implements SurveysApi {
         if (accept != null && accept.contains("application/json")) {
             try {
                 /*CODE A FAIRE*/
-                Session session = HibernateUtil.getSessionFactory().openSession();//Ouverture d'une session
+                Session session = HibernateUtil.getSession();//Ouverture d'une session
                 Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
-                Survey survey = session.load(Survey.class, 1);//Récupération du sondage 1
-                System.out.println(survey.getName());
+                //Survey survey = session.load(Survey.class, 1);//Récupération du sondage 1
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<Survey> criteria = builder.createQuery(Survey.class); //Récupération de tous les sondages
+                criteria.from(Survey.class);
+                List<Survey> surveys = session.createQuery(criteria).getResultList();
+                for (Survey s : surveys) {
+                    System.out.println(s.getName());
+                }
                 transaction.commit();
-                session.close();
-                HibernateUtil.getSessionFactory().close();
                 //return survey;
                 return new ResponseEntity<List<Survey>>(objectMapper.readValue("[ {  \"isAvailable\" : false,  \"comments\" : [ \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\", \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\" ],  \"endDate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"description\" : \"description\",  \"votes\" : [ {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  }, {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  } ],  \"id\" : 0}, {  \"isAvailable\" : false,  \"comments\" : [ \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\", \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\" ],  \"endDate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"description\" : \"description\",  \"votes\" : [ {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  }, {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  } ],  \"id\" : 0} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
@@ -141,7 +141,7 @@ public class SurveysApiController implements SurveysApi {
         return new ResponseEntity<List<Survey>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Survey> updateSurvey(@ApiParam(value = "Identifiant du sondage à modifier.",required=true) @PathVariable("surveyID") Long surveyID,@ApiParam(value = "Sondage modifié" ,required=true )  @Valid @RequestBody Survey body) {
+    public ResponseEntity<Survey> updateSurvey(@ApiParam(value = "Identifiant du sondage à modifier.", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Sondage modifié", required = true) @Valid @RequestBody Survey body) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/xml")) {
             try {
@@ -155,7 +155,7 @@ public class SurveysApiController implements SurveysApi {
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<InlineResponse201> uploadFile(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin." ,required=true )  @Valid @RequestBody Sondage sondage) {
+    public ResponseEntity<InlineResponse201> uploadFile(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.", required = true) @Valid @RequestBody Sondage sondage) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {

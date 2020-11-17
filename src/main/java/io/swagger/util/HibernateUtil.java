@@ -1,30 +1,35 @@
 package io.swagger.util;
 
+import io.swagger.api.SurveysApiController;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HibernateUtil {
 
-    private static SessionFactory sessionFactory;
-    private static SessionFactory sessionJavaConfigFactory;
+    private static final Logger log = LoggerFactory.getLogger(SurveysApiController.class);
+    private static Session session;
 
     // Retourne une session à la base de données
-    public static SessionFactory getSessionFactory() {
-        if ( sessionFactory == null) {
-            try {
-                //Création de la "SessionFactory" à partir de hibernate.cfg.xml
-                Configuration configuration = new Configuration();
-                configuration.configure("hibernate.cfg.xml");
-                System.out.println("Configuration d'annotation Hibernate chargée");
-                SessionFactory sessionFactory = configuration.buildSessionFactory();
-                return sessionFactory;
-            }
-            catch (Throwable ex) {
-                System.err.println("La création de SessionFactory a échoué." + ex);
-                throw new ExceptionInInitializerError(ex);
-            }
+    private static void openSession() {
+        try {
+            //Création de la "SessionFactory" à partir de hibernate.cfg.xml
+            Configuration configuration = new Configuration();
+            configuration.configure("hibernate.cfg.xml");
+            log.info("Configuration d'annotation Hibernate chargée");
+            SessionFactory sessionFactory = configuration.buildSessionFactory();
+            session = sessionFactory.openSession();
+        } catch (Throwable ex) {
+            log.error("La création de SessionFactory a échoué." + ex);
+            throw new ExceptionInInitializerError(ex);
         }
-        return sessionFactory;
     }
 
+    public static Session getSession(){
+        if(session == null)
+            openSession();
+        return session;
+    }
 }
