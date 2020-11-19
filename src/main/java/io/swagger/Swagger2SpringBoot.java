@@ -7,9 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import javax.annotation.PostConstruct;
-import java.util.TimeZone;
-
 @SpringBootApplication
 @EnableSwagger2
 @ComponentScan(basePackages = {"io.swagger", "io.swagger.api", "io.swagger.configuration"})

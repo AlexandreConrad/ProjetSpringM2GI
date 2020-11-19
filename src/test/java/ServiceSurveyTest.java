@@ -19,9 +19,9 @@ public class ServiceSurveyTest {
     public void getSurveyByID(){
         Survey surveyTest = SurveyService.getSurveyByID(1L);
         Assert.assertEquals(surveyTest.getId_survey(),(Long)1L);
-        Assert.assertEquals(surveyTest.getName(), "Mon premier sondage");
-        Assert.assertEquals(surveyTest.getIsAvailable(),true);
-        Assert.assertEquals(surveyTest.getDescription(),"Mon tout premier sondage !");
+        Assert.assertEquals("Mon premier sondage", surveyTest.getName());
+        Assert.assertEquals(true, surveyTest.getIsAvailable());
+        Assert.assertEquals("Mon tout premier sondage !", surveyTest.getDescription());
         Timestamp date = Timestamp.valueOf("2020-06-11 12:22:44");
         // A FIX SERVEUR
         //Assert.assertEquals(surveyTest.getEndDate(),date);
@@ -39,13 +39,24 @@ public class ServiceSurveyTest {
     }
 
     /**
-     * Fonction getSurveysIsActif
-     * Dois retourner les sondages Actifs.
+     * Fonction getSurveysIsActives
+     * Dois retourner les surveys Actifs.
      */
     @Test
-    public void getSurveysIsActif(){
-        List<Survey> surveysTest = SurveyService.getSurveysIsActif();
+    public void getSurveysIsActives(){
+        List<Survey> surveysTest = SurveyService.getSurveysIsActives();
         for (Survey s: surveysTest)
             Assert.assertTrue(s.getIsAvailable());
+    }
+
+    /**
+     * Fonction getSurveysIsExpireds
+     * Dois retourner les surveys inactifs.
+     */
+    @Test
+    public void getSurveysIsExpireds(){
+        List<Survey> surveysTest = SurveyService.getSurveysIsExpireds();
+        for (Survey s: surveysTest)
+            Assert.assertFalse(s.getIsAvailable());
     }
 }

@@ -3,18 +3,14 @@ package io.swagger.service;
 import io.swagger.api.SurveysApiController;
 import io.swagger.model.Survey;
 import io.swagger.util.HibernateUtil;
-import lombok.NonNull;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.Transaction;;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -56,21 +52,39 @@ public class SurveyService {
 
     /**
      * Retourne tous les surveys actifs
-     * @return
+     * @return List<Survey>
      */
-    public static List<Survey> getSurveysIsActif() {
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
-        CriteriaBuilder builder = session.getCriteriaBuilder();//Crée une requête
-        CriteriaQuery<Survey> criteria = builder.createQuery(Survey.class); //Récupération de tous les sondages
-        Root<Survey> myObjectRoot = criteria.from(Survey.class);//Représente un objet
-        criteria.select(myObjectRoot).where(myObjectRoot.get("isAvailable").in(true)); //Requête
+    public static List<Survey> getSurveysIsActives() {
+        List<Survey> surveys = getSurveysIsActivesOrExpireds(true);
+        log.info("Fonction getSurveysIsActives => OK");
+        return surveys;
+    }
+
+    /**
+     * Retourne tous les Surveys inactifs
+     * @return List<Survey>
+     */
+    public static List<Survey> getSurveysIsExpireds() {
+        List<Survey> surveys = getSurveysIsActivesOrExpireds(false);
+        log.info("Fonction getSurveysIsExpireds => OK");
+        return surveys;
+    }
+
+    /**
+     * Fonction qui retourne tous les Surveys actifs ou inactifs à l'aide du boolean en entrée
+     * @param bool
+     * @return List<Survey>
+     */
+    private static List<Survey> getSurveysIsActivesOrExpireds(Boolean bool){
+        Session session = HibernateUtil.getSession();   //Ouverture d'une session
+        Transaction transaction = session.beginTransaction();       //Ouverture d'une transaction en cas de problème
+        CriteriaBuilder builder = session.getCriteriaBuilder();     //Création d'une requête
+        CriteriaQuery<Survey> criteria = builder.createQuery(Survey.class); //Récupération de tous les surveys
+        Root<Survey> myObjectRoot = criteria.from(Survey.class);            //Représentation d'un objet
+        criteria.select(myObjectRoot).where(myObjectRoot.get("isAvailable").in(bool)); //Requête SQL
         TypedQuery<Survey> surveys = session.createQuery(criteria);
         transaction.commit();
-        log.info("Fonction getSurveysIsActif => OK");
+        log.info("Fonction getSurveysIsActivesOrExpireds => OK");
         return surveys.getResultList();
-
-
-
     }
 }

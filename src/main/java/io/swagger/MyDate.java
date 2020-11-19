@@ -17,7 +17,6 @@ public class MyDate extends ISO8601DateFormat {
      * Utilisé pour rendre la date au bon format dans la documentation.
      */
     public StringBuffer format(Date date, StringBuffer toAppendTo, FieldPosition fieldPosition) {
-        //toAppendTo.append(date.toGMTString());
         Calendar d = new GregorianCalendar();
         d.setTime(date);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
