@@ -35,7 +35,6 @@ import java.sql.Timestamp;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Survey implements Serializable {
 
-    //private  static  final  long serialVersionUID =  1L;
     @JsonProperty("id_survey")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

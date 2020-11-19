@@ -80,35 +80,21 @@ public class SurveysApiController implements SurveysApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             Survey survey = SurveyService.getSurveyByID(surveyID);
-            return new ResponseEntity<Survey>(survey, HttpStatus.ACCEPTED);
+            return new ResponseEntity<Survey>(survey, HttpStatus.OK);
         }
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    /**
+     * Récupération de tous les surveys
+     * @return List<survey>
+     */
     public ResponseEntity<List<Survey>> getSurveys() {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                /*CODE A FAIRE*/
-                Session session = HibernateUtil.getSession();//Ouverture d'une session
-                Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
-                //Survey survey = session.load(Survey.class, 1);//Récupération du sondage 1
-                CriteriaBuilder builder = session.getCriteriaBuilder();
-                CriteriaQuery<Survey> criteria = builder.createQuery(Survey.class); //Récupération de tous les sondages
-                criteria.from(Survey.class);
-                List<Survey> surveys = session.createQuery(criteria).getResultList();
-                for (Survey s : surveys) {
-                    System.out.println(s.getName());
-                }
-                transaction.commit();
-                //return survey;
-                return new ResponseEntity<List<Survey>>(objectMapper.readValue("[ {  \"isAvailable\" : false,  \"comments\" : [ \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\", \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\" ],  \"endDate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"description\" : \"description\",  \"votes\" : [ {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  }, {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  } ],  \"id\" : 0}, {  \"isAvailable\" : false,  \"comments\" : [ \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\", \"{\\\"id\\\":0,\\\"name\\\":\\\"Commentaire numéro 1\\\"}\" ],  \"endDate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"description\" : \"description\",  \"votes\" : [ {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  }, {    \"answers\" : {      \"unavailable\" : [ \"unavailable\", \"unavailable\" ],      \"available\" : [ \"available\", \"available\" ],      \"unknown\" : [ \"unknown\", \"unknown\" ]    },    \"id\" : 6,    \"option\" : \"2000-01-23T04:56:07.000+00:00\"  } ],  \"id\" : 0} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<Survey>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            List<Survey> surveys = SurveyService.getSurveys();
+            return new ResponseEntity<List<Survey>>(surveys,HttpStatus.OK);
         }
-
         return new ResponseEntity<List<Survey>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
