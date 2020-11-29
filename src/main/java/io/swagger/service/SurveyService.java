@@ -1,5 +1,7 @@
 package io.swagger.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.api.SurveysApiController;
 import io.swagger.model.Survey;
 import io.swagger.util.HibernateUtil;
@@ -9,9 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 /**
@@ -86,5 +86,54 @@ public class SurveyService {
         transaction.commit();
         log.info("Fonction getSurveysIsActivesOrExpireds => OK");
         return surveys.getResultList();
+    }
+
+    /**
+     * Supprime le survey depuis surveyID
+     * @param surveyID
+     * @return survey
+     */
+    public static Survey deleteSurvey(Long surveyID){
+        Session session = HibernateUtil.getSession();//Ouverture d'une session
+        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaDelete<Survey> delete = builder.createCriteriaDelete(Survey.class);
+        Root e = delete.from(Survey.class);
+        delete.where(builder.equal(e.get("id_survey"), surveyID));
+        session.createQuery(delete).executeUpdate();
+        log.info("Fonction deleteSurvey => OK");
+        transaction.commit();//Annule les changements en cas de problème
+        return null;
+    }
+
+    /**
+     * Mise a jour d'un survey depuis une ID.
+     * @param surveyID
+     * @param update
+     * @return survey
+     */
+    public static Survey updateSurvey(Long surveyID, Survey update) {
+
+        /** Test de mise a jour
+         {
+         "id_survey": 2,
+         "name": "Test update",
+         "description": "update sondage !",
+         "isAvailable": true,
+         "endDate": 1606669212000
+         }
+         */
+
+        Session session = HibernateUtil.getSession();//Ouverture d'une session
+        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
+        Survey survey = session.load(Survey.class, surveyID);//Récupération du sondage
+        //Modification par les nouvelles valeurs
+        survey.setName(update.getName());
+        survey.setDescription(update.getDescription());
+        survey.setIsAvailable(update.getIsAvailable());
+        survey.setEndDate(update.getEndDate());
+        transaction.commit();
+        log.info("Fonction updateSurvey => OK");
+        return survey;
     }
 }

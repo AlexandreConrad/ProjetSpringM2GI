@@ -55,4 +55,5 @@ public class Survey implements Serializable {
     @JsonProperty("endDate")
     @NonNull
     Timestamp endDate;
+
 }

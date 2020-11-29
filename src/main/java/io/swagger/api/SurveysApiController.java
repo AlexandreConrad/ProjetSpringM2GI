@@ -36,15 +36,16 @@ public class SurveysApiController implements SurveysApi {
         this.request = request;
     }
 
+    /**
+     * Supprime un survey depuis un surveyID
+     * @param surveyID
+     * @return
+     */
     public ResponseEntity<Survey> deleteSurvey(@ApiParam(value = "Identifiant du sondage à supprimer.", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/xml")) {
-            try {
-                return new ResponseEntity<Survey>(objectMapper.readValue("<Survey>  <id>123456789</id>  <name>aeiou</name>  <description>aeiou</description>  <isAvailable>true</isAvailable>  <endDate>2000-01-23T04:56:07.000Z</endDate>  <comments>  </comments>  <votes>  </votes></Survey>", Survey.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/xml", e);
-                return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            Survey survey = SurveyService.deleteSurvey(surveyID);
+            return new ResponseEntity<Survey>(survey, HttpStatus.OK);
         }
 
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
@@ -117,15 +118,17 @@ public class SurveysApiController implements SurveysApi {
         return new ResponseEntity<List<Survey>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    /**
+     * Mise a jour d'un survey
+     * @param surveyID
+     * @param body
+     * @return Survey
+     */
     public ResponseEntity<Survey> updateSurvey(@ApiParam(value = "Identifiant du sondage à modifier.", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Sondage modifié", required = true) @Valid @RequestBody Survey body) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/xml")) {
-            try {
-                return new ResponseEntity<Survey>(objectMapper.readValue("<Survey>  <id>123456789</id>  <name>aeiou</name>  <description>aeiou</description>  <isAvailable>true</isAvailable>  <endDate>2000-01-23T04:56:07.000Z</endDate>  <comments>  </comments>  <votes>  </votes></Survey>", Survey.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/xml", e);
-                return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            Survey survey = SurveyService.updateSurvey(surveyID,body);
+            return new ResponseEntity<Survey>(survey,HttpStatus.OK);
         }
 
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
