@@ -1,7 +1,5 @@
 package io.swagger.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.api.SurveysApiController;
 import io.swagger.model.Survey;
 import io.swagger.util.HibernateUtil;
