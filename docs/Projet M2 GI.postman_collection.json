@@ -1,0 +1,2776 @@
+{
+	"info": {
+		"_postman_id": "3c2accce-66eb-4b88-9090-0e4fa9ff44bf",
+		"name": "Projet M2 GI",
+		"description": "Projet de production logiciel, réalisé par \n  - BIR Vincent\n  - CHEVALLET Clément\n  - CONRAD ALexandre\n  - DAVIES Liam\n  \nProjet à réaliser pour le xx / xx / 2020.\nSpécifications :\n  - Java 11\n  - Rest API ( non obligatoirement RESTful)\n  - Spring Boot\n  - H2 pour la base de données\n  - Mapping\n  - Pipeline d'intégration\n  - Documentions\n  - Carnet de bord\n  \n  Notions du cours utilisé :\n  - Swagger Editor\n  - H2\n  - Hibernate\n  - Lombok\n  - Git  \n\n\nContact Support:\n Email: apiteam@swagger.io",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "surveys",
+			"item": [
+				{
+					"name": "{survey ID}",
+					"item": [
+						{
+							"name": "Retourne un sondage.",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID",
+											"value": "<long>",
+											"description": "(Required) ID du sondage"
+										}
+									]
+								},
+								"description": "Retourne le sondage qui correspond à l'ID envoyé en paramètre."
+							},
+							"response": [
+								{
+									"name": "opération réussie",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"id\": 27104792,\n \"name\": \"cupidatat nostrud\",\n \"description\": \"minim et cillum id cupidatat\",\n \"isAvailable\": false,\n \"endDate\": \"1968-04-12T07:44:40.216Z\",\n \"comments\": [\n  {\n   \"id\": 0,\n   \"name\": \"Commentaire numéro 1\"\n  },\n  {\n   \"id\": 0,\n   \"name\": \"Commentaire numéro 1\"\n  }\n ],\n \"votes\": [\n  {\n   \"id\": 83697545,\n   \"option\": \"1976-03-22T10:01:04.186Z\",\n   \"answers\": {\n    \"available\": [\n     \"sint consectetur Lorem\",\n     \"culpa dolore laboris\"\n    ],\n    \"unavailable\": [\n     \"do eu en\",\n     \"ut consectetur et\"\n    ],\n    \"unknown\": [\n     \"esse ut\",\n     \"ullamco nisi officia Lorem\"\n    ]\n   }\n  },\n  {\n   \"id\": 94551642,\n   \"option\": \"1980-05-06T04:32:43.280Z\",\n   \"answers\": {\n    \"available\": [\n     \"et labo\",\n     \"ut fugiat ipsum Excepteur incididunt\"\n    ],\n    \"unavailable\": [\n     \"in\",\n     \"magna nisi\"\n    ],\n    \"unknown\": [\n     \"laboris\",\n     \"non\"\n    ]\n   }\n  }\n ]\n}"
+								},
+								{
+									"name": "Echec de connexion à la base de données.",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Ressource introuvable.",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Modifie un sondage.",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"isAvailable\": false,\n    \"endDate\": \"<dateTime>\",\n    \"comments\": [\n        {\n            \"id\": \"<integer>\",\n            \"comments\": \"<string>\"\n        },\n        {\n            \"id\": \"<integer>\",\n            \"comments\": \"<string>\"\n        }\n    ],\n    \"votes\": [\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        },\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        }\n    ]\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID",
+											"value": "<long>",
+											"description": "(Required) Identifiant du sondage à modifier."
+										}
+									]
+								},
+								"description": "Modifie les informations du sondages."
+							},
+							"response": [
+								{
+									"name": "Certaines informations ne respectent pas les conditions.",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"isAvailable\": false,\n    \"endDate\": \"<dateTime>\",\n    \"comments\": [\n        {\n            \"id\": 0,\n            \"name\": \"Commentaire numéro 1\"\n        },\n        {\n            \"id\": 0,\n            \"name\": \"Commentaire numéro 1\"\n        }\n    ],\n    \"votes\": [\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        },\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "Conflict",
+									"code": 409,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Echec de connexion à la base de données.",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"isAvailable\": false,\n    \"endDate\": \"<dateTime>\",\n    \"comments\": [\n        {\n            \"id\": 0,\n            \"name\": \"Commentaire numéro 1\"\n        },\n        {\n            \"id\": 0,\n            \"name\": \"Commentaire numéro 1\"\n        }\n    ],\n    \"votes\": [\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        },\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Manque des informations dans le corps.",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"isAvailable\": false,\n    \"endDate\": \"<dateTime>\",\n    \"comments\": [\n        {\n            \"id\": 0,\n            \"name\": \"Commentaire numéro 1\"\n        },\n        {\n            \"id\": 0,\n            \"name\": \"Commentaire numéro 1\"\n        }\n    ],\n    \"votes\": [\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        },\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "opération réussie",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"isAvailable\": false,\n    \"endDate\": \"<dateTime>\",\n    \"comments\": [\n        {\n            \"id\": 0,\n            \"name\": \"Commentaire numéro 1\"\n        },\n        {\n            \"id\": 0,\n            \"name\": \"Commentaire numéro 1\"\n        }\n    ],\n    \"votes\": [\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        },\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "xml",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/xml"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Ressource introuvable",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"isAvailable\": false,\n    \"endDate\": \"<dateTime>\",\n    \"comments\": [\n        {\n            \"id\": 0,\n            \"name\": \"Commentaire numéro 1\"\n        },\n        {\n            \"id\": 0,\n            \"name\": \"Commentaire numéro 1\"\n        }\n    ],\n    \"votes\": [\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        },\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Supprime un sondage",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID",
+											"value": "<long>",
+											"description": "(Required) Identifiant du sondage à supprimer."
+										}
+									]
+								},
+								"description": "Supprime définitivement un sondage."
+							},
+							"response": [
+								{
+									"name": "Echec de connexion à la base de données.",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "opération réussie",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "xml",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/xml"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Ressource introuvable",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Clôture le sondage.",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID",
+											"value": "<long>",
+											"description": "(Required) ID du sondage pour lequel on souhaite la fin"
+										}
+									]
+								},
+								"description": "Permet de clôturer le sondage avant la date de fin."
+							},
+							"response": [
+								{
+									"name": "Manque des informations dans le corps.",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Ressource introuvable",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Opération réussie",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "\"1945-11-24T06:28:34.828Z\""
+								},
+								{
+									"name": "Echec de connexion à la base de données.",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Certaines informations ne respectent pas les conditions.",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/surveys/:surveyID",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"surveys",
+												":surveyID"
+											],
+											"variable": [
+												{
+													"key": "surveyID"
+												}
+											]
+										}
+									},
+									"status": "Conflict",
+									"code": 409,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Retourne la liste de tous les sondages.",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/surveys",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"surveys"
+							]
+						},
+						"description": "Retourne la liste de tous les sondages en cours ou qui ont eu lieu depuis la base de données."
+					},
+					"response": [
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Ressource introuvable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Ressource trouvé",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"id\": 26271123,\n  \"name\": \"officia nostrud\",\n  \"description\": \"ullamco\",\n  \"isAvailable\": false,\n  \"endDate\": \"1973-06-24T20:58:18.420Z\",\n  \"comments\": [\n   {\n    \"id\": 0,\n    \"name\": \"Commentaire numéro 1\"\n   },\n   {\n    \"id\": 0,\n    \"name\": \"Commentaire numéro 1\"\n   }\n  ],\n  \"votes\": [\n   {\n    \"id\": 95698188,\n    \"option\": \"1943-05-27T23:27:18.099Z\",\n    \"answers\": {\n     \"available\": [\n      \"\",\n      \"elit amet non culpa\"\n     ],\n     \"unavailable\": [\n      \"esse quis\",\n      \"nisi dolore ut amet sunt\"\n     ],\n     \"unknown\": [\n      \"tempor\",\n      \"labore in\"\n     ]\n    }\n   },\n   {\n    \"id\": -40897689,\n    \"option\": \"2019-08-10T03:51:38.579Z\",\n    \"answers\": {\n     \"available\": [\n      \"aliqua nisi Lorem consectetur proident\",\n      \"esse consectetur occaecat\"\n     ],\n     \"unavailable\": [\n      \"eu dolore dolore\",\n      \"sunt quis\"\n     ],\n     \"unknown\": [\n      \"minim labo\",\n      \"Excepteur eiusmod ullamco\"\n     ]\n    }\n   }\n  ]\n },\n {\n  \"id\": 54014956,\n  \"name\": \"deserunt do Ut\",\n  \"description\": \"exercitation consequat\",\n  \"isAvailable\": false,\n  \"endDate\": \"1963-12-24T09:56:37.015Z\",\n  \"comments\": [\n   {\n    \"id\": 0,\n    \"name\": \"Commentaire numéro 1\"\n   },\n   {\n    \"id\": 0,\n    \"name\": \"Commentaire numéro 1\"\n   }\n  ],\n  \"votes\": [\n   {\n    \"id\": 34093946,\n    \"option\": \"1948-06-20T16:40:47.123Z\",\n    \"answers\": {\n     \"available\": [\n      \"cupidatat sit\",\n      \"laborum\"\n     ],\n     \"unavailable\": [\n      \"qui est\",\n      \"mollit\"\n     ],\n     \"unknown\": [\n      \"nisi amet\",\n      \"nisi dolore esse incididunt\"\n     ]\n    }\n   },\n   {\n    \"id\": 5269940,\n    \"option\": \"1972-03-30T04:52:39.011Z\",\n    \"answers\": {\n     \"available\": [\n      \"mollit\",\n      \"qui ullamco reprehenderit Ut velit\"\n     ],\n     \"unavailable\": [\n      \"magna sunt tempor nisi ea\",\n      \"pariatur nisi laborum\"\n     ],\n     \"unknown\": [\n      \"labore pariatur\",\n      \"et in enim\"\n     ]\n    }\n   }\n  ]\n }\n]"
+						}
+					]
+				},
+				{
+					"name": "Crée un nouveau sondage.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "<string>",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "<string>",
+									"type": "text"
+								},
+								{
+									"key": "endDate",
+									"value": "<dateTime>",
+									"type": "text"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/surveys",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"surveys"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Manque des informations dans le corps.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": {
+												"content": "",
+												"type": "text/plain"
+											},
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "<string>",
+											"description": {
+												"content": "",
+												"type": "text/plain"
+											},
+											"type": "text"
+										},
+										{
+											"key": "endDate",
+											"value": "<dateTime>",
+											"description": {
+												"content": "",
+												"type": "text/plain"
+											},
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/surveys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Sondage créé",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": {
+												"content": "",
+												"type": "text/plain"
+											},
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "<string>",
+											"description": {
+												"content": "",
+												"type": "text/plain"
+											},
+											"type": "text"
+										},
+										{
+											"key": "endDate",
+											"value": "<dateTime>",
+											"description": {
+												"content": "",
+												"type": "text/plain"
+											},
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/surveys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"id\": 52743178,\n \"name\": \"tempor dolore deserunt aute dolore\",\n \"description\": \"officia eu\",\n \"isAvailable\": true,\n \"endDate\": \"1989-04-22T14:15:08.943Z\"\n}"
+						},
+						{
+							"name": "Certaines informations ne respectent pas les conditions.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": {
+												"content": "",
+												"type": "text/plain"
+											},
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "<string>",
+											"description": {
+												"content": "",
+												"type": "text/plain"
+											},
+											"type": "text"
+										},
+										{
+											"key": "endDate",
+											"value": "<dateTime>",
+											"description": {
+												"content": "",
+												"type": "text/plain"
+											},
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/surveys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": {
+												"content": "",
+												"type": "text/plain"
+											},
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "<string>",
+											"description": {
+												"content": "",
+												"type": "text/plain"
+											},
+											"type": "text"
+										},
+										{
+											"key": "endDate",
+											"value": "<dateTime>",
+											"description": {
+												"content": "",
+												"type": "text/plain"
+											},
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/surveys",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Retourne les sondages inactifs.",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/surveys/expireds",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"surveys",
+								"expireds"
+							]
+						},
+						"description": "retourne les sondages qui sont inactifs."
+					},
+					"response": [
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/expireds",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										"expireds"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "opération réussie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/expireds",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										"expireds"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"isAvailable\": false,\n  \"endDate\": \"<dateTime>\",\n  \"comments\": [\n   {\n    \"id\": 0,\n    \"name\": \"Commentaire numéro 1\"\n   },\n   {\n    \"id\": 0,\n    \"name\": \"Commentaire numéro 1\"\n   }\n  ],\n  \"votes\": [\n   {\n    \"id\": \"<integer>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n     \"available\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unavailable\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unknown\": [\n      \"<string>\",\n      \"<string>\"\n     ]\n    }\n   },\n   {\n    \"id\": \"<integer>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n     \"available\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unavailable\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unknown\": [\n      \"<string>\",\n      \"<string>\"\n     ]\n    }\n   }\n  ]\n },\n {\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"isAvailable\": false,\n  \"endDate\": \"<dateTime>\",\n  \"comments\": [\n   {\n    \"id\": 0,\n    \"name\": \"Commentaire numéro 1\"\n   },\n   {\n    \"id\": 0,\n    \"name\": \"Commentaire numéro 1\"\n   }\n  ],\n  \"votes\": [\n   {\n    \"id\": \"<integer>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n     \"available\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unavailable\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unknown\": [\n      \"<string>\",\n      \"<string>\"\n     ]\n    }\n   },\n   {\n    \"id\": \"<integer>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n     \"available\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unavailable\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unknown\": [\n      \"<string>\",\n      \"<string>\"\n     ]\n    }\n   }\n  ]\n }\n]"
+						},
+						{
+							"name": "Ressource introuvable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/expireds",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										"expireds"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Retourne les sondages actifs.",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/surveys/actives",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"surveys",
+								"actives"
+							]
+						},
+						"description": "retourne les sondages qui sont actifs."
+					},
+					"response": [
+						{
+							"name": "Ressource introuvable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/actives",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										"actives"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/actives",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										"actives"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "opération réussie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/actives",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										"actives"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"isAvailable\": false,\n  \"endDate\": \"<dateTime>\",\n  \"comments\": [\n   {\n    \"id\": 0,\n    \"name\": \"Commentaire numéro 1\"\n   },\n   {\n    \"id\": 0,\n    \"name\": \"Commentaire numéro 1\"\n   }\n  ],\n  \"votes\": [\n   {\n    \"id\": \"<integer>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n     \"available\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unavailable\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unknown\": [\n      \"<string>\",\n      \"<string>\"\n     ]\n    }\n   },\n   {\n    \"id\": \"<integer>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n     \"available\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unavailable\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unknown\": [\n      \"<string>\",\n      \"<string>\"\n     ]\n    }\n   }\n  ]\n },\n {\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"isAvailable\": false,\n  \"endDate\": \"<dateTime>\",\n  \"comments\": [\n   {\n    \"id\": 0,\n    \"name\": \"Commentaire numéro 1\"\n   },\n   {\n    \"id\": 0,\n    \"name\": \"Commentaire numéro 1\"\n   }\n  ],\n  \"votes\": [\n   {\n    \"id\": \"<integer>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n     \"available\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unavailable\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unknown\": [\n      \"<string>\",\n      \"<string>\"\n     ]\n    }\n   },\n   {\n    \"id\": \"<integer>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n     \"available\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unavailable\": [\n      \"<string>\",\n      \"<string>\"\n     ],\n     \"unknown\": [\n      \"<string>\",\n      \"<string>\"\n     ]\n    }\n   }\n  ]\n }\n]"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "choices/{survey ID}",
+			"item": [
+				{
+					"name": "Liste des choix possibles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/choices/:surveyID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"choices",
+								":surveyID"
+							],
+							"variable": [
+								{
+									"key": "surveyID",
+									"value": "<long>",
+									"description": "(Required) ID du sondage pour lequel on souhaite avoir les choix"
+								}
+							]
+						},
+						"description": "Retourne la liste de tous les choix d'un sondage"
+					},
+					"response": [
+						{
+							"name": "Ressource introuvable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/choices/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"choices",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "opération réussie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/choices/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"choices",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"id\": 11138934,\n  \"option\": \"1943-05-28T22:31:38.188Z\",\n  \"answers\": {\n   \"available\": [\n    \"do dolore\",\n    \"proident\"\n   ],\n   \"unavailable\": [\n    \"Lorem aute laboris\",\n    \"laborum do quis\"\n   ],\n   \"unknown\": [\n    \"id\",\n    \"nostrud sit consectetur in ipsum\"\n   ]\n  }\n },\n {\n  \"id\": -86852081,\n  \"option\": \"1990-09-01T22:51:30.343Z\",\n  \"answers\": {\n   \"available\": [\n    \"Lorem\",\n    \"adipisicing irure enim incididunt\"\n   ],\n   \"unavailable\": [\n    \"cillum qui\",\n    \"reprehenderit minim et aliquip\"\n   ],\n   \"unknown\": [\n    \"dolore\",\n    \"amet\"\n   ]\n  }\n }\n]"
+						},
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/choices/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"choices",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Ajoute une date pour un sondage",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/choices/:surveyID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"choices",
+								":surveyID"
+							],
+							"variable": [
+								{
+									"key": "surveyID",
+									"value": "<long>",
+									"description": "(Required) ID du sondage pour lequel on souhaite ajouter un choix"
+								}
+							]
+						},
+						"description": "Ajoute un choix (choice) pour un sondage"
+					},
+					"response": [
+						{
+							"name": "opération réussie",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/choices/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"choices",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"id\": -53631275,\n \"option\": \"2000-06-08T10:24:21.336Z\",\n \"answers\": {\n  \"available\": [\n   \"ea pariatur\",\n   \"pariatur in occaecat\"\n  ],\n  \"unavailable\": [\n   \"minim ullamco\",\n   \"cillum in\"\n  ],\n  \"unknown\": [\n   \"deserunt ullamco\",\n   \"qui irure in labore dolor\"\n  ]\n }\n}"
+						},
+						{
+							"name": "Manque des informations dans le corps.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/choices/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"choices",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/choices/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"choices",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Certaines informations ne respectent pas les conditions.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/choices/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"choices",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Supprime un choix",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/choices/:surveyID/:choiceID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"choices",
+								":surveyID",
+								":choiceID"
+							],
+							"variable": [
+								{
+									"key": "surveyID",
+									"value": "<long>",
+									"description": "(Required) ID du sondage"
+								},
+								{
+									"key": "choiceID",
+									"value": "<long>",
+									"description": "(Required) ID du choix"
+								}
+							]
+						},
+						"description": "Supprime définitivement un choix"
+					},
+					"response": [
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/choices/:surveyID/:choiceID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"choices",
+										":surveyID",
+										":choiceID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										},
+										{
+											"key": "choiceID"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Ressource introuvable",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/choices/:surveyID/:choiceID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"choices",
+										":surveyID",
+										":choiceID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										},
+										{
+											"key": "choiceID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "opération réussie",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/choices/:surveyID/:choiceID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"choices",
+										":surveyID",
+										":choiceID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										},
+										{
+											"key": "choiceID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"id\": -53631275,\n \"option\": \"2000-06-08T10:24:21.336Z\",\n \"answers\": {\n  \"available\": [\n   \"ea pariatur\",\n   \"pariatur in occaecat\"\n  ],\n  \"unavailable\": [\n   \"minim ullamco\",\n   \"cillum in\"\n  ],\n  \"unknown\": [\n   \"deserunt ullamco\",\n   \"qui irure in labore dolor\"\n  ]\n }\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "analytics/{survey ID}",
+			"item": [
+				{
+					"name": "Statistiques du sondage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/analytics/:surveyID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"analytics",
+								":surveyID"
+							],
+							"variable": [
+								{
+									"key": "surveyID",
+									"value": "<long>",
+									"description": "(Required) ID du sondage pour lequel on souhaite avoir des statistiques"
+								}
+							]
+						},
+						"description": "Retourne les statistiques liées au sondage passé en paramètre"
+					},
+					"response": [
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Opération réussie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"available\": [\n  \"culpa\",\n  \"est e\"\n ],\n \"unavailable\": [\n  \"velit voluptate nisi\",\n  \"fugiat\"\n ],\n \"unknown\": [\n  \"magna Excepteur aute ut\",\n  \"labore cillum Ut ut\"\n ]\n}"
+						},
+						{
+							"name": "Ressource introuvable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Date avec le plus de personnes potentiellement présentes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/analytics/:surveyID/maybe",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"analytics",
+								":surveyID",
+								"maybe"
+							],
+							"variable": [
+								{
+									"key": "surveyID",
+									"value": "<long>",
+									"description": "(Required) ID du sondage pour lequel on souhaite avoir des statistiques"
+								}
+							]
+						},
+						"description": "Trouve la date pour laquelle le plus de personnes sont présents ou potentiellement présentes"
+					},
+					"response": [
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/:surveyID/maybe",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										":surveyID",
+										"maybe"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Opération réussie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/:surveyID/maybe",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										":surveyID",
+										"maybe"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "\"1945-11-24T06:28:34.828Z\""
+						},
+						{
+							"name": "Ressource introuvable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/:surveyID/maybe",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										":surveyID",
+										"maybe"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Date avec le plus de personnes présentes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/analytics/:surveyID/available",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"analytics",
+								":surveyID",
+								"available"
+							],
+							"variable": [
+								{
+									"key": "surveyID",
+									"value": "<long>",
+									"description": "(Required) ID du sondage pour lequel on souhaite avoir des statistiques"
+								}
+							]
+						},
+						"description": "Trouve la date pour laquelle le plus de personnes sont sûres d'être présentes"
+					},
+					"response": [
+						{
+							"name": "Ressource introuvable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/:surveyID/available",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										":surveyID",
+										"available"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Opération réussie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/:surveyID/available",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										":surveyID",
+										"available"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "\"1945-11-24T06:28:34.828Z\""
+						},
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/analytics/:surveyID/available",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"analytics",
+										":surveyID",
+										"available"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "comments/{survey ID}",
+			"item": [
+				{
+					"name": "Recupère tous les commentaires",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/comments/:surveyID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"comments",
+								":surveyID"
+							],
+							"variable": [
+								{
+									"key": "surveyID",
+									"value": "<long>",
+									"description": "(Required) ID du sondage pour lequel on souhaite les commentaires"
+								}
+							]
+						},
+						"description": "Recupère tous les commentaires d'un sondage"
+					},
+					"response": [
+						{
+							"name": "opération réussie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/comments/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"comments",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"id\": -29205000,\n  \"message\": \"dolore culpa\"\n },\n {\n  \"id\": 11437498,\n  \"message\": \"Ut culpa eiusmod esse\"\n }\n]"
+						},
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/comments/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"comments",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Ressource introuvable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/comments/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"comments",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Ajoute un commentaire",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"<long>\",\n    \"message\": \"<string>\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/comments/:surveyID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"comments",
+								":surveyID"
+							],
+							"variable": [
+								{
+									"key": "surveyID",
+									"value": "<long>",
+									"description": "(Required) ID du sondage pour lequel on souhaite les commentaires"
+								}
+							]
+						},
+						"description": "Ajoute un commentaire d'un sondage"
+					},
+					"response": [
+						{
+							"name": "Certaines informations ne respectent pas les conditions.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<long>\",\n    \"message\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/comments/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"comments",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Manque des informations dans le corps.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<long>\",\n    \"message\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/comments/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"comments",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<long>\",\n    \"message\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/comments/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"comments",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "opération réussie",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<long>\",\n    \"message\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/comments/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"comments",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"id\": -65321518,\n \"message\": \"co\"\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Participer à un sondage",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/votes/:surveyID/:choiceID",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"votes",
+						":surveyID",
+						":choiceID"
+					],
+					"variable": [
+						{
+							"key": "surveyID",
+							"value": "<long>",
+							"description": "(Required) ID du sondage pour lequel on souhaite avoir des statistiques"
+						},
+						{
+							"key": "choiceID",
+							"value": "<long>",
+							"description": "(Required) ID du choix de la date"
+						}
+					]
+				},
+				"description": "Participation de l'utilisateur"
+			},
+			"response": [
+				{
+					"name": "Manque des informations dans le corps.",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/votes/:surveyID/:choiceID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"votes",
+								":surveyID",
+								":choiceID"
+							],
+							"variable": [
+								{
+									"key": "surveyID"
+								},
+								{
+									"key": "choiceID"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Certaines informations ne respectent pas les conditions.",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/votes/:surveyID/:choiceID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"votes",
+								":surveyID",
+								":choiceID"
+							],
+							"variable": [
+								{
+									"key": "surveyID"
+								},
+								{
+									"key": "choiceID"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Echec de connexion à la base de données.",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/votes/:surveyID/:choiceID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"votes",
+								":surveyID",
+								":choiceID"
+							],
+							"variable": [
+								{
+									"key": "surveyID"
+								},
+								{
+									"key": "choiceID"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Opération réussie",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/votes/:surveyID/:choiceID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"votes",
+								":surveyID",
+								":choiceID"
+							],
+							"variable": [
+								{
+									"key": "surveyID"
+								},
+								{
+									"key": "choiceID"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"id\": -53631275,\n \"option\": \"2000-06-08T10:24:21.336Z\",\n \"answers\": {\n  \"available\": [\n   \"ea pariatur\",\n   \"pariatur in occaecat\"\n  ],\n  \"unavailable\": [\n   \"minim ullamco\",\n   \"cillum in\"\n  ],\n  \"unknown\": [\n   \"deserunt ullamco\",\n   \"qui irure in labore dolor\"\n  ]\n }\n}"
+				},
+				{
+					"name": "Ressource introuvable",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/votes/:surveyID/:choiceID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"votes",
+								":surveyID",
+								":choiceID"
+							],
+							"variable": [
+								{
+									"key": "surveyID"
+								},
+								{
+									"key": "choiceID"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"id": "2acbbb41-16a1-4183-92d1-4a4158655733",
+			"key": "baseUrl",
+			"value": "https://virtserver.swaggerhub.com/Alex57x/Projet/1.0.0"
+		},
+		{
+			"id": "e4952bb4-4e85-4025-8c64-7f3dddcfdd1d",
+			"key": "http://localhost:8080/Alex57x/Projet/1.0.0/swagger-ui.html",
+			"value": "baseUrl"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

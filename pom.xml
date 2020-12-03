@@ -13,6 +13,7 @@
         <!-- Installation de sonarQube -->
         <sonar.host.url>https://sonarqube.cedricmtta.com</sonar.host.url>
         <sonar.projectName>groupe-2-surveys</sonar.projectName>
+        <spring-boot.run.jvmArguments>-Duser.timezone=Europe/Paris</spring-boot.run.jvmArguments>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -110,6 +111,13 @@
             <groupId>org.sonarsource.scanner.maven</groupId>
             <artifactId>sonar-maven-plugin</artifactId>
             <version>3.7.0.1746</version>
+        </dependency>
+        <!-- JUnit -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.7.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

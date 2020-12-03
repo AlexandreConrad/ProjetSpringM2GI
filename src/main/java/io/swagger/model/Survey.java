@@ -1,58 +1,59 @@
 package io.swagger.model;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.model.Choice;
-import io.swagger.model.SurveyComments;
-import java.util.ArrayList;
-import java.util.List;
-
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.threeten.bp.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
 
 /**
  * Survey
  */
+
+/** Lombok */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
-@FieldDefaults(level= AccessLevel.PRIVATE)
+//@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor // Constructeur par défaut impossible
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of= {"id","name","description","isAvailable","endDate","comments","votes"})
-@ToString(of= {"id","name","description","isAvailable","endDate","comments","votes"})
-public class Survey   {
+@EqualsAndHashCode(of = {"id_survey", "name", "description", "isAvailable", "endDate"})
+@ToString(of = {"id_survey", "name", "description", "isAvailable", "endDate"})
 
-  @JsonProperty("id")
-  Long id = null;
+/** Hibernate*/
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Survey implements Serializable {
 
-  @JsonProperty("name")
-  @NonNull
-  String name = null;
+    @JsonProperty("id_survey")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id_survey;
 
-  @JsonProperty("description")
-  @NonNull
-  String description = null;
+    @JsonProperty("name")
+    @NonNull
+    String name;
 
-  @JsonProperty("isAvailable")
-  Boolean isAvailable = false;
+    @JsonProperty("description")
+    @NonNull
+    String description;
 
-  @JsonProperty("endDate")
-  @NonNull
-  OffsetDateTime endDate = null;
+    @JsonProperty("isAvailable")
+    @NonNull
+    Boolean isAvailable;
 
-  @JsonProperty("comments")
-  @Valid
-  List<SurveyComments> comments = null;
+    @JsonProperty("endDate")
+    @NonNull
+    Timestamp endDate;
 
-  @JsonProperty("votes")
-  @Valid
-  List<Choice> votes = null;
 }
