@@ -10,6 +10,10 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <springfox-version>2.7.0</springfox-version>
+        <!-- Installation de sonarQube -->
+        <sonar.host.url>https://sonarqube.cedricmtta.com</sonar.host.url>
+        <sonar.projectName>groupe-2-surveys</sonar.projectName>
+        <spring-boot.run.jvmArguments>-Duser.timezone=Europe/Paris</spring-boot.run.jvmArguments>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -102,6 +106,18 @@
             <version>1.18.0</version>
             <scope>provided</scope>
         </dependency>
-
+        <!-- Dependance sonarQube -->
+        <dependency>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.7.0.1746</version>
+        </dependency>
+        <!-- JUnit -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.7.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

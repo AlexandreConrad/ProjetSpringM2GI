@@ -1,0 +1,892 @@
+swagger: '2.0'
+info:
+  description: |
+    Projet de production logiciel, réalisé par
+      - BIR Vincent
+      - CHEVALLET Clément
+      - CONRAD ALexandre
+      - DAVIES Liam
+
+    Projet à réaliser pour le xx / xx / 2020.
+    Spécifications :
+      - Java 11
+      - Rest API ( non obligatoirement RESTful)
+      - Spring Boot
+      - H2 pour la base de données
+      - Mapping
+      - Pipeline d'intégration
+      - Documentions
+      - Carnet de bord
+
+      Notions du cours utilisé :
+      - Swagger Editor
+      - H2
+      - Hibernate
+      - Lombok
+      - Git
+  version: 1.0.0
+  title: Projet M2 GI
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+# host: petstore.swagger.io
+# basePath: /v2
+tags:
+- name: surveys
+  description: Tous sur les sondages.
+  externalDocs:
+    description: Descriptions
+    url: http://swagger.io
+- name: choices
+  description: Tous sur les dates.
+  externalDocs:
+    description: Descriptions
+    url: http://swagger.io
+- name: analytics
+  description: Tous sur les statistiques.
+  externalDocs:
+    description: Descriptions
+    url: http://swagger.io
+- name: comments
+  description: Tous sur les commentaires.
+  externalDocs:
+    description: Descriptions
+    url: http://swagger.io
+- name: votes
+  description: Tous sur les votes.
+  externalDocs:
+    description: Descriptions
+    url: http://swagger.io
+# schemes:
+# - http
+paths:
+  /surveys:
+    get:
+      tags:
+      - surveys
+      summary: Retourne la liste de tous les sondages.
+      description: Retourne la liste de tous les sondages en cours ou qui ont eu lieu depuis la base de données.
+      operationId: getSurveys
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: Ressource trouvé
+          schema:
+            type: array
+            xml :
+              name : Nom
+              wrapped : true
+            items:
+                type: object
+                $ref: '#/definitions/survey'
+        404:
+          description: "Ressource introuvable."
+        500:
+          description: "Echec de connexion à la base de données."
+    post:
+      tags:
+      - surveys
+      summary: Crée un nouveau sondage.
+      operationId: uploadFile
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: Sondage
+        description: Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.
+        required: true
+        schema:
+          type: object
+          properties:
+            name :
+              type: string
+            description :
+              type : string
+            endDate:
+              type: string
+              format : date-time
+      responses:
+        201:
+          description: Sondage créé
+          schema:
+            type: object
+            properties:
+              id :
+                type : integer
+                format: int64
+              name :
+                type: string
+              description :
+                type : string
+              isAvailable :
+                type : boolean
+              endDate:
+                type: string
+                format : date-time
+              comments :
+                type : array
+                xml :
+                  name : Nom
+                  wrapped : true
+                items:
+                    type: object
+              votes :
+                type : array
+                xml :
+                  name : Nom
+                  wrapped : true
+                items:
+                    type: object
+        400:
+          description: "Manque des informations dans le corps."
+        409:
+          description: "Certaines informations ne respectent pas les conditions."
+        500:
+          description: "Echec de connexion à la base de données."
+  /surveys/{surveyID}:
+    get:
+      tags:
+      - surveys
+      summary: Retourne un sondage.
+      description: Retourne le sondage qui correspond à l'ID envoyé en paramètre.
+      operationId: getSurvey
+      produces:
+      - application/json
+      parameters:
+        - name: surveyID
+          in: path
+          description: ID du sondage
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: opération réussie
+          schema:
+            $ref: '#/definitions/survey'
+        404:
+          description: "Ressource introuvable."
+        500:
+          description: "Echec de connexion à la base de données."
+    put:
+      tags:
+      - surveys
+      summary: Modifie un sondage.
+      description: Modifie les informations du sondages.
+      operationId: updateSurvey
+      produces:
+      - application/xml
+      parameters:
+      - name: surveyID
+        in: path
+        description: Identifiant du sondage à modifier.
+        required: true
+        type: integer
+        format: int64
+      - in: body
+        name: body
+        description: Sondage modifié
+        required: true
+        schema:
+          $ref: '#/definitions/survey'
+      responses:
+        200:
+          description: opération réussie
+          schema:
+            $ref: '#/definitions/survey'
+        400:
+          description: "Manque des informations dans le corps."
+        404:
+          description: "Ressource introuvable"
+        409:
+          description: "Certaines informations ne respectent pas les conditions."
+        500:
+          description: "Echec de connexion à la base de données."
+    delete:
+      tags:
+      - surveys
+      summary: Supprime un sondage
+      description: Supprime définitivement un sondage.
+      operationId: deleteSurvey
+      produces:
+      - application/xml
+      parameters:
+      - name: surveyID
+        in: path
+        description: Identifiant du sondage à supprimer.
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: opération réussie
+          schema:
+            $ref: '#/definitions/survey'
+        404:
+          description: "Ressource introuvable"
+        500:
+          description: "Echec de connexion à la base de données."
+    patch:
+      tags:
+      - "surveys"
+      summary: "Clôture le sondage."
+      description: "Permet de clôturer le sondage avant la date de fin."
+      operationId: "endSurveys"
+      produces:
+      - application/json
+      parameters:
+      - name: "surveyID"
+        in: "path"
+        type: "integer"
+        format: "int64"
+        description: "ID du sondage pour lequel on souhaite la fin"
+        required: true
+      responses:
+        200:
+          description: "Opération réussie"
+          schema:
+            type: "string"
+            format: date-time
+        400:
+          description: "Manque des informations dans le corps."
+        404:
+          description: "Ressource introuvable"
+        409:
+          description: "Certaines informations ne respectent pas les conditions."
+        500:
+          description: "Echec de connexion à la base de données."
+  /surveys/expireds:
+    get:
+      tags:
+      - surveys
+      summary: Retourne les sondages inactifs.
+      description: retourne les sondages qui sont inactifs.
+      operationId: getSurveysIsInactifs
+      produces:
+      - application/json
+      responses:
+        200:
+          description: opération réussie
+          schema:
+            type: array
+            xml :
+              name : Nom
+              wrapped : true
+            items:
+                type: object
+                $ref: '#/definitions/survey'
+        404:
+          description: "Ressource introuvable."
+        500:
+          description: "Echec de connexion à la base de données."
+  /surveys/actives:
+    get:
+      tags:
+      - surveys
+      summary: Retourne les sondages actifs.
+      description: retourne les sondages qui sont actifs.
+      operationId: getSurveysIsActifs
+      produces:
+      - application/json
+      responses:
+        200:
+          description: opération réussie
+          schema:
+            type: array
+            xml :
+              name : Nom
+              wrapped : true
+            items:
+                type: object
+                $ref: '#/definitions/survey'
+        404:
+          description: "Ressource introuvable."
+        500:
+          description: "Echec de connexion à la base de données."
+
+  /choices/{surveyID}:
+    get:
+      tags:
+      - "choices"
+      summary: "Liste des choix possibles"
+      description: "Retourne la liste de tous les choix d'un sondage"
+      operationId: "getChoiceById"
+      produces:
+      - application/json
+      parameters:
+      - name: "surveyID"
+        in: "path"
+        description: "ID du sondage pour lequel on souhaite avoir les choix"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: opération réussie
+          schema:
+            type: array
+            items:
+                type: object
+                properties:
+                  id:
+                    type : integer
+                    format: int64
+                  option:
+                    type: string
+                    format: date-time
+                  answers:
+                    type: object
+                    properties:
+                      available:
+                        type: array
+                        xml :
+                          name : Nom
+                          wrapped : true
+                        items:
+                          type: string
+                      unavailable:
+                        type: array
+                        xml :
+                          name : Nom
+                          wrapped : true
+                        items:
+                          type: string
+                      unknown:
+                        type: array
+                        xml :
+                          name : Nom
+                          wrapped : true
+                        items:
+                          type: string
+        404:
+          description: "Ressource introuvable."
+        500:
+          description: "Echec de connexion à la base de données."
+    post:
+      tags:
+      - "choices"
+      summary: "Ajoute une date pour un sondage"
+      description: "Ajoute un choix (choice) pour un sondage"
+      operationId: "postChoiceById"
+      produces:
+      - application/json
+      parameters:
+      - name: "surveyID"
+        in: "path"
+        description: "ID du sondage pour lequel on souhaite ajouter un choix"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: body
+        name: Choice
+        description: Ajout d'un choix.
+        required: true
+        schema:
+          type: object
+          properties:
+            id:
+              type : integer
+              format: int64
+            option:
+              type: string
+              format: date-time
+            answers:
+              type: object
+              properties:
+                available:
+                  type: array
+                  xml :
+                    name : Nom
+                    wrapped : true
+                  items:
+                    type: string
+                unavailable:
+                  type: array
+                  xml :
+                    name : Nom
+                    wrapped : true
+                  items:
+                    type: string
+                unknown:
+                  type: array
+                  xml :
+                    name : Nom
+                    wrapped : true
+                  items:
+                    type: string
+      responses:
+        200:
+          description: opération réussie
+          schema:
+            type: object
+            properties:
+              id:
+                type : integer
+                format: int64
+              option:
+                type: string
+                format: date-time
+              answers:
+                type: object
+                properties:
+                  available:
+                    type: array
+                    xml :
+                      name : Nom
+                      wrapped : true
+                    items:
+                      type: string
+                  unavailable:
+                    type: array
+                    xml :
+                      name : Nom
+                      wrapped : true
+                    items:
+                      type: string
+                  unknown:
+                    type: array
+                    xml :
+                      name : Nom
+                      wrapped : true
+                    items:
+                      type: string
+        400:
+          description: "Manque des informations dans le corps."
+        409:
+          description: "Certaines informations ne respectent pas les conditions."
+        500:
+          description: "Echec de connexion à la base de données."
+  /choices/{surveyID}/{choiceID}:
+    delete:
+      tags:
+      - "choices"
+      summary: "Supprime un choix"
+      description: "Supprime définitivement un choix"
+      operationId: "getDeleteById"
+      produces:
+      - application/json
+      parameters:
+      - name: "surveyID"
+        in: "path"
+        description: "ID du sondage"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "choiceID"
+        in: "path"
+        description: "ID du choix"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: opération réussie
+          schema:
+            type: object
+            properties:
+              id:
+                type : integer
+                format: int64
+              option:
+                type: string
+                format: date-time
+              answers:
+                type: object
+                properties:
+                  available:
+                    type: array
+                    xml :
+                      name : Nom
+                      wrapped : true
+                    items:
+                      type: string
+                  unavailable:
+                    type: array
+                    xml :
+                      name : Nom
+                      wrapped : true
+                    items:
+                      type: string
+                  unknown:
+                    type: array
+                    xml :
+                      name : Nom
+                      wrapped : true
+                    items:
+                      type: string
+        404:
+          description: "Ressource introuvable"
+        500:
+          description: "Echec de connexion à la base de données."
+
+  /analytics/{surveyID}:
+    get:
+      tags:
+      - "analytics"
+      summary: "Statistiques du sondage"
+      description: "Retourne les statistiques liées au sondage passé en paramètre"
+      operationId: "getAnalyticsById"
+      produces:
+      - application/json
+      parameters:
+      - name: "surveyID"
+        in: "path"
+        description: "ID du sondage pour lequel on souhaite avoir des statistiques"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Opération réussie"
+          schema:
+            type: object
+            properties:
+                available:
+                  type: array
+                  xml :
+                    name : Nom
+                    wrapped : true
+                  items:
+                    type: string
+                unavailable:
+                  type: array
+                  xml :
+                    name : Nom
+                    wrapped : true
+                  items:
+                    type: string
+                unknown:
+                  type: array
+                  xml :
+                    name : Nom
+                    wrapped : true
+                  items:
+                    type: string
+        404:
+          description: "Ressource introuvable."
+        500:
+          description: "Echec de connexion à la base de données."
+  /analytics/{surveyID}/maybe:
+    get:
+      tags:
+      - "analytics"
+      summary: "Date avec le plus de personnes potentiellement présentes"
+      description: "Trouve la date pour laquelle le plus de personnes sont présents ou potentiellement présentes"
+      operationId: "findDateByMaybeAvailable"
+      produces:
+      - application/json
+      parameters:
+      - name: "surveyID"
+        in: "path"
+        description: "ID du sondage pour lequel on souhaite avoir des statistiques"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Opération réussie"
+          schema:
+            type: "string"
+            format: date-time
+        404:
+          description: "Ressource introuvable."
+        500:
+          description: "Echec de connexion à la base de données."
+  /analytics/{surveyID}/available:
+    get:
+      tags:
+      - "analytics"
+      summary: "Date avec le plus de personnes présentes"
+      description: "Trouve la date pour laquelle le plus de personnes sont sûres d'être présentes"
+      operationId: "findDateByAvailable"
+      produces:
+      - application/json
+      parameters:
+      - name: "surveyID"
+        in: "path"
+        type: "integer"
+        format: "int64"
+        description: "ID du sondage pour lequel on souhaite avoir des statistiques"
+        required: true
+      responses:
+        200:
+          description: "Opération réussie"
+          schema:
+            type: "string"
+            format: date-time
+        404:
+          description: "Ressource introuvable."
+        500:
+          description: "Echec de connexion à la base de données."
+
+  /comments/{surveyID}:
+    get:
+      tags:
+      - "comments"
+      summary: "Recupère tous les commentaires"
+      description: "Recupère tous les commentaires d'un sondage"
+      operationId: "getComments"
+      produces:
+      - application/json
+      parameters:
+      - name: "surveyID"
+        in: "path"
+        type: "integer"
+        format: "int64"
+        description: "ID du sondage pour lequel on souhaite les commentaires"
+        required: true
+      responses:
+        200:
+          description: opération réussie
+          schema:
+            type: array
+            items:
+                type: object
+                properties:
+                  id:
+                    type : integer
+                    format: int64
+                  message:
+                    type: string
+        404:
+          description: "Ressource introuvable."
+        500:
+          description: "Echec de connexion à la base de données."
+    post:
+      tags:
+      - "comments"
+      summary: "Ajoute un commentaire"
+      description: "Ajoute un commentaire d'un sondage"
+      operationId: "addComments"
+      produces:
+      - application/json
+      parameters:
+      - name: "surveyID"
+        in: "path"
+        type: "integer"
+        format: "int64"
+        description: "ID du sondage pour lequel on souhaite les commentaires"
+        required: true
+      - in: body
+        name: Choice
+        description: Ajout d'un choix.
+        required: true
+        schema:
+          type: object
+          properties:
+            id:
+              type : integer
+              format: int64
+            message:
+              type: string
+      responses:
+        200:
+          description: opération réussie
+          schema:
+            type: object
+            properties:
+              id:
+                type : integer
+                format: int64
+              message:
+                type: string
+        400:
+          description: "Manque des informations dans le corps."
+        409:
+          description: "Certaines informations ne respectent pas les conditions."
+        500:
+          description: "Echec de connexion à la base de données."
+
+  /votes/{surveyID}/{choiceID}:
+    patch:
+      tags:
+      - "votes"
+      summary: "Participer à un sondage"
+      description: "Participation de l'utilisateur"
+      operationId: "postVote"
+      produces:
+      - application/json
+      parameters:
+      - name: "surveyID"
+        in: "path"
+        type: "integer"
+        format: "int64"
+        description: "ID du sondage pour lequel on souhaite avoir des statistiques"
+        required: true
+      - name: "choiceID"
+        in: "path"
+        type: "integer"
+        format: "int64"
+        description: "ID du choix de la date"
+        required: true
+      - in: body
+        name: choice
+        description: Choix de l'utilisateur
+        required: true
+        schema:
+          type : object
+          properties:
+            id:
+              type: integer
+              format: int64
+            option:
+              type: string
+              format: date-time
+            answers:
+              type: object
+              properties:
+                available:
+                  type: array
+                  xml :
+                    name : Nom
+                    wrapped : true
+                  items:
+                    type: string
+                unavailable:
+                  type: array
+                  xml :
+                    name : Nom
+                    wrapped : true
+                  items:
+                    type: string
+                unknown:
+                  type: array
+                  xml :
+                    name : Nom
+                    wrapped : true
+                  items:
+                    type: string
+      responses:
+        200:
+          description: "Opération réussie"
+          schema:
+            type: object
+            properties:
+                id:
+                  type: integer
+                  format: int64
+                option:
+                  type: string
+                  format: date-time
+                answers:
+                  type: object
+                  properties:
+                    available:
+                      type: array
+                      xml :
+                        name : Nom
+                        wrapped : true
+                      items:
+                        type: string
+                    unavailable:
+                      type: array
+                      xml :
+                        name : Nom
+                        wrapped : true
+                      items:
+                        type: string
+                    unknown:
+                      type: array
+                      xml :
+                        name : Nom
+                        wrapped : true
+                      items:
+                        type: string
+        400:
+          description: "Manque des informations dans le corps."
+        404:
+          description: "Ressource introuvable"
+        409:
+          description: "Certaines informations ne respectent pas les conditions."
+        500:
+          description: "Echec de connexion à la base de données."
+
+definitions:
+  survey:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      description:
+        type: string
+      isAvailable:
+        type: boolean
+        default: false
+      endDate:
+        type: string
+        format: date-time
+      comments:
+        type: array
+        xml:
+          name: comments
+          wrapped: true
+        items:
+          type: object
+          properties:
+            id:
+              type: integer
+            comments:
+              type: string
+          example:   # Sample object
+            id: 0
+            name: Commentaire numéro 1
+      votes:
+        type: array
+        xml:
+          name: votes
+          wrapped: true
+        items:
+          type: object
+          properties:
+            id:
+              type : integer
+              format: int64
+            option:
+              type: string
+              format: date-time
+            answers:
+              type: object
+              properties:
+                available:
+                  type: array
+                  xml :
+                    name : Nom
+                    wrapped : true
+                  items:
+                    type: string
+                unavailable:
+                  type: array
+                  xml :
+                    name : Nom
+                    wrapped : true
+                  items:
+                    type: string
+                unknown:
+                  type: array
+                  xml :
+                    name : Nom
+                    wrapped : true
+                  items:
+                    type: string
+    xml:
+      name: Survey
+
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /Alex57x/Projet/1.0.0
+schemes:
+ - https
+ - http

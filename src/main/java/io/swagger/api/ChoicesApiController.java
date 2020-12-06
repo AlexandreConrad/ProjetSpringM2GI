@@ -1,9 +1,11 @@
 package io.swagger.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiParam;
 import io.swagger.model.Choice;
 import io.swagger.model.InlineResponse200;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+import io.swagger.model.Survey;
+import io.swagger.service.SurveyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -11,16 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.*;
-import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
 
 @Controller
@@ -38,8 +36,10 @@ public class ChoicesApiController implements ChoicesApi {
         this.request = request;
     }
 
-    public ResponseEntity<List<InlineResponse200>> getChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir les choix",required=true) @PathVariable("surveyID") Long surveyID) {
+    public ResponseEntity<List<InlineResponse200>> getChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir les choix", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
+        Survey survey = SurveyService.getSurveyByID(surveyID);
+
         if (accept != null && accept.contains("application/json")) {
             try {
                 return new ResponseEntity<List<InlineResponse200>>(objectMapper.readValue("[ {  \"answers\" : {    \"unavailable\" : [ \"unavailable\", \"unavailable\" ],    \"available\" : [ \"available\", \"available\" ],    \"unknown\" : [ \"unknown\", \"unknown\" ]  },  \"id\" : 0,  \"option\" : \"2000-01-23T04:56:07.000+00:00\"}, {  \"answers\" : {    \"unavailable\" : [ \"unavailable\", \"unavailable\" ],    \"available\" : [ \"available\", \"available\" ],    \"unknown\" : [ \"unknown\", \"unknown\" ]  },  \"id\" : 0,  \"option\" : \"2000-01-23T04:56:07.000+00:00\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
@@ -52,7 +52,7 @@ public class ChoicesApiController implements ChoicesApi {
         return new ResponseEntity<List<InlineResponse200>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Choice> getDeleteById(@ApiParam(value = "ID du sondage",required=true) @PathVariable("surveyID") Long surveyID,@ApiParam(value = "ID du choix",required=true) @PathVariable("choiceID") Long choiceID) {
+    public ResponseEntity<Choice> getDeleteById(@ApiParam(value = "ID du sondage", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "ID du choix", required = true) @PathVariable("choiceID") Long choiceID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
@@ -66,7 +66,7 @@ public class ChoicesApiController implements ChoicesApi {
         return new ResponseEntity<Choice>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Choice> postChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite ajouter un choix",required=true) @PathVariable("surveyID") Long surveyID,@ApiParam(value = "Ajout d'un choix." ,required=true )  @Valid @RequestBody Choice choice) {
+    public ResponseEntity<Choice> postChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite ajouter un choix", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Ajout d'un choix.", required = true) @Valid @RequestBody Choice choice) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
