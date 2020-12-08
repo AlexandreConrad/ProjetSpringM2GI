@@ -59,7 +59,9 @@ Pipline d'intégration avec :
 * [Swagger Editor](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/alexandre_conrad/docs/swagger.txt) - Document réalisé en Swagger
 * [Carnet de bord](https://gitlab.cedricmtta.com/Alexandre/surveys/) - Carnet de bord  #A FAIRE#
 * [Gantt](https://gitlab.cedricmtta.com/Alexandre/surveys/) - Diagramme de Gantt  #A FAIRE#
-* [Postman](https://gitlab.cedricmtta.com/Alexandre/surveys/) - Document Postman  #A FAIRE#
+* [Postman](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/Projet%20M2%20GI.postman_collection.json) - Document Postman  #EN TRAVAIL#
+* [BDD](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/Sondages.svg) - Schéma de la base de données 
+* [BDD_verbose](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/verbose.md) - Verbose de la base de données
 
 ## Versions
 
