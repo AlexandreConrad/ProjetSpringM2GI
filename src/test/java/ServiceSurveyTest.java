@@ -19,9 +19,9 @@ public class ServiceSurveyTest {
     public void getSurveyByID(){
         Survey surveyTest = SurveyService.getSurveyByID(1L);
         Assert.assertEquals(surveyTest.getId_survey(),(Long)1L);
-        Assert.assertEquals("Mon premier sondage", surveyTest.getName());
+        Assert.assertEquals("Anniversaire suprise pour Alexandre ?", surveyTest.getName());
         Assert.assertEquals(true, surveyTest.getIsAvailable());
-        Assert.assertEquals("Mon tout premier sondage !", surveyTest.getDescription());
+        Assert.assertEquals("On fait une surprise, ne lui dites pas !!", surveyTest.getDescription());
         Timestamp date = Timestamp.valueOf("2020-06-11 12:22:44");
         // A FIX SERVEUR
         //Assert.assertEquals(surveyTest.getEndDate(),date);

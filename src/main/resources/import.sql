@@ -1,3 +1,5 @@
+SET NAMES 'utf8';
+
 DROP VIEW IF EXISTS "RESULTAT_COMPTE";
 DROP VIEW IF EXISTS "RESULTAT_DISPONIBLE";
 DROP VIEW IF EXISTS "RESULTAT_SUSCEPTIBLE";
@@ -62,7 +64,7 @@ CREATE TABLE `survey` ( `id_survey` int(11) NOT NULL AUTO_INCREMENT, `name` varc
 -- Déchargement des données de la table `survey`
 --
 
-INSERT INTO `survey` (`id_survey`, `name`, `description`, `endDate`, `isAvailable`) VALUES(1, 'Quand fêter le birthday à Alexandre ?', 'On fait une surprise, ne lui dites pas !!', '2020-12-31 12:00:00', 1),(2, 'Projet X après le déconfinement ?', 'Ça va être mortel !!', '2020-12-31 12:00:00', 0),(3, 'Soirée Netflix & Chill ?', 'On regardera Star Wars :)', '2021-01-31 12:00:00', 1),(4, 'Tour des garages pour trouver ma nouvelle voiture ?', 'Je veux une lambo, minimum', '2021-01-31 12:00:00', 1);
+INSERT INTO `survey` (`id_survey`, `name`, `description`, `endDate`, `isAvailable`) VALUES(1, 'Anniversaire suprise pour Alexandre ?', 'On fait une surprise, ne lui dites pas !!', '2020-12-31 12:00:00', 1),(2, 'Projet X après le déconfinement ?', 'Ça va être mortel !!', '2020-12-31 12:00:00', 0),(3, 'Soirée Netflix & Chill ?', 'On regardera Star Wars :)', '2021-01-31 12:00:00', 1),(4, 'Tour des garages pour trouver ma nouvelle voiture ?', 'Je veux une lambo, minimum', '2021-01-31 12:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -119,53 +121,24 @@ CREATE VIEW `resultat_disponible` AS SELECT `resultat`.`Survey` AS `Survey`, `re
 CREATE VIEW `resultat_susceptible` AS SELECT `resultat`.`Survey` AS `Survey`, `resultat`.`Date` AS `Date`, `resultat`.`Choices` AS `Choices`, count(`resultat`.`Choices`) AS `Nombre de votes` FROM `resultat` WHERE `resultat`.`Choices` in ('Disponible','Peut-être') GROUP BY `resultat`.`Survey`, `resultat`.`Choices`, `resultat`.`Date` ORDER BY count(`resultat`.`Choices`) DESC LIMIT 0, 1;
 
 --
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `choices`
---
-ALTER TABLE `choices` ADD PRIMARY KEY (`id_choices`);
-
---
--- Index pour la table `comments`
---
-ALTER TABLE `comments` ADD PRIMARY KEY (`id_comments`);
-
---
--- Index pour la table `option`
---
-ALTER TABLE `option` ADD PRIMARY KEY (`id_option`);
-
---
--- Index pour la table `survey`
---
-ALTER TABLE `survey` ADD PRIMARY KEY (`id_survey`);
-
---
--- Index pour la table `vote`
---
-ALTER TABLE `vote` ADD PRIMARY KEY (`id_vote`);
-
---
 -- Contraintes pour les tables déchargées
 --
 
 --
 -- Contraintes pour la table `choices`
 --
-ALTER TABLE `choices` ADD CONSTRAINT `choices_ibfk_1` FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`);
+ALTER TABLE `choices` ADD CONSTRAINT `choices_ibfk_1` FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`) ON CASCADE;
 
 --
 -- Contraintes pour la table `comments`
 --
-ALTER TABLE `comments` ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`);
+ALTER TABLE `comments` ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`) ON CASCADE;
 
 --
 -- Contraintes pour la table `vote`
 --
-ALTER TABLE `vote` ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`id_option`) REFERENCES `option` (`id_option`);
-ALTER TABLE `vote` ADD CONSTRAINT `vote_ibfk_2` FOREIGN KEY (`id_choices`) REFERENCES `choices` (`id_choices`);
+ALTER TABLE `vote` ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`id_option`)  REFERENCES `option` (`id_option`) ON CASCADE;
+ALTER TABLE `vote` ADD CONSTRAINT `vote_ibfk_2` FOREIGN KEY (`id_choices`) REFERENCES `choices` (`id_choices`) ON CASCADE;
 COMMIT;
 
 
