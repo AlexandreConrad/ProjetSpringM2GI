@@ -1,5 +1,3 @@
-SET NAMES 'utf8';
-
 DROP VIEW IF EXISTS "RESULTAT_COMPTE";
 DROP VIEW IF EXISTS "RESULTAT_DISPONIBLE";
 DROP VIEW IF EXISTS "RESULTAT_SUSCEPTIBLE";
@@ -12,11 +10,27 @@ DROP TABLE IF EXISTS "COMMENTS";
 DROP TABLE IF EXISTS "OPTION";
 DROP TABLE IF EXISTS "SURVEY";
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `survey`
+--
+
+CREATE TABLE `survey` ( `id_survey` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(65) NOT NULL, `description` text NOT NULL, `endDate` DATETIME NOT NULL, `isAvailable` BOOLEAN NOT NULL);
+
+--
+-- Déchargement des données de la table `survey`
+--
+
+INSERT INTO `survey` (`id_survey`, `name`, `description`, `endDate`, `isAvailable`) VALUES(1, 'Anniversaire suprise pour Alexandre ?', 'On fait une surprise, ne lui dites pas !!', '2020-12-31 12:00:00', 1),(2, 'Projet X après le déconfinement ?', 'Ça va être mortel !!', '2020-12-31 12:00:00', 0),(3, 'Soirée Netflix & Chill ?', 'On regardera Star Wars :)', '2021-01-31 12:00:00', 1),(4, 'Tour des garages pour trouver ma nouvelle voiture ?', 'Je veux une lambo, minimum', '2021-01-31 12:00:00', 1);
+
+-- --------------------------------------------------------
+
 --
 -- Structure de la table `choices`
 --
 
-CREATE TABLE `choices` ( `id_choices` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`date` DATETIME NOT NULL,`id_survey` int(11) NOT NULL);
+CREATE TABLE `choices` ( `id_choices` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`date` DATETIME NOT NULL,`id_survey` int(11) NOT NULL, FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`));
 
 --
 -- Déchargement des données de la table `choices`
@@ -30,7 +44,7 @@ INSERT INTO `choices` (`id_choices`, `date`, `id_survey`) VALUES(1, '2021-01-31 
 -- Structure de la table `comments`
 --
 
-CREATE TABLE `comments` ( `id_comments` int(11) NOT NULL AUTO_INCREMENT, `comments` text NOT NULL, `author` varchar(65) NOT NULL, `id_survey` int(11) NOT NULL);
+CREATE TABLE `comments` ( `id_comments` int(11) NOT NULL AUTO_INCREMENT, `comments` text NOT NULL, `author` varchar(65) NOT NULL, `id_survey` int(11) NOT NULL, FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`));
 
 --
 -- Déchargement des données de la table `comments`
@@ -55,24 +69,10 @@ INSERT INTO `option` (`id_option`, `name`) VALUES(1, 'Disponible'),(2, 'Indispon
 -- --------------------------------------------------------
 
 --
--- Structure de la table `survey`
---
-
-CREATE TABLE `survey` ( `id_survey` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(65) NOT NULL, `description` text NOT NULL, `endDate` DATETIME NOT NULL, `isAvailable` BOOLEAN NOT NULL);
-
---
--- Déchargement des données de la table `survey`
---
-
-INSERT INTO `survey` (`id_survey`, `name`, `description`, `endDate`, `isAvailable`) VALUES(1, 'Anniversaire suprise pour Alexandre ?', 'On fait une surprise, ne lui dites pas !!', '2020-12-31 12:00:00', 1),(2, 'Projet X après le déconfinement ?', 'Ça va être mortel !!', '2020-12-31 12:00:00', 0),(3, 'Soirée Netflix & Chill ?', 'On regardera Star Wars :)', '2021-01-31 12:00:00', 1),(4, 'Tour des garages pour trouver ma nouvelle voiture ?', 'Je veux une lambo, minimum', '2021-01-31 12:00:00', 1);
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `vote`
 --
 
-CREATE TABLE `vote` ( `id_vote` int(11) NOT NULL AUTO_INCREMENT, `author` varchar(65) NOT NULL, `id_choices` int(11) NOT NULL, `id_option` int(11) NOT NULL);
+CREATE TABLE `vote` ( `id_vote` int(11) NOT NULL AUTO_INCREMENT, `author` varchar(65) NOT NULL, `id_choices` int(11) NOT NULL, `id_option` int(11) NOT NULL, FOREIGN KEY (`id_option`)  REFERENCES `option` (`id_option`), FOREIGN KEY (`id_choices`) REFERENCES `choices` (`id_choices`));
 
 --
 -- Déchargement des données de la table `vote`
@@ -124,21 +124,6 @@ CREATE VIEW `resultat_susceptible` AS SELECT `resultat`.`Survey` AS `Survey`, `r
 -- Contraintes pour les tables déchargées
 --
 
---
--- Contraintes pour la table `choices`
---
-ALTER TABLE `choices` ADD CONSTRAINT `choices_ibfk_1` FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`) ON CASCADE;
-
---
--- Contraintes pour la table `comments`
---
-ALTER TABLE `comments` ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`) ON CASCADE;
-
---
--- Contraintes pour la table `vote`
---
-ALTER TABLE `vote` ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`id_option`)  REFERENCES `option` (`id_option`) ON CASCADE;
-ALTER TABLE `vote` ADD CONSTRAINT `vote_ibfk_2` FOREIGN KEY (`id_choices`) REFERENCES `choices` (`id_choices`) ON CASCADE;
 COMMIT;
 
 

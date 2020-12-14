@@ -11,6 +11,9 @@
         <property name="hibernate.connection.username">sa</property>
         <property name="hibernate.connection.password"></property>
 
+        <!-- Dialect -->
+        <property name = "hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
+
         <!-- Type de communication -->
         <property name="hibernate.current_session_context_class">thread</property>
 
