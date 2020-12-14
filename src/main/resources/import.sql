@@ -30,7 +30,10 @@ INSERT INTO `survey` (`id_survey`, `name`, `description`, `endDate`, `isAvailabl
 -- Structure de la table `choices`
 --
 
-CREATE TABLE `choices` ( `id_choices` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`date` DATETIME NOT NULL,`id_survey` int(11) NOT NULL, FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`));
+ -- CREATE TABLE `choices` ( `id_choices` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`date` DATETIME NOT NULL,`id_survey` int(11) NOT NULL, FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`));
+
+CREATE TABLE `choices` ( `id_choices` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`date` DATETIME NOT NULL,`id_survey` int(11) NOT NULL, CONSTRAINT id_survey_choices FOREIGN KEY (`id_survey`) REFERENCES SURVEY (id_survey) ON DELETE CASCADE);
+
 
 --
 -- Déchargement des données de la table `choices`
@@ -44,7 +47,8 @@ INSERT INTO `choices` (`id_choices`, `date`, `id_survey`) VALUES(1, '2021-01-31 
 -- Structure de la table `comments`
 --
 
-CREATE TABLE `comments` ( `id_comments` int(11) NOT NULL AUTO_INCREMENT, `comments` text NOT NULL, `author` varchar(65) NOT NULL, `id_survey` int(11) NOT NULL, FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`));
+-- CREATE TABLE `comments` ( `id_comments` int(11) NOT NULL AUTO_INCREMENT, `comments` text NOT NULL, `author` varchar(65) NOT NULL, `id_survey` int(11) NOT NULL, FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`));
+CREATE TABLE `comments` ( `id_comments` int(11) NOT NULL AUTO_INCREMENT, `comments` text NOT NULL, `author` varchar(65) NOT NULL, `id_survey` int(11) NOT NULL, CONSTRAINT id_survey_comments FOREIGN KEY (`id_survey`) REFERENCES SURVEY (id_survey) ON DELETE CASCADE);
 
 --
 -- Déchargement des données de la table `comments`
@@ -72,7 +76,8 @@ INSERT INTO `option` (`id_option`, `name`) VALUES(1, 'Disponible'),(2, 'Indispon
 -- Structure de la table `vote`
 --
 
-CREATE TABLE `vote` ( `id_vote` int(11) NOT NULL AUTO_INCREMENT, `author` varchar(65) NOT NULL, `id_choices` int(11) NOT NULL, `id_option` int(11) NOT NULL, FOREIGN KEY (`id_option`)  REFERENCES `option` (`id_option`), FOREIGN KEY (`id_choices`) REFERENCES `choices` (`id_choices`));
+-- CREATE TABLE `vote` ( `id_vote` int(11) NOT NULL AUTO_INCREMENT, `author` varchar(65) NOT NULL, `id_choices` int(11) NOT NULL, `id_option` int(11) NOT NULL, FOREIGN KEY (`id_option`)  REFERENCES `option` (`id_option`), FOREIGN KEY (`id_choices`) REFERENCES `choices` (`id_choices`));
+CREATE TABLE `vote` ( `id_vote` int(11) NOT NULL AUTO_INCREMENT, `author` varchar(65) NOT NULL, `id_choices` int(11) NOT NULL, `id_option` int(11) NOT NULL, CONSTRAINT id_option_vote FOREIGN KEY (`id_option`) REFERENCES OPTION (id_option) ON DELETE CASCADE, CONSTRAINT id_choices_vote FOREIGN KEY (`id_choices`) REFERENCES CHOICES (id_choices) ON DELETE CASCADE);
 
 --
 -- Déchargement des données de la table `vote`
@@ -125,8 +130,3 @@ CREATE VIEW `resultat_susceptible` AS SELECT `resultat`.`Survey` AS `Survey`, `r
 --
 
 COMMIT;
-
-
-
-
-
