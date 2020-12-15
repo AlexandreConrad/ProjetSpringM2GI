@@ -7,6 +7,7 @@ package io.swagger.api;
 
 import io.swagger.annotations.*;
 import io.swagger.model.Choice1;
+import io.swagger.model.Comment;
 import io.swagger.model.InlineResponse2001;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,24 +26,24 @@ public interface CommentsApi {
 
     @ApiOperation(value = "Ajoute un commentaire", nickname = "addComments", notes = "Ajoute un commentaire d'un sondage", response = Choice1.class, tags = {"comments",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "opération réussie", response = Choice1.class),
+            @ApiResponse(code = 200, message = "opération réussie", response = Comment.class),
             @ApiResponse(code = 400, message = "Manque des informations dans le corps."),
             @ApiResponse(code = 409, message = "Certaines informations ne respectent pas les conditions."),
             @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
     @RequestMapping(value = "/comments/{surveyID}",
             produces = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<Choice1> addComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Ajout d'un choix.", required = true) @Valid @RequestBody Choice1 choice);
+    ResponseEntity<Comment> addComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Ajout d'un commentaire.", required = true) @Valid @RequestBody String message);
 
 
-    @ApiOperation(value = "Recupère tous les commentaires", nickname = "getComments", notes = "Recupère tous les commentaires d'un sondage", response = InlineResponse2001.class, responseContainer = "List", tags = {"comments",})
+    @ApiOperation(value = "Recupère tous les commentaires", nickname = "getComments", notes = "Recupère tous les commentaires d'un sondage", response = Comment.class, responseContainer = "List", tags = {"comments",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "opération réussie", response = InlineResponse2001.class, responseContainer = "List"),
+            @ApiResponse(code = 200, message = "opération réussie", response = Comment.class, responseContainer = "List"),
             @ApiResponse(code = 404, message = "Ressource introuvable."),
             @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
     @RequestMapping(value = "/comments/{surveyID}",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<List<InlineResponse2001>> getComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID);
+    ResponseEntity<List<Comment>> getComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID);
 
 }

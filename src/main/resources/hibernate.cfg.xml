@@ -33,5 +33,6 @@
 
         <!-- Mappage avec les classes de modèle contenant des annotations  -->
         <mapping class="io.swagger.model.Survey"/>
+        <mapping class="io.swagger.model.Comment"/>
     </session-factory>
 </hibernate-configuration>
