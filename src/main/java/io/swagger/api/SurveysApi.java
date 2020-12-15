@@ -31,14 +31,14 @@ public interface SurveysApi {
             @ApiResponse(code = 404, message = "Ressource introuvable"),
             @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
     @RequestMapping(value = "/surveys/{surveyID}",
-            produces = {"application/xml"},
+            produces = {"application/json"},
             method = RequestMethod.DELETE)
     ResponseEntity<Survey> deleteSurvey(@ApiParam(value = "Identifiant du sondage à supprimer.", required = true) @PathVariable("surveyID") Long surveyID);
 
 
-    @ApiOperation(value = "Clôture le sondage.", nickname = "endSurveys", notes = "Permet de clôturer le sondage avant la date de fin.", response = OffsetDateTime.class, tags = {"surveys",})
+    @ApiOperation(value = "Clôture le sondage.", nickname = "endSurveys", notes = "Permet de clôturer le sondage avant la date de fin.", response = Survey.class, tags = {"surveys",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Opération réussie", response = OffsetDateTime.class),
+            @ApiResponse(code = 200, message = "Opération réussie", response = Survey.class),
             @ApiResponse(code = 400, message = "Manque des informations dans le corps."),
             @ApiResponse(code = 404, message = "Ressource introuvable"),
             @ApiResponse(code = 409, message = "Certaines informations ne respectent pas les conditions."),
@@ -46,7 +46,7 @@ public interface SurveysApi {
     @RequestMapping(value = "/surveys/{surveyID}",
             produces = {"application/json"},
             method = RequestMethod.PATCH)
-    ResponseEntity<OffsetDateTime> endSurveys(@ApiParam(value = "ID du sondage pour lequel on souhaite la fin", required = true) @PathVariable("surveyID") Long surveyID);
+    ResponseEntity<Survey> endSurveys(@ApiParam(value = "ID du sondage pour lequel on souhaite la fin", required = true) @PathVariable("surveyID") Long surveyID);
 
 
     @ApiOperation(value = "Retourne un sondage.", nickname = "getSurvey", notes = "Retourne le sondage qui correspond à l'ID envoyé en paramètre.", response = Survey.class, tags = {"surveys",})
@@ -101,21 +101,20 @@ public interface SurveysApi {
             @ApiResponse(code = 409, message = "Certaines informations ne respectent pas les conditions."),
             @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
     @RequestMapping(value = "/surveys/{surveyID}",
-            produces = {"application/xml"},
+            produces = {"application/json"},
             method = RequestMethod.PUT)
     ResponseEntity<Survey> updateSurvey(@ApiParam(value = "Identifiant du sondage à modifier.", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Sondage modifié", required = true) @Valid @RequestBody Survey body);
 
 
-    @ApiOperation(value = "Crée un nouveau sondage.", nickname = "uploadFile", notes = "", response = InlineResponse201.class, tags = {"surveys",})
+    @ApiOperation(value = "Crée un nouveau sondage.", nickname = "uploadFile", notes = "", response = Survey.class, tags = {"surveys",})
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Sondage créé", response = InlineResponse201.class),
+            @ApiResponse(code = 201, message = "Sondage créé", response = Survey.class),
             @ApiResponse(code = 400, message = "Manque des informations dans le corps."),
             @ApiResponse(code = 409, message = "Certaines informations ne respectent pas les conditions."),
             @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
     @RequestMapping(value = "/surveys",
             produces = {"application/json"},
-            consumes = {"multipart/form-data"},
             method = RequestMethod.POST)
-    ResponseEntity<InlineResponse201> uploadFile(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.", required = true) @Valid @RequestBody Sondage sondage);
+    ResponseEntity<Survey> createSurvey(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.", required = true) @Valid @RequestBody Sondage sondage);
 
 }
