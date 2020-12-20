@@ -1,6 +1,9 @@
+import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
 import io.swagger.service.SurveyService;
 import org.junit.*;
+import org.threeten.bp.OffsetDateTime;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -19,9 +22,9 @@ public class ServiceSurveyTest {
     public void getSurveyByID(){
         Survey surveyTest = SurveyService.getSurveyByID(1L);
         Assert.assertEquals(surveyTest.getId_survey(),(Long)1L);
-        Assert.assertEquals("Mon premier sondage", surveyTest.getName());
+        Assert.assertEquals("Anniversaire suprise pour Alexandre ?", surveyTest.getName());
         Assert.assertEquals(true, surveyTest.getIsAvailable());
-        Assert.assertEquals("Mon tout premier sondage !", surveyTest.getDescription());
+        Assert.assertEquals("On fait une surprise, ne lui dites pas !!", surveyTest.getDescription());
         Timestamp date = Timestamp.valueOf("2020-06-11 12:22:44");
         // A FIX SERVEUR
         //Assert.assertEquals(surveyTest.getEndDate(),date);
@@ -40,7 +43,7 @@ public class ServiceSurveyTest {
 
     /**
      * Fonction getSurveysIsActives
-     * Dois retourner les surveys Actifs.
+     * Doit retourner les surveys Actifs.
      */
     @Test
     public void getSurveysIsActives(){
@@ -51,7 +54,7 @@ public class ServiceSurveyTest {
 
     /**
      * Fonction getSurveysIsExpireds
-     * Dois retourner les surveys inactifs.
+     * Doit retourner les surveys inactifs.
      */
     @Test
     public void getSurveysIsExpireds(){
@@ -99,5 +102,50 @@ public class ServiceSurveyTest {
         List<Survey> surveysTest = SurveyService.getSurveys();
         for (Survey s: surveysTest)
             Assert.assertNotEquals(s.getId_survey(), id_survey);
+    }
+
+    /**
+     * Fonction createSurvey
+     * Permet la construction d'un survey
+    */
+    @Test
+    public void createSurvey(){
+
+        //Variables
+        String name = "Test du sondage";
+        String description = "Test description";
+        OffsetDateTime dateTime = OffsetDateTime.now();
+        //Timestamp date = Timestamp.valueOf(dateTime.toString());
+
+        //Création d'un sondage
+        Sondage survey = new Sondage();
+        survey.setEndDate(dateTime);
+        survey.setName(name);
+        survey.setDescription(description);
+
+        //Fonction createSurvey
+        SurveyService.createSurvey(survey);
+
+        //Vérification
+        List<Survey> surveysTest = SurveyService.getSurveysIsActives();
+        for (Survey s: surveysTest)
+            if(s.getName().equals(name)) {
+                Assert.assertEquals(s.getName(), name);
+                Assert.assertEquals(s.getDescription(), description);
+                Assert.assertEquals(s.getIsAvailable(), true);
+                //Assert.assertEquals(s.getEndDate(), date);
+            }
+    }
+
+    /**
+     * Fonction endSurvey
+     * Clôture un survey
+     */
+    @Test
+    public void endSurvey(){
+        Long id_survey = 2L;
+        SurveyService.endSurvey(id_survey);
+        Survey survey = SurveyService.getSurveyByID(id_survey);
+        Assert.assertEquals(survey.getIsAvailable(), false);
     }
 }
