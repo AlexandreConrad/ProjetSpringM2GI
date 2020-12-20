@@ -6,7 +6,6 @@
 package io.swagger.api;
 
 import io.swagger.annotations.*;
-import io.swagger.model.Choice1;
 import io.swagger.model.Comment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
