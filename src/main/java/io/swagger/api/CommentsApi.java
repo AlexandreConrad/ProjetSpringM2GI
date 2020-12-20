@@ -8,7 +8,6 @@ package io.swagger.api;
 import io.swagger.annotations.*;
 import io.swagger.model.Choice1;
 import io.swagger.model.Comment;
-import io.swagger.model.InlineResponse2001;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,16 +23,16 @@ import java.util.List;
 @RequestMapping(value = "/Alex57x/Projet/1.0.0")
 public interface CommentsApi {
 
-    @ApiOperation(value = "Ajoute un commentaire", nickname = "addComments", notes = "Ajoute un commentaire d'un sondage", response = Choice1.class, tags = {"comments",})
+    @ApiOperation(value = "Ajoute un commentaire", nickname = "addComments", notes = "Ajoute un commentaire d'un sondage", response = Comment.class, tags = {"comments",})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "opération réussie", response = Comment.class),
             @ApiResponse(code = 400, message = "Manque des informations dans le corps."),
             @ApiResponse(code = 409, message = "Certaines informations ne respectent pas les conditions."),
             @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
-    @RequestMapping(value = "/comments/{surveyID}",
+    @RequestMapping(value = "/comments/{surveyID}/{auteur}",
             produces = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<Comment> addComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Ajout d'un commentaire.", required = true) @Valid @RequestBody String message);
+    ResponseEntity<Comment> addComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Nom de l'auteur", required = true) @PathVariable("auteur") String auteur, @ApiParam(value = "Ajout d'un commentaire.", required = true) @Valid @RequestBody String message);
 
 
     @ApiOperation(value = "Recupère tous les commentaires", nickname = "getComments", notes = "Recupère tous les commentaires d'un sondage", response = Comment.class, responseContainer = "List", tags = {"comments",})

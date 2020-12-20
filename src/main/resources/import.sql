@@ -2,11 +2,11 @@ DROP VIEW IF EXISTS "RESULTAT_COMPTE";
 DROP VIEW IF EXISTS "RESULTAT_DISPONIBLE";
 DROP VIEW IF EXISTS "RESULTAT_SUSCEPTIBLE";
 DROP VIEW IF EXISTS "RESULTAT";
-DROP VIEW IF EXISTS "RESULTAT_COMMENTS";
+DROP VIEW IF EXISTS "RESULTAT_COMMENT";
 
 DROP TABLE IF EXISTS "VOTE";
 DROP TABLE IF EXISTS "CHOICES";
-DROP TABLE IF EXISTS "COMMENTS";
+DROP TABLE IF EXISTS "COMMENT";
 DROP TABLE IF EXISTS "OPTION";
 DROP TABLE IF EXISTS "SURVEY";
 
@@ -44,17 +44,17 @@ INSERT INTO `choices` (`id_choices`, `date`, `id_survey`) VALUES(1, '2021-01-31 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `comments`
+-- Structure de la table `comment`
 --
 
--- CREATE TABLE `comments` ( `id_comments` int(11) NOT NULL AUTO_INCREMENT, `comments` text NOT NULL, `author` varchar(65) NOT NULL, `id_survey` int(11) NOT NULL, FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`));
-CREATE TABLE `comments` ( `id_comments` int(11) NOT NULL AUTO_INCREMENT, `comments` text NOT NULL, `author` varchar(65) NOT NULL, `id_survey` int(11) NOT NULL, CONSTRAINT id_survey_comments FOREIGN KEY (`id_survey`) REFERENCES SURVEY (id_survey) ON DELETE CASCADE);
+-- CREATE TABLE `comment` ( `id_comments` int(11) NOT NULL AUTO_INCREMENT, `comments` text NOT NULL, `author` varchar(65) NOT NULL, `id_survey` int(11) NOT NULL, FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`));
+CREATE TABLE `comment` ( `id_comments` int(11) NOT NULL AUTO_INCREMENT, `comments` text NOT NULL, `author` varchar(65) NOT NULL, `id_survey` int(11) NOT NULL, CONSTRAINT id_survey_comments FOREIGN KEY (`id_survey`) REFERENCES SURVEY (id_survey) ON DELETE CASCADE);
 
 --
 -- Déchargement des données de la table `comments`
 --
 
-INSERT INTO `comments` (`id_comments`, `comments`, `author`, `id_survey`) VALUES(1, 'Je serai là !', 'Théo', 1),(2, 'Je ramène la guacamole !', 'Vincent', 3),(3, 'Ok, je ramène les chips', 'Clément', 3),(4, 'La tournée est pour moi, je te paie même une MacLaren :)', 'Stéphane', 4);
+INSERT INTO `comment` (`id_comments`, `comments`, `author`, `id_survey`) VALUES(1, 'Je serai là !', 'Théo', 1L),(2, 'Je ramène la guacamole !', 'Vincent', 3),(3, 'Ok, je ramène les chips', 'Clément', 3),(4, 'La tournée est pour moi, je te paie même une MacLaren :)', 'Stéphane', 4);
 
 -- --------------------------------------------------------
 

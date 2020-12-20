@@ -3,7 +3,6 @@ package io.swagger.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.model.Comment;
-import io.swagger.model.InlineResponse2001;
 import io.swagger.service.CommentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
@@ -35,10 +33,10 @@ public class CommentsApiController implements CommentsApi {
         this.request = request;
     }
 
-    public ResponseEntity<Comment> addComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Ajout du commentaire.", required = true) @Valid @RequestBody String message) {
+    public ResponseEntity<Comment> addComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Nom de l'auteur", required = true) @PathVariable("auteur") String auteur, @ApiParam(value = "Ajout d'un commentaire.", required = true) @Valid @RequestBody String message) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            Comment comment = CommentService.addComments(surveyID,message);
+            Comment comment = CommentService.addComments(surveyID,message,auteur);
             return new ResponseEntity<Comment>(comment,HttpStatus.OK);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles

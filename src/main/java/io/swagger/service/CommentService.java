@@ -27,12 +27,12 @@ public class CommentService {
      * @param message
      * @return
      */
-    public static Comment addComments(Long surveyID, String message) {
+    public static Comment addComments(Long surveyID, String message,String auteur) {
         //Création du commentaire avec les informations
         Comment comment = new Comment();
         comment.setComments(message);
         comment.setId_survey(surveyID);
-        comment.setAuthor("TEST");
+        comment.setAuthor(auteur);
 
         //Persistance dans la base de données
         Session session = HibernateUtil.getSession();//Ouverture d'une session
