@@ -6,7 +6,7 @@
 package io.swagger.api;
 
 import io.swagger.annotations.*;
-import io.swagger.model.ChoicessurveyIDAnswers;
+import io.swagger.model.Analytics;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,14 +41,14 @@ public interface AnalyticsApi {
     ResponseEntity<OffsetDateTime> findDateByMaybeAvailable(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir des statistiques", required = true) @PathVariable("surveyID") Long surveyID);
 
 
-    @ApiOperation(value = "Statistiques du sondage", nickname = "getAnalyticsById", notes = "Retourne les statistiques liées au sondage passé en paramètre", response = ChoicessurveyIDAnswers.class, tags = {"analytics",})
+    @ApiOperation(value = "Statistiques du sondage", nickname = "getAnalyticsById", notes = "Retourne les statistiques liées au sondage passé en paramètre", response = Analytics.class, tags = {"analytics",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Opération réussie", response = ChoicessurveyIDAnswers.class),
+            @ApiResponse(code = 200, message = "Opération réussie", response = Analytics.class),
             @ApiResponse(code = 404, message = "Ressource introuvable."),
             @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
     @RequestMapping(value = "/analytics/{surveyID}",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<ChoicessurveyIDAnswers> getAnalyticsById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir des statistiques", required = true) @PathVariable("surveyID") Long surveyID);
+    ResponseEntity<Analytics> getAnalyticsById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir des statistiques", required = true) @PathVariable("surveyID") Long surveyID);
 
 }

@@ -1,7 +1,6 @@
 package io.swagger.service;
 
 import io.swagger.api.SurveysApiController;
-import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
 import io.swagger.util.HibernateUtil;
 import org.hibernate.Session;
@@ -11,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -181,15 +179,22 @@ public class SurveyService {
      * @param sondage
      * @return
      */
-    public static Survey createSurvey(Sondage sondage) {
+    public static Survey createSurvey(Survey sondage) {
+
+        /** Création d'un sondage
+        {
+            "name": "Test update",
+                "description": "update sondage !",
+                "endDate": 1606669212000
+        }
+        **/
 
         //Création du survey avec les informations
         Survey survey = new Survey();
         survey.setIsAvailable(true);
         survey.setName(sondage.getName());
         survey.setDescription(sondage.getDescription());
-        Timestamp ts = new Timestamp(1000 * sondage.getEndDate().toEpochSecond());
-        survey.setEndDate(ts);
+        survey.setEndDate(sondage.getEndDate());
 
         //Persistance dans la base de données
         Session session = HibernateUtil.getSession();//Ouverture d'une session

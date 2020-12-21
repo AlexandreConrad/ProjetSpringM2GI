@@ -2,7 +2,6 @@ package io.swagger.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
-import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
 import io.swagger.service.SurveyService;
 import org.slf4j.Logger;
@@ -138,10 +137,10 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Création d'un sondage
-     * @param sondage
+     * @param Survey
      * @return
      */
-    public ResponseEntity<Survey> createSurvey(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.", required = true) @Valid @RequestBody Sondage sondage) {
+    public ResponseEntity<Survey> createSurvey(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.", required = true) @Valid @RequestBody Survey sondage) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             Survey survey = SurveyService.createSurvey(sondage);

@@ -11,10 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
- * Choice
+ * Vote
  */
 
 /** Lombok */
@@ -26,26 +25,29 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id_choices", "date", "id_survey"})
-@ToString(of = {"id_choices", "date", "id_survey"})
+@EqualsAndHashCode(of = {"id_vote", "author", "id_choices", "id_option"})
+@ToString(of = {"id_vote", "author", "id_choices", "id_option"})
 
 /** Hibernate*/
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Choice implements Serializable {
+public class Vote implements Serializable {
 
-    @JsonProperty("id_choices")
+    @JsonProperty("id_vote")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id_vote;
+
+    @JsonProperty("name")
+    @NonNull
+    String author;
+
+    @JsonProperty("id_choices")
+    @NonNull
     Long id_choices;
 
-    @JsonProperty("date")
+    @JsonProperty("id_option")
     @NonNull
-    Timestamp date;
-
-    @JsonProperty("id_survey")
-    @NonNull
-    Long id_survey;
+    Long id_option;
 
 }
-

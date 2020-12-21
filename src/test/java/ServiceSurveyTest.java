@@ -1,10 +1,12 @@
-import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
 import io.swagger.service.SurveyService;
 import org.junit.*;
 import org.threeten.bp.OffsetDateTime;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -114,12 +116,12 @@ public class ServiceSurveyTest {
         //Variables
         String name = "Test du sondage";
         String description = "Test description";
-        OffsetDateTime dateTime = OffsetDateTime.now();
-        //Timestamp date = Timestamp.valueOf(dateTime.toString());
+        Date dateTime = new Date();
+        Long time = dateTime.getTime();
 
         //Création d'un sondage
-        Sondage survey = new Sondage();
-        survey.setEndDate(dateTime);
+        Survey survey = new Survey();
+        survey.setEndDate(new Timestamp(time));
         survey.setName(name);
         survey.setDescription(description);
 

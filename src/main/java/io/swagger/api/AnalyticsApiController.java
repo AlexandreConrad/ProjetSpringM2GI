@@ -2,7 +2,7 @@ package io.swagger.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
-import io.swagger.model.ChoicessurveyIDAnswers;
+import io.swagger.model.Analytics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -59,18 +59,18 @@ public class AnalyticsApiController implements AnalyticsApi {
         return new ResponseEntity<OffsetDateTime>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<ChoicessurveyIDAnswers> getAnalyticsById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir des statistiques", required = true) @PathVariable("surveyID") Long surveyID) {
+    public ResponseEntity<Analytics> getAnalyticsById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir des statistiques", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<ChoicessurveyIDAnswers>(objectMapper.readValue("{  \"unavailable\" : [ \"unavailable\", \"unavailable\" ],  \"available\" : [ \"available\", \"available\" ],  \"unknown\" : [ \"unknown\", \"unknown\" ]}", ChoicessurveyIDAnswers.class), HttpStatus.NOT_IMPLEMENTED);
+                return new ResponseEntity<Analytics>(objectMapper.readValue("{  \"unavailable\" : [ \"unavailable\", \"unavailable\" ],  \"available\" : [ \"available\", \"available\" ],  \"unknown\" : [ \"unknown\", \"unknown\" ]}", Analytics.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<ChoicessurveyIDAnswers>(HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<Analytics>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 
-        return new ResponseEntity<ChoicessurveyIDAnswers>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<Analytics>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 }

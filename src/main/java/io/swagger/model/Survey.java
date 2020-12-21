@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-
 /**
  * Survey
  */
