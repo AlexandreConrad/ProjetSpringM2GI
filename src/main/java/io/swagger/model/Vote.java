@@ -38,7 +38,7 @@ public class Vote implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id_vote;
 
-    @JsonProperty("name")
+    @JsonProperty("author")
     @NonNull
     String author;
 

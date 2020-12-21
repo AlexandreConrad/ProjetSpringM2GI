@@ -1,6 +1,6 @@
 package io.swagger.service;
 
-import io.swagger.api.SurveysApiController;
+import io.swagger.api.VotesApiController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +9,6 @@ import org.slf4j.LoggerFactory;
  */
 public class VoteService {
 
-    private static final Logger log = LoggerFactory.getLogger(SurveysApiController.class);
+    private static final Logger log = LoggerFactory.getLogger(VotesApiController.class);
     //TODO Faire toutes les fonctions
 }

@@ -1,11 +1,8 @@
 import io.swagger.model.Survey;
 import io.swagger.service.SurveyService;
 import org.junit.*;
-import org.threeten.bp.OffsetDateTime;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -134,7 +131,7 @@ public class ServiceSurveyTest {
             if(s.getName().equals(name)) {
                 Assert.assertEquals(s.getName(), name);
                 Assert.assertEquals(s.getDescription(), description);
-                Assert.assertEquals(s.getIsAvailable(), true);
+                Assert.assertEquals(true,s.getIsAvailable());
                 //Assert.assertEquals(s.getEndDate(), date);
             }
     }
@@ -148,6 +145,6 @@ public class ServiceSurveyTest {
         Long id_survey = 2L;
         SurveyService.endSurvey(id_survey);
         Survey survey = SurveyService.getSurveyByID(id_survey);
-        Assert.assertEquals(survey.getIsAvailable(), false);
+        Assert.assertEquals(false,survey.getIsAvailable());
     }
 }

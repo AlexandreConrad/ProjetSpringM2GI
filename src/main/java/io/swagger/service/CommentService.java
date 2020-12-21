@@ -1,6 +1,6 @@
 package io.swagger.service;
 
-import io.swagger.api.SurveysApiController;
+import io.swagger.api.CommentsApiController;
 import io.swagger.model.Comment;
 import io.swagger.util.HibernateUtil;
 import org.hibernate.Session;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class CommentService {
 
-    private static final Logger log = LoggerFactory.getLogger(SurveysApiController.class);
+    private static final Logger log = LoggerFactory.getLogger(CommentsApiController.class);
 
     /**
      * Fonction qui ajoute un commentaire à un sondage
