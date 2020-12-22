@@ -2,7 +2,9 @@ DROP VIEW IF EXISTS "RESULTAT_COMPTE";
 DROP VIEW IF EXISTS "RESULTAT_DISPONIBLE";
 DROP VIEW IF EXISTS "RESULTAT_SUSCEPTIBLE";
 DROP VIEW IF EXISTS "RESULTAT";
-DROP VIEW IF EXISTS "RESULTAT_COMMENT";
+DROP VIEW IF EXISTS "RESULTAT_COMMENTS";
+DROP VIEW IF EXISTS MOST_POSSIBLE;
+DROP VIEW IF EXISTS MOST_MAYBE;
 
 DROP TABLE IF EXISTS "VOTE";
 DROP TABLE IF EXISTS "CHOICES";
@@ -30,7 +32,7 @@ INSERT INTO `survey` (`id_survey`, `name`, `description`, `endDate`, `isAvailabl
 -- Structure de la table `choices`
 --
 
- -- CREATE TABLE `choices` ( `id_choices` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`date` DATETIME NOT NULL,`id_survey` int(11) NOT NULL, FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`));
+-- CREATE TABLE `choices` ( `id_choices` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`date` DATETIME NOT NULL,`id_survey` int(11) NOT NULL, FOREIGN KEY (`id_survey`) REFERENCES `survey` (`id_survey`));
 
 CREATE TABLE `choices` ( `id_choices` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`date` DATETIME NOT NULL,`id_survey` int(11) NOT NULL, CONSTRAINT id_survey_choices FOREIGN KEY (`id_survey`) REFERENCES SURVEY (id_survey) ON DELETE CASCADE);
 
@@ -115,7 +117,7 @@ CREATE VIEW `resultat_compte` AS SELECT `resultat`.`Survey` AS `Survey`, `result
 -- Structure de la vue `resultat_disponible`
 --
 
-CREATE VIEW `resultat_disponible` AS SELECT `resultat`.`Survey` AS `Survey`, `resultat`.`Date` AS `Date`, `resultat`.`Choices` AS `Choices`, count(`resultat`.`Choices`) AS `Nombre de votes` FROM `resultat` WHERE `resultat`.`Choices` = 'Disponible' GROUP BY `resultat`.`Survey`, `resultat`.`Choices`, `resultat`.`Date` ORDER BY count(`resultat`.`Choices`) DESC LIMIT 0, 1;
+CREATE VIEW `resultat_disponible` AS SELECT `resultat`.`Survey` AS `Survey`, `resultat`.`Date` AS `Date`, `resultat`.`Choices` AS `Choices`, count(`resultat`.`Choices`) AS `Nombre de votes` FROM `resultat` WHERE `resultat`.`Choices` = 'Disponible' GROUP BY `resultat`.`Survey`, `resultat`.`Choices`, `resultat`.`Date` ORDER BY count(`resultat`.`Choices`) DESC LIMIT 0, 10;
 
 -- --------------------------------------------------------
 
@@ -123,7 +125,23 @@ CREATE VIEW `resultat_disponible` AS SELECT `resultat`.`Survey` AS `Survey`, `re
 -- Structure de la vue `resultat_susceptible`
 --
 
-CREATE VIEW `resultat_susceptible` AS SELECT `resultat`.`Survey` AS `Survey`, `resultat`.`Date` AS `Date`, `resultat`.`Choices` AS `Choices`, count(`resultat`.`Choices`) AS `Nombre de votes` FROM `resultat` WHERE `resultat`.`Choices` in ('Disponible','Peut-être') GROUP BY `resultat`.`Survey`, `resultat`.`Choices`, `resultat`.`Date` ORDER BY count(`resultat`.`Choices`) DESC LIMIT 0, 1;
+CREATE VIEW `resultat_susceptible` AS SELECT `resultat`.`Survey` AS `Survey`, `resultat`.`Date` AS `Date`, `resultat`.`Choices` AS `Choices`, count(`resultat`.`Choices`) AS `Nombre de votes` FROM `resultat` WHERE `resultat`.`Choices` in ('Disponible','Peut-être') GROUP BY `resultat`.`Survey`, `resultat`.`Choices`, `resultat`.`Date` ORDER BY count(`resultat`.`Choices`) DESC LIMIT 0, 10;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `MOST_MAYBE`
+-- Le plus de personne susceptible
+--
+CREATE VIEW "MOST_MAYBE" AS SELECT COUNT(O.NAME) AS "PARTICIPANTS", S.ID_SURVEY AS "ID_SURVEY", O.ID_OPTION AS "ID_OPTION", S.NAME AS "NAME", C.DATE AS "DATE" from SURVEY S JOIN CHOICES C ON C.ID_SURVEY = S.ID_SURVEY JOIN VOTE V ON V.ID_CHOICES = C.ID_CHOICES JOIN OPTION O ON O.ID_OPTION = V.ID_OPTION WHERE O.NAME IN ('Disponible', 'Peut-être') GROUP BY C.DATE, O.ID_OPTION, C.DATE, S.ID_SURVEY, S.NAME ORDER BY ID_SURVEY, PARTICIPANTS;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `MOST_POSSIBLE`
+-- Le plus de personne possible
+--
+CREATE VIEW "MOST_POSSIBLE" AS SELECT COUNT(O.NAME) AS "PARTICIPANTS", S.ID_SURVEY, O.ID_OPTION, S.NAME, C.DATE from SURVEY S JOIN CHOICES C ON C.ID_SURVEY = S.ID_SURVEY JOIN VOTE V ON V.ID_CHOICES = C.ID_CHOICES JOIN OPTION O ON O.ID_OPTION = V.ID_OPTION WHERE O.NAME IN ('Disponible') GROUP BY C.DATE, O.ID_OPTION, C.DATE, S.ID_SURVEY, S.NAME ORDER BY ID_SURVEY, PARTICIPANTS;
 
 --
 -- Contraintes pour les tables déchargées
