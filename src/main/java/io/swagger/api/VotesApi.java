@@ -7,6 +7,7 @@ package io.swagger.api;
 
 import io.swagger.annotations.*;
 import io.swagger.model.Choice;
+import io.swagger.model.Vote;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
 
@@ -21,16 +23,39 @@ import javax.validation.Valid;
 @RequestMapping(value = "/Alex57x/Projet/1.0.0")
 public interface VotesApi {
 
-    @ApiOperation(value = "Participer à un sondage", nickname = "postVote", notes = "Participation de l'utilisateur", response = Choice.class, tags = {"votes",})
+    @ApiOperation(value = "Participer à un sondage", nickname = "postVote", notes = "Participation de l'utilisateur", response = Vote.class, tags = {"votes",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Opération réussie", response = Choice.class),
+            @ApiResponse(code = 200, message = "Opération réussie", response = Vote.class),
             @ApiResponse(code = 400, message = "Manque des informations dans le corps."),
             @ApiResponse(code = 404, message = "Ressource introuvable"),
             @ApiResponse(code = 409, message = "Certaines informations ne respectent pas les conditions."),
             @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
-    @RequestMapping(value = "/votes/{surveyID}/{choiceID}",
+    @RequestMapping(value = "/votes/{optionID}/{choiceID}",
             produces = {"application/json"},
-            method = RequestMethod.PATCH)
-    ResponseEntity<Choice> postVote(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir des statistiques", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "ID du choix de la date", required = true) @PathVariable("choiceID") Long choiceID, @ApiParam(value = "Choix de l'utilisateur", required = true) @Valid @RequestBody Choice choice);
+            method = RequestMethod.POST)
+    ResponseEntity<Vote> postVote(@ApiParam(value = "ID de l'option qu'on souhaite", required = true) @PathVariable("optionID") Long optionID, @ApiParam(value = "ID du choix de la date", required = true) @PathVariable("choiceID") Long choiceID, @ApiParam(value = "Nom du participant", required = true) @Valid @RequestBody String auteur);
 
+    @ApiOperation(value = "Retourne tous les votes d'une option", nickname = "getVoteOption", notes = "Votes d'une option", response = Vote.class, tags = {"votes",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Opération réussie", response = Vote.class, responseContainer = "List"),
+            @ApiResponse(code = 400, message = "Manque des informations dans le corps."),
+            @ApiResponse(code = 404, message = "Ressource introuvable"),
+            @ApiResponse(code = 409, message = "Certaines informations ne respectent pas les conditions."),
+            @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
+    @RequestMapping(value = "/votes/{optionID}/option/",
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    ResponseEntity<List<Vote>> getVoteOption(@ApiParam(value = "ID de l'option", required = true) @PathVariable("optionID") Long optionID);
+
+    @ApiOperation(value = "Retourne tous les votes d'un choix", nickname = "getVoteChoice", notes = "Votes d'un choix", response = Vote.class, tags = {"votes",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Opération réussie", response = Vote.class, responseContainer = "List"),
+            @ApiResponse(code = 400, message = "Manque des informations dans le corps."),
+            @ApiResponse(code = 404, message = "Ressource introuvable"),
+            @ApiResponse(code = 409, message = "Certaines informations ne respectent pas les conditions."),
+            @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
+    @RequestMapping(value = "/votes/{choiceID}/choice/",
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    ResponseEntity<List<Vote>> getVoteChoice(@ApiParam(value = "ID du choix", required = true) @PathVariable("choiceID") Long choiceID);
 }
