@@ -36,6 +36,9 @@
         <mapping class="io.swagger.model.Comment"/>
         <mapping class="io.swagger.model.Option"/>
         <mapping class="io.swagger.model.Vote"/>
+        <mapping class="io.swagger.model.MostMaybe"/>
+        <mapping class="io.swagger.model.MostPossible"/>
+        <mapping class="io.swagger.model.Analytics"/>
 
     </session-factory>
 </hibernate-configuration>
