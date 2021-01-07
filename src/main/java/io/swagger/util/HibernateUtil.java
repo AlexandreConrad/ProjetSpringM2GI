@@ -31,10 +31,11 @@ public class HibernateUtil {
 
     /**
      * Retourne une session avec la base de données
+     *
      * @return session
      */
-    public static Session getSession(){
-        if(session == null)
+    public static Session getSession() {
+        if (session == null)
             openSession();
         return session;
     }

@@ -21,6 +21,7 @@ public class OptionsService {
 
     /**
      * Ajout d'une nouvelle option pour les sondages
+     *
      * @param optionName
      * @return Option
      */
@@ -40,6 +41,7 @@ public class OptionsService {
 
     /**
      * Retoune la liste de toutes les options possibles
+     *
      * @return options
      */
     public static List<Option> getOptions() {

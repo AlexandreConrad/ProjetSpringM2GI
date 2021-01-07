@@ -6,17 +6,16 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * Comment
  */
 
-/** Lombok */
+/**
+ * Lombok
+ */
 @Validated
 //@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -25,30 +24,34 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id_comments", "comments", "author", "id_survey"})
-@ToString(of = {"id_comments", "comments", "author", "id_survey"})
+@EqualsAndHashCode(of = {"idComment", "comment", "author", "idSurvey"})
+@ToString(of = {"idComment", "comment", "author", "idSurvey"})
 
 /** Hibernate*/
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Comment implements Serializable {
 
-    @JsonProperty("id_comments")
+    @JsonProperty("idComment")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id_comments;
+    @Column(name = "ID_COMMENT")
+    Integer idComment;
 
-    @JsonProperty("comments")
+    @JsonProperty("comment")
     @NonNull
-    String comments;
+    @Column(name = "COMMENT")
+    String comment;
 
     @JsonProperty("author")
     @NonNull
+    @Column(name = "AUTHOR")
     String author;
 
-    @JsonProperty("id_survey")
+    @JsonProperty("idSurvey")
     @NonNull
-    Long id_survey;
+    @Column(name = "ID_SURVEY")
+    Long idSurvey;
 
 }
 

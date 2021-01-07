@@ -30,9 +30,9 @@ public class ServiceCommentTest {
 
         //Vérifications des informations
         for( Comment c : comments )
-            if(c.getComments().equals(message)) {
-                Assert.assertEquals(c.getId_survey(), surveyID);
-                Assert.assertEquals(c.getComments(), message);
+            if(c.getComment().equals(message)) {
+                Assert.assertEquals(c.getIdSurvey(), surveyID);
+                Assert.assertEquals(c.getComment(), message);
                 Assert.assertEquals(c.getAuthor(), auteur);
             }
     }
@@ -46,6 +46,6 @@ public class ServiceCommentTest {
         Long idSurvey = 1L;
         List<Comment> comments = CommentService.getComments(idSurvey); //Récupération de tous les commentaires d'un sondage.
         for( Comment c : comments )
-            Assert.assertEquals(c.getId_survey(),idSurvey); // Vérification si les commentaires sont du bon sondage.
+            Assert.assertEquals(c.getIdSurvey(),idSurvey); // Vérification si les commentaires sont du bon sondage.
     }
 }

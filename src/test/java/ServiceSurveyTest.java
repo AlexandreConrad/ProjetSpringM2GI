@@ -20,7 +20,7 @@ public class ServiceSurveyTest {
     @Test
     public void getSurveyByID(){
         Survey surveyTest = SurveyService.getSurveyByID(1L);
-        Assert.assertEquals(surveyTest.getId_survey(),(Long)1L);
+        Assert.assertEquals(surveyTest.getIdSurvey(),(Long)1L);
         Assert.assertEquals("Anniversaire suprise pour Alexandre ?", surveyTest.getName());
         Assert.assertEquals(true, surveyTest.getIsAvailable());
         Assert.assertEquals("On fait une surprise, ne lui dites pas !!", surveyTest.getDescription());
@@ -84,7 +84,7 @@ public class ServiceSurveyTest {
 
         //On test les changements
         Survey newSurvey = SurveyService.getSurveyByID(id_survey);
-        Assert.assertEquals(id_survey,newSurvey.getId_survey());
+        Assert.assertEquals(id_survey,newSurvey.getIdSurvey());
         Assert.assertEquals(bool,newSurvey.getIsAvailable());
         Assert.assertNotEquals(name,newSurvey.getName());
         Assert.assertNotEquals(description,newSurvey.getDescription());
@@ -100,7 +100,7 @@ public class ServiceSurveyTest {
         SurveyService.deleteSurvey(id_survey);
         List<Survey> surveysTest = SurveyService.getSurveys();
         for (Survey s: surveysTest)
-            Assert.assertNotEquals(s.getId_survey(), id_survey);
+            Assert.assertNotEquals(s.getIdSurvey(), id_survey);
     }
 
     /**

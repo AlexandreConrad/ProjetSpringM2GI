@@ -36,8 +36,8 @@ public class CommentsApiController implements CommentsApi {
     public ResponseEntity<Comment> addComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Nom de l'auteur", required = true) @PathVariable("auteur") String auteur, @ApiParam(value = "Ajout d'un commentaire.", required = true) @Valid @RequestBody String message) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            Comment comment = CommentService.addComments(surveyID,message,auteur);
-            return new ResponseEntity<Comment>(comment,HttpStatus.OK);
+            Comment comment = CommentService.addComments(surveyID, message, auteur);
+            return new ResponseEntity<Comment>(comment, HttpStatus.OK);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Comment>(HttpStatus.NOT_IMPLEMENTED);
@@ -47,7 +47,7 @@ public class CommentsApiController implements CommentsApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             List<Comment> comments = CommentService.getComments(surveyID);
-            return new ResponseEntity<List<Comment>>(comments,HttpStatus.OK);
+            return new ResponseEntity<List<Comment>>(comments, HttpStatus.OK);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<List<Comment>>(HttpStatus.NOT_IMPLEMENTED);

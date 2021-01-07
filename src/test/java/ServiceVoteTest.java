@@ -32,8 +32,8 @@ public class ServiceVoteTest {
         for( Vote v : votes ){
             if(v.getAuthor().equals(auteur)) {
                 Assert.assertEquals(v.getAuthor(), votePost.getAuthor());
-                Assert.assertEquals(v.getId_option(), votePost.getId_option());
-                Assert.assertEquals(v.getId_choices(), votePost.getId_choices());
+                Assert.assertEquals(v.getIdOption(), votePost.getIdOption());
+                Assert.assertEquals(v.getIdChoice(), votePost.getIdChoice());
             }
         }
     }
@@ -47,7 +47,7 @@ public class ServiceVoteTest {
         Long optionID = 1L;
         List<Vote> votes = VoteService.getVoteOption(optionID); //Récupération de les votes depuis une option.
         for( Vote v : votes )
-            Assert.assertEquals(v.getId_option(),optionID); // Vérification si les votes sont de la bonne option
+            Assert.assertEquals(v.getIdOption(),optionID); // Vérification si les votes sont de la bonne option
     }
 
     /**
@@ -59,6 +59,6 @@ public class ServiceVoteTest {
         Long choiceID = 1L;
         List<Vote> votes = VoteService.getVoteOption(choiceID); //Récupération de les votes depuis un bon choix.
         for( Vote v : votes )
-            Assert.assertEquals(v.getId_option(),choiceID); // Vérification si les votes sont du bon choix
+            Assert.assertEquals(v.getIdOption(),choiceID); // Vérification si les votes sont du bon choix
     }
 }

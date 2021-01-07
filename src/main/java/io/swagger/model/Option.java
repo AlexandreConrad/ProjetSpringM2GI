@@ -6,17 +6,16 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * Option
  */
 
-/** Lombok */
+/**
+ * Lombok
+ */
 @Validated
 //@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -25,21 +24,22 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id_option", "name"})
-@ToString(of = {"id_option", "name"})
+@EqualsAndHashCode(of = {"idOption", "name"})
+@ToString(of = {"idOption", "name"})
 
 /** Hibernate*/
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Option implements Serializable {
 
-    @JsonProperty("id_option")
+    @JsonProperty("idOption")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id_option;
+    @Column(name = "ID_OPTION")
+    Long idOption;
 
     @JsonProperty("name")
     @NonNull
+    @Column(name = "NAME")
     String name;
-
 }

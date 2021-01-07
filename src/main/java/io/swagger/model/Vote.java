@@ -1,22 +1,23 @@
 package io.swagger.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * Vote
  */
 
-/** Lombok */
+/**
+ * Lombok
+ */
 @Validated
 //@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -25,29 +26,38 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id_vote", "author", "id_choices", "id_option"})
-@ToString(of = {"id_vote", "author", "id_choices", "id_option"})
+@EqualsAndHashCode(of = {"idVote", "author", "idChoice", "idOption"})
+@ToString(of = {"idVote", "author", "idChoice", "idOption"})
 
 /** Hibernate*/
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Vote implements Serializable {
 
-    @JsonProperty("id_vote")
+    @JsonProperty("idVote")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id_vote;
+    @Column(name = "ID_VOTE")
+    Long idVote;
 
     @JsonProperty("author")
     @NonNull
+    @Column(name = "AUTHOR")
     String author;
 
-    @JsonProperty("id_choices")
+    @JsonProperty("idChoice")
     @NonNull
-    Long id_choices;
+    @Column(name = "ID_CHOICE")
+    Long idChoice;
 
-    @JsonProperty("id_option")
+    @JsonProperty("idOption")
     @NonNull
-    Long id_option;
+    @Column(name = "ID_OPTION")
+    Long idOption;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ApiModelProperty(hidden = true)
+    @JoinColumn(name = "ID_OPTION", referencedColumnName = "ID_OPTION", insertable = false, updatable = false)
+    Option option;
 }

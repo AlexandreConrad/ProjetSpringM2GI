@@ -2,7 +2,6 @@ package io.swagger.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
-import io.swagger.model.Choice;
 import io.swagger.model.Vote;
 import io.swagger.service.VoteService;
 import org.slf4j.Logger;
@@ -35,8 +34,8 @@ public class VotesApiController implements VotesApi {
     public ResponseEntity<Vote> postVote(@ApiParam(value = "ID de l'option qu'on souhaite", required = true) @PathVariable("optionID") Long optionID, @ApiParam(value = "ID du choix de la date", required = true) @PathVariable("choiceID") Long choiceID, @ApiParam(value = "Nom du participant", required = true) @Valid @RequestBody String auteur) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            Vote vote = VoteService.postVote(auteur,choiceID,optionID);
-            return new ResponseEntity<Vote>(vote,HttpStatus.OK);
+            Vote vote = VoteService.postVote(auteur, choiceID, optionID);
+            return new ResponseEntity<Vote>(vote, HttpStatus.OK);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Vote>(HttpStatus.NOT_IMPLEMENTED);
@@ -46,7 +45,7 @@ public class VotesApiController implements VotesApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             List<Vote> votes = VoteService.getVoteOption(optionID);
-            return new ResponseEntity<List<Vote>>(votes,HttpStatus.OK);
+            return new ResponseEntity<List<Vote>>(votes, HttpStatus.OK);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<List<Vote>>(HttpStatus.NOT_IMPLEMENTED);
@@ -54,11 +53,9 @@ public class VotesApiController implements VotesApi {
 
     public ResponseEntity<List<Vote>> getVoteChoice(@ApiParam(value = "ID du choix", required = true) @PathVariable("choiceID") Long choiceID) {
         String accept = request.getHeader("Accept");
-        System.out.println("JE SUIS LA 0");
         if (accept != null && accept.contains("application/json")) {
-            System.out.println("JE SUIS LA 1");
             List<Vote> votes = VoteService.getVoteChoice(choiceID);
-            return new ResponseEntity<List<Vote>>(votes,HttpStatus.OK);
+            return new ResponseEntity<List<Vote>>(votes, HttpStatus.OK);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<List<Vote>>(HttpStatus.NOT_IMPLEMENTED);
