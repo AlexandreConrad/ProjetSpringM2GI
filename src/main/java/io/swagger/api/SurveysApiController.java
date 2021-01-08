@@ -2,6 +2,7 @@ package io.swagger.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
+import io.swagger.model.Choice;
 import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
 import io.swagger.service.SurveyService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.io.IOException;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
 
@@ -44,7 +46,14 @@ public class SurveysApiController implements SurveysApi {
             Survey survey = SurveyService.deleteSurvey(surveyID);
             return new ResponseEntity<Survey>(survey, HttpStatus.OK);
         }
-        //TODO Retourne un code d'erreur pour les différents cas possibles
+        else if (accept.contains("404")) {
+            return new ResponseEntity<Survey>(HttpStatus.NOT_FOUND);
+        }
+        else if (accept.contains("500"))
+        {
+            return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -59,7 +68,23 @@ public class SurveysApiController implements SurveysApi {
             Survey survey = SurveyService.endSurvey(surveyID);
             return new ResponseEntity<Survey>(survey, HttpStatus.OK);
         }
-        //TODO Retourne un code d'erreur pour les différents cas possibles
+        else if (accept.contains("400"))
+        {
+            return new ResponseEntity<Survey>(HttpStatus.BAD_REQUEST);
+        }
+        else if (accept.contains("404"))
+        {
+            return new ResponseEntity<Survey>(HttpStatus.NOT_FOUND);
+        }
+        else if (accept.contains("409"))
+        {
+            return new ResponseEntity<Survey>(HttpStatus.CONFLICT);
+        }
+        else if (accept.contains("500"))
+        {
+            return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -73,6 +98,13 @@ public class SurveysApiController implements SurveysApi {
         if (accept != null && accept.contains("application/json")) {
             Survey survey = SurveyService.getSurveyByID(surveyID);
             return new ResponseEntity<Survey>(survey, HttpStatus.OK);
+        }
+        else if (accept.contains("404")) {
+            return new ResponseEntity<Survey>(HttpStatus.NOT_FOUND);
+        }
+        else if (accept.contains("500"))
+        {
+            return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
@@ -88,6 +120,13 @@ public class SurveysApiController implements SurveysApi {
             List<Survey> surveys = SurveyService.getSurveys();
             return new ResponseEntity<List<Survey>>(surveys,HttpStatus.OK);
         }
+        else if (accept.contains("404")) {
+            return new ResponseEntity<List<Survey>>(HttpStatus.NOT_FOUND);
+        }
+        else if (accept.contains("500"))
+        {
+            return new ResponseEntity<List<Survey>>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<List<Survey>>(HttpStatus.NOT_IMPLEMENTED);
     }
@@ -102,6 +141,13 @@ public class SurveysApiController implements SurveysApi {
             List<Survey> surveys = SurveyService.getSurveysIsActives();
             return new ResponseEntity<List<Survey>>(surveys,HttpStatus.OK);
         }
+        else if (accept.contains("404")) {
+            return new ResponseEntity<List<Survey>>(HttpStatus.NOT_FOUND);
+        }
+        else if (accept.contains("500"))
+        {
+            return new ResponseEntity<List<Survey>>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<List<Survey>>(HttpStatus.NOT_IMPLEMENTED);
     }
@@ -115,6 +161,13 @@ public class SurveysApiController implements SurveysApi {
         if (accept != null && accept.contains("application/json")) {
             List<Survey> surveys = SurveyService.getSurveysIsExpireds();
             return new ResponseEntity<List<Survey>>(surveys,HttpStatus.OK);
+        }
+        else if (accept.contains("404")) {
+            return new ResponseEntity<List<Survey>>(HttpStatus.NOT_FOUND);
+        }
+        else if (accept.contains("500"))
+        {
+            return new ResponseEntity<List<Survey>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<List<Survey>>(HttpStatus.NOT_IMPLEMENTED);
@@ -132,6 +185,22 @@ public class SurveysApiController implements SurveysApi {
             Survey survey = SurveyService.updateSurvey(surveyID,body);
             return new ResponseEntity<Survey>(survey,HttpStatus.OK);
         }
+        else if (accept.contains("400"))
+        {
+            return new ResponseEntity<Survey>(HttpStatus.BAD_REQUEST);
+        }
+        else if (accept.contains("404"))
+        {
+            return new ResponseEntity<Survey>(HttpStatus.NOT_FOUND);
+        }
+        else if (accept.contains("409"))
+        {
+            return new ResponseEntity<Survey>(HttpStatus.CONFLICT);
+        }
+        else if (accept.contains("500"))
+        {
+            return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
     }
@@ -146,6 +215,18 @@ public class SurveysApiController implements SurveysApi {
         if (accept != null && accept.contains("application/json")) {
             Survey survey = SurveyService.createSurvey(sondage);
             return new ResponseEntity<Survey>(survey,HttpStatus.OK);
+        }
+        else if (accept.contains("400"))
+        {
+            return new ResponseEntity<Survey>(HttpStatus.BAD_REQUEST);
+        }
+        else if (accept.contains("409"))
+        {
+            return new ResponseEntity<Survey>(HttpStatus.CONFLICT);
+        }
+        else if (accept.contains("500"))
+        {
+            return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
