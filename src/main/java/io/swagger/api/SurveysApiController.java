@@ -2,7 +2,6 @@ package io.swagger.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
-import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
 import io.swagger.service.SurveyService;
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
@@ -35,6 +35,7 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Supprime un survey depuis un surveyID
+     *
      * @param surveyID
      * @return
      */
@@ -50,6 +51,7 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Clôture un sondage
+     *
      * @param surveyID
      * @return
      */
@@ -65,6 +67,7 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Récupération d'un survey à l'aide d'un ID
+     *
      * @param surveyID
      * @return survey
      */
@@ -80,13 +83,14 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Récupération de tous les surveys
+     *
      * @return List<survey>
      */
     public ResponseEntity<List<Survey>> getSurveys() {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             List<Survey> surveys = SurveyService.getSurveys();
-            return new ResponseEntity<List<Survey>>(surveys,HttpStatus.OK);
+            return new ResponseEntity<List<Survey>>(surveys, HttpStatus.OK);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<List<Survey>>(HttpStatus.NOT_IMPLEMENTED);
@@ -94,13 +98,14 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Récupération de tous les surveys actifs
+     *
      * @return List<Survey>
      */
     public ResponseEntity<List<Survey>> getSurveysIsActifs() {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             List<Survey> surveys = SurveyService.getSurveysIsActives();
-            return new ResponseEntity<List<Survey>>(surveys,HttpStatus.OK);
+            return new ResponseEntity<List<Survey>>(surveys, HttpStatus.OK);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<List<Survey>>(HttpStatus.NOT_IMPLEMENTED);
@@ -108,13 +113,14 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Récupération de tous les surveys inactifs
+     *
      * @return List<Survey>
      */
     public ResponseEntity<List<Survey>> getSurveysIsInactifs() {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             List<Survey> surveys = SurveyService.getSurveysIsExpireds();
-            return new ResponseEntity<List<Survey>>(surveys,HttpStatus.OK);
+            return new ResponseEntity<List<Survey>>(surveys, HttpStatus.OK);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<List<Survey>>(HttpStatus.NOT_IMPLEMENTED);
@@ -122,6 +128,7 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Mise a jour d'un survey
+     *
      * @param surveyID
      * @param body
      * @return Survey
@@ -129,8 +136,8 @@ public class SurveysApiController implements SurveysApi {
     public ResponseEntity<Survey> updateSurvey(@ApiParam(value = "Identifiant du sondage à modifier.", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Sondage modifié", required = true) @Valid @RequestBody Survey body) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            Survey survey = SurveyService.updateSurvey(surveyID,body);
-            return new ResponseEntity<Survey>(survey,HttpStatus.OK);
+            Survey survey = SurveyService.updateSurvey(surveyID, body);
+            return new ResponseEntity<Survey>(survey, HttpStatus.OK);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
@@ -138,14 +145,15 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Création d'un sondage
-     * @param sondage
+     *
+     * @param Survey
      * @return
      */
-    public ResponseEntity<Survey> createSurvey(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.", required = true) @Valid @RequestBody Sondage sondage) {
+    public ResponseEntity<Survey> createSurvey(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.", required = true) @Valid @RequestBody Survey sondage) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             Survey survey = SurveyService.createSurvey(sondage);
-            return new ResponseEntity<Survey>(survey,HttpStatus.OK);
+            return new ResponseEntity<Survey>(survey, HttpStatus.OK);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);

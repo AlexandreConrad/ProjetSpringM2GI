@@ -16,6 +16,7 @@ public class Swagger2SpringBoot implements CommandLineRunner {
         new SpringApplication(Swagger2SpringBoot.class).run(args);
     }
 
+
     @Override
     public void run(String... arg0) {
         if (arg0.length > 0 && arg0[0].equals("exitcode")) {

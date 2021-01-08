@@ -1,6 +1,6 @@
 package io.swagger.service;
 
-import io.swagger.api.SurveysApiController;
+import io.swagger.api.CommentsApiController;
 import io.swagger.model.Comment;
 import io.swagger.util.HibernateUtil;
 import org.hibernate.Session;
@@ -19,19 +19,20 @@ import java.util.List;
  */
 public class CommentService {
 
-    private static final Logger log = LoggerFactory.getLogger(SurveysApiController.class);
+    private static final Logger log = LoggerFactory.getLogger(CommentsApiController.class);
 
     /**
      * Fonction qui ajoute un commentaire à un sondage
+     *
      * @param surveyID
      * @param message
      * @return
      */
-    public static Comment addComments(Long surveyID, String message,String auteur) {
+    public static Comment addComments(Long surveyID, String message, String auteur) {
         //Création du commentaire avec les informations
         Comment comment = new Comment();
-        comment.setComments(message);
-        comment.setId_survey(surveyID);
+        comment.setComment(message);
+        comment.setIdSurvey(surveyID);
         comment.setAuthor(auteur);
 
         //Persistance dans la base de données
@@ -45,6 +46,7 @@ public class CommentService {
 
     /**
      * Fonction qui retourne tous les commentaires d'un sondage
+     *
      * @param surveyID
      * @return comments
      */
@@ -54,7 +56,7 @@ public class CommentService {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Comment> cq = builder.createQuery(Comment.class);
         Root<Comment> stud = cq.from(Comment.class);
-        cq.select(stud).where(builder.equal(stud.get("id_survey"),surveyID));
+        cq.select(stud).where(builder.equal(stud.get("idSurvey"), surveyID));
         Query<Comment> query = session.createQuery(cq);
         List<Comment> comments = query.getResultList();
         transaction.commit();//Annule les changements en cas de problème
