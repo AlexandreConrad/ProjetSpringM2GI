@@ -1,6 +1,7 @@
 package io.swagger.service;
 
 import io.swagger.api.SurveysApiController;
+import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
 import io.swagger.util.HibernateUtil;
 import org.hibernate.Session;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -107,10 +109,10 @@ public class SurveyService {
     /**
      * Mise a jour d'un survey depuis une ID.
      * @param surveyID
-     * @param update
+     * @param updateSurvey
      * @return survey
      */
-    public static Survey updateSurvey(Long surveyID, Survey update) {
+    public static Survey updateSurvey(Long surveyID, Survey updateSurvey) {
 
         /** Test de mise a jour
          {
@@ -125,13 +127,77 @@ public class SurveyService {
         Session session = HibernateUtil.getSession();//Ouverture d'une session
         Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
         Survey survey = session.load(Survey.class, surveyID);//Récupération du sondage
+
         //Modification par les nouvelles valeurs
-        survey.setName(update.getName());
-        survey.setDescription(update.getDescription());
-        survey.setIsAvailable(update.getIsAvailable());
-        survey.setEndDate(update.getEndDate());
+        survey.setName(updateSurvey.getName());
+        survey.setDescription(updateSurvey.getDescription());
+        survey.setIsAvailable(updateSurvey.getIsAvailable());
+        survey.setEndDate(updateSurvey.getEndDate());
+
+        //Mise à jour du survey
+        session.update(survey);
+
         transaction.commit();
         log.info("Fonction updateSurvey => OK");
+        return survey;
+    }
+
+    /**
+     * Fonction qui permet la clôture d'un survey
+     * @param surveyID
+     * @return
+     */
+    public static Survey endSurvey(Long surveyID) {
+
+        Session session = HibernateUtil.getSession();//Ouverture d'une session
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaUpdate<Survey> update = builder.createCriteriaUpdate(Survey.class);
+        Root<Survey> root = update.from(Survey.class);
+
+        update.set(root.get("isAvailable"),0);
+        update.where(builder.equal(root.get("id_survey"),surveyID));
+        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
+        session.createQuery(update).executeUpdate();
+
+        transaction.commit();
+        log.info("Fonction endSurvey => OK");
+        return null;
+
+        /**  Code à retenir pour un select
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Survey> cq = builder.createQuery(Survey.class);
+        Root<Survey> stud = cq.from(Survey.class);
+        cq.select(stud).where(builder.equal(stud.get("id_survey"),surveyID));
+        Query<Survey> query = session.createQuery(cq);
+        List<Survey> results = query.getResultList();
+
+        for(Survey s : results)
+            System.out.println(s.getName());
+        **/
+    }
+
+    /**
+     * Fonction qui permet la création d'un Survey
+     * @param sondage
+     * @return
+     */
+    public static Survey createSurvey(Sondage sondage) {
+
+        //Création du survey avec les informations
+        Survey survey = new Survey();
+        survey.setIsAvailable(true);
+        survey.setName(sondage.getName());
+        survey.setDescription(sondage.getDescription());
+        Timestamp ts = new Timestamp(1000 * sondage.getEndDate().toEpochSecond());
+        survey.setEndDate(ts);
+
+        //Persistance dans la base de données
+        Session session = HibernateUtil.getSession();//Ouverture d'une session
+        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
+        session.persist(survey);
+        transaction.commit();
+        log.info("Fonction createSurvey => OK");
+
         return survey;
     }
 }
