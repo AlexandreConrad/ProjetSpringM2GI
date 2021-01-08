@@ -2,7 +2,7 @@ package io.swagger.service;
 
 import io.swagger.api.ChoicesApiController;
 import io.swagger.model.Choice;
-import io.swagger.model.Option;
+
 import io.swagger.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,7 +20,6 @@ import java.util.List;
 public class ChoiceService {
 
     private static final Logger log = LoggerFactory.getLogger(ChoicesApiController.class);
-    //TODO Faire toutes les fonctions
 
     /**
      * Retourne tous les choix d'un sondage
