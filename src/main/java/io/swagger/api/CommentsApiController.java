@@ -3,6 +3,7 @@ package io.swagger.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.model.Comment;
+import io.swagger.model.Survey;
 import io.swagger.service.CommentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,18 @@ public class CommentsApiController implements CommentsApi {
             Comment comment = CommentService.addComments(surveyID,message,auteur);
             return new ResponseEntity<Comment>(comment,HttpStatus.OK);
         }
+        else if (accept.contains("400"))
+        {
+            return new ResponseEntity<Comment>(HttpStatus.BAD_REQUEST);
+        }
+        else if (accept.contains("409"))
+        {
+            return new ResponseEntity<Comment>(HttpStatus.CONFLICT);
+        }
+        else if (accept.contains("500"))
+        {
+            return new ResponseEntity<Comment>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Comment>(HttpStatus.NOT_IMPLEMENTED);
     }
@@ -48,6 +61,14 @@ public class CommentsApiController implements CommentsApi {
         if (accept != null && accept.contains("application/json")) {
             List<Comment> comments = CommentService.getComments(surveyID);
             return new ResponseEntity<List<Comment>>(comments,HttpStatus.OK);
+        }
+        else if (accept.contains("404"))
+        {
+            return new ResponseEntity<List<Comment>>(HttpStatus.CONFLICT);
+        }
+        else if (accept.contains("500"))
+        {
+            return new ResponseEntity<List<Comment>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<List<Comment>>(HttpStatus.NOT_IMPLEMENTED);
