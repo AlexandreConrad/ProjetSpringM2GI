@@ -161,30 +161,40 @@
 								"method": "PUT",
 								"header": [
 									{
-										"key": "Content-Type",
-										"value": "*/*"
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"isAvailable\": false,\n    \"endDate\": \"<dateTime>\",\n    \"comments\": [\n        {\n            \"id\": \"<integer>\",\n            \"comments\": \"<string>\"\n        },\n        {\n            \"id\": \"<integer>\",\n            \"comments\": \"<string>\"\n        }\n    ],\n    \"votes\": [\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        },\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        }\n    ]\n}",
+									"raw": "{\n    \"id_survey\": <long>,\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"isAvailable\": <boolean>,\n    \"endDate\": <dateTime>\n}",
 									"options": {
 										"raw": {}
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/surveys/:surveyID",
+									"protocol": "http",
 									"host": [
-										"{{baseUrl}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
+										"Alex57x",
+										"Projet",
+										"1.0.0",
+										"Alex57x",
+										"Projet",
+										"1.0.0",
 										"surveys",
 										":surveyID"
 									],
 									"variable": [
 										{
 											"key": "surveyID",
-											"value": "<long>",
+											"value": "",
 											"description": "(Required) Identifiant du sondage à modifier."
 										}
 									]
@@ -856,39 +866,34 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "Content-Type",
-								"value": "multipart/form-data"
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+
 							}
 						],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "<string>",
-									"type": "text"
-								},
-								{
-									"key": "description",
-									"value": "<string>",
-									"type": "text"
-								},
-								{
-									"key": "endDate",
-									"value": "<dateTime>",
-									"type": "text"
-								}
-							],
+							"mode": "raw",
+							"raw": "{\n         \"name\": \"Nouveau sondage\",\n         \"description\": \"ceci est un nouveau sondage !\",\n         \"endDate\": 1606669212000\n         }",
 							"options": {
-								"formdata": {}
+								"raw": {}
 							}
 						},
+
 						"url": {
-							"raw": "{{baseUrl}}/surveys",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/surveys",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"surveys"
 							]
 						}
@@ -1533,13 +1538,13 @@
 							{
 								"key": "Accept",
 								"value": "application/json",
-								"type": "text"
+								"type": "timestamp"
 
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "\"date\": \"<dateTime>\"",
+							"raw": "",
 							"options": {
 								"raw": {}
 							}
@@ -2324,31 +2329,47 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "Content-Type",
-								"value": "*/*"
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
 							}
+
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"<long>\",\n    \"message\": \"<string>\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {}
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/comments/:surveyID",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/comments/:surveyID/:author",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"comments",
-								":surveyID"
+								":surveyID",
+								":author"
 							],
 							"variable": [
 								{
 									"key": "surveyID",
 									"value": "<long>",
 									"description": "(Required) ID du sondage pour lequel on souhaite les commentaires"
+								},
+								{
+									"key": "author",
+									"value": "string",
+									"description": "(Required) Nom de l'auteur du commentaire"
 								}
 							]
 						},
