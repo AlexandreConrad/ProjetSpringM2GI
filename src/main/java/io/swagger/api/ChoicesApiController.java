@@ -36,20 +36,20 @@ public class ChoicesApiController implements ChoicesApi {
         this.request = request;
     }
 
-    public ResponseEntity<List<InlineResponse200>> getChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir les choix", required = true) @PathVariable("surveyID") Long surveyID) {
+    public ResponseEntity<List<Choice>> getChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir les choix", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         Survey survey = SurveyService.getSurveyByID(surveyID);
 
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<List<InlineResponse200>>(objectMapper.readValue("[ {  \"answers\" : {    \"unavailable\" : [ \"unavailable\", \"unavailable\" ],    \"available\" : [ \"available\", \"available\" ],    \"unknown\" : [ \"unknown\", \"unknown\" ]  },  \"id\" : 0,  \"option\" : \"2000-01-23T04:56:07.000+00:00\"}, {  \"answers\" : {    \"unavailable\" : [ \"unavailable\", \"unavailable\" ],    \"available\" : [ \"available\", \"available\" ],    \"unknown\" : [ \"unknown\", \"unknown\" ]  },  \"id\" : 0,  \"option\" : \"2000-01-23T04:56:07.000+00:00\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                return new ResponseEntity<List<Choice>>(objectMapper.readValue("[ {  \"answers\" : {    \"unavailable\" : [ \"unavailable\", \"unavailable\" ],    \"available\" : [ \"available\", \"available\" ],    \"unknown\" : [ \"unknown\", \"unknown\" ]  },  \"id\" : 0,  \"option\" : \"2000-01-23T04:56:07.000+00:00\"}, {  \"answers\" : {    \"unavailable\" : [ \"unavailable\", \"unavailable\" ],    \"available\" : [ \"available\", \"available\" ],    \"unknown\" : [ \"unknown\", \"unknown\" ]  },  \"id\" : 0,  \"option\" : \"2000-01-23T04:56:07.000+00:00\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<InlineResponse200>>(HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<List<Choice>>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 
-        return new ResponseEntity<List<InlineResponse200>>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<List<Choice>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<Choice> getDeleteById(@ApiParam(value = "ID du sondage", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "ID du choix", required = true) @PathVariable("choiceID") Long choiceID) {

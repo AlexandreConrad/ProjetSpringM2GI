@@ -7,7 +7,6 @@ package io.swagger.api;
 
 import io.swagger.annotations.*;
 import io.swagger.model.Choice;
-import io.swagger.model.InlineResponse200;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,15 +22,15 @@ import java.util.List;
 @RequestMapping(value = "/Alex57x/Projet/1.0.0")
 public interface ChoicesApi {
 
-    @ApiOperation(value = "Liste des choix possibles", nickname = "getChoiceById", notes = "Retourne la liste de tous les choix d'un sondage", response = InlineResponse200.class, responseContainer = "List", tags = {"choices",})
+    @ApiOperation(value = "Liste des choix possibles", nickname = "getChoiceById", notes = "Retourne la liste de tous les choix d'un sondage", response = Choice.class, responseContainer = "List", tags = {"choices",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "opération réussie", response = InlineResponse200.class, responseContainer = "List"),
+            @ApiResponse(code = 200, message = "opération réussie", response = Choice.class, responseContainer = "List"),
             @ApiResponse(code = 404, message = "Ressource introuvable."),
             @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
     @RequestMapping(value = "/choices/{surveyID}",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<List<InlineResponse200>> getChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir les choix", required = true) @PathVariable("surveyID") Long surveyID);
+    ResponseEntity<List<Choice>> getChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir les choix", required = true) @PathVariable("surveyID") Long surveyID);
 
 
     @ApiOperation(value = "Supprime un choix", nickname = "getDeleteById", notes = "Supprime définitivement un choix", response = Choice.class, tags = {"choices",})
