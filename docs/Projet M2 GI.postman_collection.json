@@ -16,20 +16,36 @@
 							"name": "Retourne un sondage.",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+
+								],
 								"url": {
-									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/surveys/{surveyId}",
+									"protocol": "http",
 									"host": [
-										"{{baseUrl}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
+										"Alex57x",
+										"Projet",
+										"1.0.0",
+										"Alex57x",
+										"Projet",
+										"1.0.0",
 										"surveys",
-										":surveyID"
+										":surveyId"
 									],
+
 									"variable": [
 										{
-											"key": "surveyID",
-											"value": "<long>",
+											"key" : ":surveyId",
+											"value": "1",
 											"description": "(Required) ID du sondage"
 										}
 									]
@@ -367,20 +383,35 @@
 							"name": "Supprime un sondage",
 							"request": {
 								"method": "DELETE",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+
+									}
+								],
 								"url": {
-									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"raw": "http://localhost:8081/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/surveys/:surveyID",
+									"protocol": "http",
 									"host": [
-										"{{baseUrl}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
+										"Alex57x",
+										"Projet",
+										"1.0.0",
+										"Alex57x",
+										"Projet",
+										"1.0.0",
 										"surveys",
 										":surveyID"
 									],
 									"variable": [
 										{
 											"key": "surveyID",
-											"value": "<long>",
+											"value": "",
 											"description": "(Required) Identifiant du sondage à supprimer."
 										}
 									]
@@ -493,20 +524,35 @@
 							"name": "Clôture le sondage.",
 							"request": {
 								"method": "PATCH",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+
+									}
+								],
 								"url": {
-									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/surveys/:surveyID",
+									"protocol": "http",
 									"host": [
-										"{{baseUrl}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
+										"Alex57x",
+										"Projet",
+										"1.0.0",
+										"Alex57x",
+										"Projet",
+										"1.0.0",
 										"surveys",
 										":surveyID"
 									],
 									"variable": [
 										{
 											"key": "surveyID",
-											"value": "<long>",
+											"value": "",
 											"description": "(Required) ID du sondage pour lequel on souhaite la fin"
 										}
 									]
@@ -1342,20 +1388,35 @@
 					"name": "Liste des choix possibles",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+
+						],
 						"url": {
-							"raw": "{{baseUrl}}/choices/:surveyID",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/choices/:surveyID",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"choices",
 								":surveyID"
 							],
 							"variable": [
 								{
 									"key": "surveyID",
-									"value": "<long>",
+									"value": "",
 									"description": "(Required) ID du sondage pour lequel on souhaite avoir les choix"
 								}
 							]
@@ -1470,30 +1531,40 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "Content-Type",
-								"value": "*/*"
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}",
+							"raw": "\"date\": \"<dateTime>\"",
 							"options": {
 								"raw": {}
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/choices/:surveyID",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/choices/:surveyID",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"choices",
 								":surveyID"
 							],
 							"variable": [
 								{
 									"key": "surveyID",
-									"value": "<long>",
+									"value": "",
 									"description": "(Required) ID du sondage pour lequel on souhaite ajouter un choix"
 								}
 							]
@@ -1655,26 +1726,35 @@
 					"name": "Supprime un choix",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+
+						],
 						"url": {
-							"raw": "{{baseUrl}}/choices/:surveyID/:choiceID",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/choices/:choiceID",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"choices",
-								":surveyID",
 								":choiceID"
 							],
 							"variable": [
 								{
-									"key": "surveyID",
-									"value": "<long>",
-									"description": "(Required) ID du sondage"
-								},
-								{
 									"key": "choiceID",
-									"value": "<long>",
+									"value": "",
 									"description": "(Required) ID du choix"
 								}
 							]
@@ -1802,142 +1882,31 @@
 			"name": "analytics/{survey ID}",
 			"item": [
 				{
-					"name": "Statistiques du sondage",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/analytics/:surveyID",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"analytics",
-								":surveyID"
-							],
-							"variable": [
-								{
-									"key": "surveyID",
-									"value": "<long>",
-									"description": "(Required) ID du sondage pour lequel on souhaite avoir des statistiques"
-								}
-							]
-						},
-						"description": "Retourne les statistiques liées au sondage passé en paramètre"
-					},
-					"response": [
-						{
-							"name": "Echec de connexion à la base de données.",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/analytics/:surveyID",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"analytics",
-										":surveyID"
-									],
-									"variable": [
-										{
-											"key": "surveyID"
-										}
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Opération réussie",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/analytics/:surveyID",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"analytics",
-										":surveyID"
-									],
-									"variable": [
-										{
-											"key": "surveyID"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"available\": [\n  \"culpa\",\n  \"est e\"\n ],\n \"unavailable\": [\n  \"velit voluptate nisi\",\n  \"fugiat\"\n ],\n \"unknown\": [\n  \"magna Excepteur aute ut\",\n  \"labore cillum Ut ut\"\n ]\n}"
-						},
-						{
-							"name": "Ressource introuvable.",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/analytics/:surveyID",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"analytics",
-										":surveyID"
-									],
-									"variable": [
-										{
-											"key": "surveyID"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						}
-					]
-				},
-				{
 					"name": "Date avec le plus de personnes potentiellement présentes",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+
+							}
+						],
 						"url": {
-							"raw": "{{baseUrl}}/analytics/:surveyID/maybe",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/analytics/:surveyID/maybe",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"analytics",
 								":surveyID",
 								"maybe"
@@ -1945,7 +1914,7 @@
 							"variable": [
 								{
 									"key": "surveyID",
-									"value": "<long>",
+									"value": "",
 									"description": "(Required) ID du sondage pour lequel on souhaite avoir des statistiques"
 								}
 							]
@@ -2061,13 +2030,28 @@
 					"name": "Date avec le plus de personnes présentes",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+
+						],
 						"url": {
-							"raw": "{{baseUrl}}/analytics/:surveyID/available",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/analytics/:surveyID/available",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"analytics",
 								":surveyID",
 								"available"
@@ -2075,7 +2059,7 @@
 							"variable": [
 								{
 									"key": "surveyID",
-									"value": "<long>",
+									"value": "",
 									"description": "(Required) ID du sondage pour lequel on souhaite avoir des statistiques"
 								}
 							]
@@ -2197,20 +2181,35 @@
 					"name": "Recupère tous les commentaires",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+
+						],
 						"url": {
-							"raw": "{{baseUrl}}/comments/:surveyID",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/comments/:surveyID",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"comments",
 								":surveyID"
 							],
 							"variable": [
 								{
 									"key": "surveyID",
-									"value": "<long>",
+									"value": "",
 									"description": "(Required) ID du sondage pour lequel on souhaite les commentaires"
 								}
 							]
