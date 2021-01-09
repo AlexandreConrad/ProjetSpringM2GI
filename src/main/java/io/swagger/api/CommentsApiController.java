@@ -36,42 +36,31 @@ public class CommentsApiController implements CommentsApi {
 
     public ResponseEntity<Comment> addComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Nom de l'auteur", required = true) @PathVariable("auteur") String auteur, @ApiParam(value = "Ajout d'un commentaire.", required = true) @Valid @RequestBody String message) {
         String accept = request.getHeader("Accept");
+        if (auteur.length() == 0 || message.length() == 0)
+            return new ResponseEntity<Comment>(HttpStatus.BAD_REQUEST);
         if (accept != null && accept.contains("application/json")) {
             Comment comment = CommentService.addComments(surveyID,message,auteur);
             return new ResponseEntity<Comment>(comment,HttpStatus.OK);
         }
-        else if (accept.contains("400"))
-        {
-            return new ResponseEntity<Comment>(HttpStatus.BAD_REQUEST);
-        }
-        else if (accept.contains("409"))
-        {
-            return new ResponseEntity<Comment>(HttpStatus.CONFLICT);
-        }
-        else if (accept.contains("500"))
-        {
+        else
             return new ResponseEntity<Comment>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
         //TODO Retourne un code d'erreur pour les différents cas possibles
-        return new ResponseEntity<Comment>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<List<Comment>> getComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             List<Comment> comments = CommentService.getComments(surveyID);
+            for (Comment comment : comments) {
+                if (comment.getComments().length() == 0 || comment.getAuthor().length() == 0)
+                    return new ResponseEntity<List<Comment>>(HttpStatus.NOT_FOUND);
+            }
             return new ResponseEntity<List<Comment>>(comments,HttpStatus.OK);
         }
-        else if (accept.contains("404"))
-        {
-            return new ResponseEntity<List<Comment>>(HttpStatus.CONFLICT);
-        }
-        else if (accept.contains("500"))
-        {
+        else
             return new ResponseEntity<List<Comment>>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
         //TODO Retourne un code d'erreur pour les différents cas possibles
-        return new ResponseEntity<List<Comment>>(HttpStatus.NOT_IMPLEMENTED);
     }
-
 }
+
+
