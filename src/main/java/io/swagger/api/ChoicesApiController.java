@@ -44,8 +44,8 @@ public class ChoicesApiController implements ChoicesApi {
                 return new ResponseEntity<List<InlineResponse200>>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-
-        return new ResponseEntity<List<InlineResponse200>>(HttpStatus.NOT_IMPLEMENTED);
+        else
+            return new ResponseEntity<List<InlineResponse200>>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public ResponseEntity<Choice> getDeleteById(@ApiParam(value = "ID du sondage", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "ID du choix", required = true) @PathVariable("choiceID") Long choiceID) {
