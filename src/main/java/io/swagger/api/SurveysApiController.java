@@ -3,7 +3,6 @@ package io.swagger.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.model.Choice;
-import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
 import io.swagger.service.SurveyService;
 import org.slf4j.Logger;
@@ -21,6 +20,7 @@ import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.sql.Timestamp;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
 
@@ -54,7 +54,6 @@ public class SurveysApiController implements SurveysApi {
         }
         else
             return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
-        //TODO Retourne un code d'erreur pour les différents cas possibles
     }
 
     /**
@@ -68,13 +67,12 @@ public class SurveysApiController implements SurveysApi {
             Survey survey = SurveyService.endSurvey(surveyID);
             if (survey == null)
                 return new ResponseEntity<Survey>(HttpStatus.NOT_FOUND);
-            if (survey.getEndDate() == null || survey.getDescription() == null || survey.getName() == null || survey.getIsAvailable() == null || survey.getId_survey() == null)
+            if (survey.getEndDate() == null || survey.getDescription() == null || survey.getName() == null || survey.getIsAvailable() == null)
                 return new ResponseEntity<Survey>(HttpStatus.BAD_REQUEST);
             if (survey.getName().length() == 0 || survey.getDescription().length() == 0)
                 return new ResponseEntity<Survey>(HttpStatus.CONFLICT);
             return new ResponseEntity<Survey>(survey, HttpStatus.OK);
         }
-        //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -93,7 +91,6 @@ public class SurveysApiController implements SurveysApi {
         }
         else
             return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
-        //TODO Retourne un code d'erreur pour les différents cas possibles
     }
 
     /**
@@ -110,7 +107,6 @@ public class SurveysApiController implements SurveysApi {
         }
         else
             return new ResponseEntity<List<Survey>>(HttpStatus.INTERNAL_SERVER_ERROR);
-        //TODO Retourne un code d'erreur pour les différents cas possibles
     }
 
     /**
@@ -129,7 +125,6 @@ public class SurveysApiController implements SurveysApi {
         }
         else
             return new ResponseEntity<List<Survey>>(HttpStatus.INTERNAL_SERVER_ERROR);
-        //TODO Retourne un code d'erreur pour les différents cas possibles
     }
 
     /**
@@ -148,7 +143,6 @@ public class SurveysApiController implements SurveysApi {
         }
         else
             return new ResponseEntity<List<Survey>>(HttpStatus.INTERNAL_SERVER_ERROR);
-        //TODO Retourne un code d'erreur pour les différents cas possibles
     }
 
     /**
@@ -171,7 +165,6 @@ public class SurveysApiController implements SurveysApi {
         }
         else
             return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
-        //TODO Retourne un code d'erreur pour les différents cas possibles
     }
 
     /**
@@ -179,20 +172,18 @@ public class SurveysApiController implements SurveysApi {
      * @param sondage
      * @return
      */
-    public ResponseEntity<Survey> createSurvey(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.", required = true) @Valid @RequestBody Sondage sondage) {
+    public ResponseEntity<Survey> createSurvey(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.", required = true) @Valid @RequestBody Survey sondage) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             if (sondage.getDescription().length() == 0 || sondage.getName().length() == 0)
                 return new ResponseEntity<Survey>(HttpStatus.BAD_REQUEST);
-            if (sondage.getEndDate().isBefore(OffsetDateTime.now()))
+            if (sondage.getEndDate().before(new Timestamp(System.currentTimeMillis())))
                 return new ResponseEntity<Survey>(HttpStatus.CONFLICT);
             Survey survey = SurveyService.createSurvey(sondage);
             return new ResponseEntity<Survey>(survey,HttpStatus.CREATED);
         }
         else
             return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
-        //TODO Retourne un code d'erreur pour les différents cas possibles
-
     }
 
 }
