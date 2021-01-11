@@ -30,9 +30,10 @@ public class ServiceChoiceTest {
      */
     @Test
     public void getDeleteById(){
+        Long idSurvey = 1L;
         Long id_choice = 2L;
         ChoiceService.getDeleteById(id_choice);
-        List<Choice> choicesTest = ChoiceService.getChoiceById(id_choice);
+        List<Choice> choicesTest = ChoiceService.getChoiceById(idSurvey);
         for (Choice c: choicesTest)
             Assert.assertNotEquals(c.getIdSurvey(), id_choice);
     }
