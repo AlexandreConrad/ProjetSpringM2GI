@@ -91,7 +91,7 @@ public class ChoicesApiController implements ChoicesApi {
     public ResponseEntity<Choice> postChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite ajouter un choix", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Ajout d'un choix.", required = true) @Valid @RequestBody Timestamp choice) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            Survey survey = new SurveysApiController(objectMapper,request).getSurvey(surveyID);
+            Survey survey = SurveyService.getSurveyByID(surveyID);
             if (survey == null)
                 return new ResponseEntity<Choice>(HttpStatus.NOT_FOUND);
             else if (survey.getEndDate().before(choice))
