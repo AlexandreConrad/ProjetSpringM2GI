@@ -3,6 +3,9 @@ package io.swagger.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import io.swagger.model.Choice;
+import io.swagger.model.Survey;
+import io.swagger.service.ChoiceService;
+import io.swagger.service.SurveyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
@@ -33,45 +37,54 @@ public class ChoicesApiController implements ChoicesApi {
         this.request = request;
     }
 
+    /**
+     * Recuperation de tous les choix d'un sondage
+     *
+     * @param surveyID
+     * @return
+     */
     public ResponseEntity<List<Choice>> getChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir les choix", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<List<Choice>>(objectMapper.readValue("[ {  \"answers\" : {    \"unavailable\" : [ \"unavailable\", \"unavailable\" ],    \"available\" : [ \"available\", \"available\" ],    \"unknown\" : [ \"unknown\", \"unknown\" ]  },  \"id\" : 0,  \"option\" : \"2000-01-23T04:56:07.000+00:00\"}, {  \"answers\" : {    \"unavailable\" : [ \"unavailable\", \"unavailable\" ],    \"available\" : [ \"available\", \"available\" ],    \"unknown\" : [ \"unknown\", \"unknown\" ]  },  \"id\" : 0,  \"option\" : \"2000-01-23T04:56:07.000+00:00\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<Choice>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+        Survey survey = SurveyService.getSurveyByID(surveyID);
 
+        if (accept != null && accept.contains("application/json")) {
+            List<Choice> choices = ChoiceService.getChoiceById(surveyID);
+            return new ResponseEntity<List<Choice>>(choices, HttpStatus.OK);
+        }
+        //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<List<Choice>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Choice> getDeleteById(@ApiParam(value = "ID du sondage", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "ID du choix", required = true) @PathVariable("choiceID") Long choiceID) {
+    /**
+     * Supprime definitivement un choix
+     *
+     * @param choiceID
+     * @return
+     */
+    public ResponseEntity<Choice> getDeleteById(@ApiParam(value = "ID du choix", required = true) @PathVariable("choiceID") Long choiceID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Choice>(objectMapper.readValue("{  \"answers\" : {    \"unavailable\" : [ \"unavailable\", \"unavailable\" ],    \"available\" : [ \"available\", \"available\" ],    \"unknown\" : [ \"unknown\", \"unknown\" ]  },  \"id\" : 0,  \"option\" : \"2000-01-23T04:56:07.000+00:00\"}", Choice.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Choice>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            Choice choice = ChoiceService.getDeleteById(choiceID);
+            return new ResponseEntity<Choice>(choice, HttpStatus.OK);
         }
-
+        //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Choice>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Choice> postChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite ajouter un choix", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Ajout d'un choix.", required = true) @Valid @RequestBody Choice choice) {
+    /**
+     * Ajoute un choix à un sondage
+     *
+     * @param surveyID
+     * @param choice
+     * @return
+     */
+    public ResponseEntity<Choice> postChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite ajouter un choix", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Ajout d'un choix.", required = true) @Valid @RequestBody Timestamp choice) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Choice>(objectMapper.readValue("{  \"answers\" : {    \"unavailable\" : [ \"unavailable\", \"unavailable\" ],    \"available\" : [ \"available\", \"available\" ],    \"unknown\" : [ \"unknown\", \"unknown\" ]  },  \"id\" : 0,  \"option\" : \"2000-01-23T04:56:07.000+00:00\"}", Choice.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Choice>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            Choice cho = ChoiceService.postChoiceById(choice,surveyID);
+            return new ResponseEntity<Choice>(cho, HttpStatus.OK);
         }
-
+        //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Choice>(HttpStatus.NOT_IMPLEMENTED);
     }
 

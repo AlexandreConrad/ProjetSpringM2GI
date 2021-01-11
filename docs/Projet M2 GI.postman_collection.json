@@ -16,20 +16,36 @@
 							"name": "Retourne un sondage.",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+
+								],
 								"url": {
-									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/surveys/{surveyId}",
+									"protocol": "http",
 									"host": [
-										"{{baseUrl}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
+										"Alex57x",
+										"Projet",
+										"1.0.0",
+										"Alex57x",
+										"Projet",
+										"1.0.0",
 										"surveys",
-										":surveyID"
+										":surveyId"
 									],
+
 									"variable": [
 										{
-											"key": "surveyID",
-											"value": "<long>",
+											"key" : ":surveyId",
+											"value": "1",
 											"description": "(Required) ID du sondage"
 										}
 									]
@@ -145,30 +161,40 @@
 								"method": "PUT",
 								"header": [
 									{
-										"key": "Content-Type",
-										"value": "*/*"
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"isAvailable\": false,\n    \"endDate\": \"<dateTime>\",\n    \"comments\": [\n        {\n            \"id\": \"<integer>\",\n            \"comments\": \"<string>\"\n        },\n        {\n            \"id\": \"<integer>\",\n            \"comments\": \"<string>\"\n        }\n    ],\n    \"votes\": [\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        },\n        {\n            \"id\": \"<integer>\",\n            \"option\": \"<dateTime>\",\n            \"answers\": {\n                \"available\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unavailable\": [\n                    \"<string>\",\n                    \"<string>\"\n                ],\n                \"unknown\": [\n                    \"<string>\",\n                    \"<string>\"\n                ]\n            }\n        }\n    ]\n}",
+									"raw": "{\n    \"name\": \"Nouveau nom de sondage\",\n    \"description\": \"Nouvelle description\",\n    \"isAvailable\": <boolean>,\n    \"endDate\": <dateTime>\n}",
 									"options": {
 										"raw": {}
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/surveys/:surveyID",
+									"protocol": "http",
 									"host": [
-										"{{baseUrl}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
+										"Alex57x",
+										"Projet",
+										"1.0.0",
+										"Alex57x",
+										"Projet",
+										"1.0.0",
 										"surveys",
 										":surveyID"
 									],
 									"variable": [
 										{
 											"key": "surveyID",
-											"value": "<long>",
+											"value": "",
 											"description": "(Required) Identifiant du sondage à modifier."
 										}
 									]
@@ -367,20 +393,35 @@
 							"name": "Supprime un sondage",
 							"request": {
 								"method": "DELETE",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+
+									}
+								],
 								"url": {
-									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"raw": "http://localhost:8081/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/surveys/:surveyID",
+									"protocol": "http",
 									"host": [
-										"{{baseUrl}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
+										"Alex57x",
+										"Projet",
+										"1.0.0",
+										"Alex57x",
+										"Projet",
+										"1.0.0",
 										"surveys",
 										":surveyID"
 									],
 									"variable": [
 										{
 											"key": "surveyID",
-											"value": "<long>",
+											"value": "",
 											"description": "(Required) Identifiant du sondage à supprimer."
 										}
 									]
@@ -493,20 +534,35 @@
 							"name": "Clôture le sondage.",
 							"request": {
 								"method": "PATCH",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+
+									}
+								],
 								"url": {
-									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/surveys/:surveyID",
+									"protocol": "http",
 									"host": [
-										"{{baseUrl}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
+										"Alex57x",
+										"Projet",
+										"1.0.0",
+										"Alex57x",
+										"Projet",
+										"1.0.0",
 										"surveys",
 										":surveyID"
 									],
 									"variable": [
 										{
 											"key": "surveyID",
-											"value": "<long>",
+											"value": "",
 											"description": "(Required) ID du sondage pour lequel on souhaite la fin"
 										}
 									]
@@ -810,39 +866,34 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "Content-Type",
-								"value": "multipart/form-data"
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+
 							}
 						],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "<string>",
-									"type": "text"
-								},
-								{
-									"key": "description",
-									"value": "<string>",
-									"type": "text"
-								},
-								{
-									"key": "endDate",
-									"value": "<dateTime>",
-									"type": "text"
-								}
-							],
+							"mode": "raw",
+							"raw": "{\n         \"name\": \"Nouveau sondage\",\n         \"description\": \"ceci est un nouveau sondage !\",\n         \"endDate\": 1606669212000\n         }",
 							"options": {
-								"formdata": {}
+								"raw": {}
 							}
 						},
+
 						"url": {
-							"raw": "{{baseUrl}}/surveys",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/surveys",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"surveys"
 							]
 						}
@@ -1342,20 +1393,35 @@
 					"name": "Liste des choix possibles",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+
+						],
 						"url": {
-							"raw": "{{baseUrl}}/choices/:surveyID",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/choices/:surveyID",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"choices",
 								":surveyID"
 							],
 							"variable": [
 								{
 									"key": "surveyID",
-									"value": "<long>",
+									"value": "",
 									"description": "(Required) ID du sondage pour lequel on souhaite avoir les choix"
 								}
 							]
@@ -1470,30 +1536,40 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "Content-Type",
-								"value": "*/*"
+								"key": "Accept",
+								"value": "application/json",
+								"type": "timestamp"
+
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}",
+							"raw": "1606669212000",
 							"options": {
 								"raw": {}
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/choices/:surveyID",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/choices/:surveyID",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"choices",
 								":surveyID"
 							],
 							"variable": [
 								{
 									"key": "surveyID",
-									"value": "<long>",
+									"value": "",
 									"description": "(Required) ID du sondage pour lequel on souhaite ajouter un choix"
 								}
 							]
@@ -1655,26 +1731,35 @@
 					"name": "Supprime un choix",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+
+						],
 						"url": {
-							"raw": "{{baseUrl}}/choices/:surveyID/:choiceID",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/choices/:choiceID",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"choices",
-								":surveyID",
 								":choiceID"
 							],
 							"variable": [
 								{
-									"key": "surveyID",
-									"value": "<long>",
-									"description": "(Required) ID du sondage"
-								},
-								{
 									"key": "choiceID",
-									"value": "<long>",
+									"value": "",
 									"description": "(Required) ID du choix"
 								}
 							]
@@ -1802,142 +1887,31 @@
 			"name": "analytics/{survey ID}",
 			"item": [
 				{
-					"name": "Statistiques du sondage",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/analytics/:surveyID",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"analytics",
-								":surveyID"
-							],
-							"variable": [
-								{
-									"key": "surveyID",
-									"value": "<long>",
-									"description": "(Required) ID du sondage pour lequel on souhaite avoir des statistiques"
-								}
-							]
-						},
-						"description": "Retourne les statistiques liées au sondage passé en paramètre"
-					},
-					"response": [
-						{
-							"name": "Echec de connexion à la base de données.",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/analytics/:surveyID",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"analytics",
-										":surveyID"
-									],
-									"variable": [
-										{
-											"key": "surveyID"
-										}
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Opération réussie",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/analytics/:surveyID",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"analytics",
-										":surveyID"
-									],
-									"variable": [
-										{
-											"key": "surveyID"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"available\": [\n  \"culpa\",\n  \"est e\"\n ],\n \"unavailable\": [\n  \"velit voluptate nisi\",\n  \"fugiat\"\n ],\n \"unknown\": [\n  \"magna Excepteur aute ut\",\n  \"labore cillum Ut ut\"\n ]\n}"
-						},
-						{
-							"name": "Ressource introuvable.",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/analytics/:surveyID",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"analytics",
-										":surveyID"
-									],
-									"variable": [
-										{
-											"key": "surveyID"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						}
-					]
-				},
-				{
 					"name": "Date avec le plus de personnes potentiellement présentes",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+
+							}
+						],
 						"url": {
-							"raw": "{{baseUrl}}/analytics/:surveyID/maybe",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/analytics/:surveyID/maybe",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"analytics",
 								":surveyID",
 								"maybe"
@@ -1945,7 +1919,7 @@
 							"variable": [
 								{
 									"key": "surveyID",
-									"value": "<long>",
+									"value": "",
 									"description": "(Required) ID du sondage pour lequel on souhaite avoir des statistiques"
 								}
 							]
@@ -2061,13 +2035,28 @@
 					"name": "Date avec le plus de personnes présentes",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+
+						],
 						"url": {
-							"raw": "{{baseUrl}}/analytics/:surveyID/available",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/analytics/:surveyID/available",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"analytics",
 								":surveyID",
 								"available"
@@ -2075,7 +2064,7 @@
 							"variable": [
 								{
 									"key": "surveyID",
-									"value": "<long>",
+									"value": "",
 									"description": "(Required) ID du sondage pour lequel on souhaite avoir des statistiques"
 								}
 							]
@@ -2197,20 +2186,35 @@
 					"name": "Recupère tous les commentaires",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+
+						],
 						"url": {
-							"raw": "{{baseUrl}}/comments/:surveyID",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/comments/:surveyID",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"comments",
 								":surveyID"
 							],
 							"variable": [
 								{
 									"key": "surveyID",
-									"value": "<long>",
+									"value": "",
 									"description": "(Required) ID du sondage pour lequel on souhaite les commentaires"
 								}
 							]
@@ -2325,31 +2329,47 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "Content-Type",
-								"value": "*/*"
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
 							}
+
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"<long>\",\n    \"message\": \"<string>\"\n}",
+							"raw": "Petit commentaire sympa",
 							"options": {
 								"raw": {}
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/comments/:surveyID",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/comments/:surveyID/:author",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"comments",
-								":surveyID"
+								":surveyID",
+								":author"
 							],
 							"variable": [
 								{
 									"key": "surveyID",
 									"value": "<long>",
 									"description": "(Required) ID du sondage pour lequel on souhaite les commentaires"
+								},
+								{
+									"key": "author",
+									"value": "string",
+									"description": "(Required) Nom de l'auteur du commentaire"
 								}
 							]
 						},
@@ -2510,254 +2530,727 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Participer à un sondage",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "*/*"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}",
-					"options": {
-						"raw": {}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/votes/:surveyID/:choiceID",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"votes",
-						":surveyID",
-						":choiceID"
-					],
-					"variable": [
+			"name": "votes",
+			"item": [
+				{
+					"name": "Retourne tous les votes d'un choix",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/votes/:choiceID/choice/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"votes",
+								":choiceID",
+								"choice/"
+							],
+							"variable": [
+								{
+									"key": ":choiceID",
+									"value": "",
+									"description": "(Required) ID du choix"
+								}
+							]
+						},
+						"description": "Retourne les votes qui correspondent à l'ID du choix envoyé en paramètre."
+					},
+					"response": [
 						{
-							"key": "surveyID",
-							"value": "<long>",
-							"description": "(Required) ID du sondage pour lequel on souhaite avoir des statistiques"
+							"name": "opération réussie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"id\": 27104792,\n \"name\": \"cupidatat nostrud\",\n \"description\": \"minim et cillum id cupidatat\",\n \"isAvailable\": false,\n \"endDate\": \"1968-04-12T07:44:40.216Z\",\n \"comments\": [\n  {\n   \"id\": 0,\n   \"name\": \"Commentaire numéro 1\"\n  },\n  {\n   \"id\": 0,\n   \"name\": \"Commentaire numéro 1\"\n  }\n ],\n \"votes\": [\n  {\n   \"id\": 83697545,\n   \"option\": \"1976-03-22T10:01:04.186Z\",\n   \"answers\": {\n    \"available\": [\n     \"sint consectetur Lorem\",\n     \"culpa dolore laboris\"\n    ],\n    \"unavailable\": [\n     \"do eu en\",\n     \"ut consectetur et\"\n    ],\n    \"unknown\": [\n     \"esse ut\",\n     \"ullamco nisi officia Lorem\"\n    ]\n   }\n  },\n  {\n   \"id\": 94551642,\n   \"option\": \"1980-05-06T04:32:43.280Z\",\n   \"answers\": {\n    \"available\": [\n     \"et labo\",\n     \"ut fugiat ipsum Excepteur incididunt\"\n    ],\n    \"unavailable\": [\n     \"in\",\n     \"magna nisi\"\n    ],\n    \"unknown\": [\n     \"laboris\",\n     \"non\"\n    ]\n   }\n  }\n ]\n}"
 						},
 						{
-							"key": "choiceID",
-							"value": "<long>",
-							"description": "(Required) ID du choix de la date"
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Ressource introuvable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
 						}
 					]
 				},
-				"description": "Participation de l'utilisateur"
-			},
-			"response": [
 				{
-					"name": "Manque des informations dans le corps.",
-					"originalRequest": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
-						},
+					"name": "Retourne tous les votes d'une option",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{baseUrl}}/votes/:surveyID/:choiceID",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/votes/:optionID/option/",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"votes",
-								":surveyID",
-								":choiceID"
+								":optionID",
+								"option/"
 							],
 							"variable": [
 								{
-									"key": "surveyID"
-								},
-								{
-									"key": "choiceID"
+									"key": ":optionID",
+									"value": "",
+									"description": "(Required) ID de l'option"
 								}
 							]
-						}
+						},
+						"description": "Retourne les votes qui correspondent à l'ID de l'option envoyée en paramètre."
 					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "text",
-					"header": [
+					"response": [
 						{
-							"key": "Content-Type",
-							"value": "text/plain"
+							"name": "opération réussie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"id\": 27104792,\n \"name\": \"cupidatat nostrud\",\n \"description\": \"minim et cillum id cupidatat\",\n \"isAvailable\": false,\n \"endDate\": \"1968-04-12T07:44:40.216Z\",\n \"comments\": [\n  {\n   \"id\": 0,\n   \"name\": \"Commentaire numéro 1\"\n  },\n  {\n   \"id\": 0,\n   \"name\": \"Commentaire numéro 1\"\n  }\n ],\n \"votes\": [\n  {\n   \"id\": 83697545,\n   \"option\": \"1976-03-22T10:01:04.186Z\",\n   \"answers\": {\n    \"available\": [\n     \"sint consectetur Lorem\",\n     \"culpa dolore laboris\"\n    ],\n    \"unavailable\": [\n     \"do eu en\",\n     \"ut consectetur et\"\n    ],\n    \"unknown\": [\n     \"esse ut\",\n     \"ullamco nisi officia Lorem\"\n    ]\n   }\n  },\n  {\n   \"id\": 94551642,\n   \"option\": \"1980-05-06T04:32:43.280Z\",\n   \"answers\": {\n    \"available\": [\n     \"et labo\",\n     \"ut fugiat ipsum Excepteur incididunt\"\n    ],\n    \"unavailable\": [\n     \"in\",\n     \"magna nisi\"\n    ],\n    \"unknown\": [\n     \"laboris\",\n     \"non\"\n    ]\n   }\n  }\n ]\n}"
+						},
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Ressource introuvable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
 						}
-					],
-					"cookie": [],
-					"body": ""
+					]
 				},
 				{
-					"name": "Certaines informations ne respectent pas les conditions.",
-					"originalRequest": {
-						"method": "PATCH",
-						"header": [],
+					"name": "Participer à un sondage",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
+							"raw": "Peter Parker",
+							"options": {
+								"raw": {}
+							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/votes/:surveyID/:choiceID",
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/votes/:optionID/:choiceID",
+							"protocol": "http",
 							"host": [
-								"{{baseUrl}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
 								"votes",
-								":surveyID",
+								":optionID",
 								":choiceID"
 							],
 							"variable": [
 								{
-									"key": "surveyID"
+									"key": "optionID",
+									"value": "",
+									"description": "(Required) ID de l'option"
 								},
 								{
-									"key": "choiceID"
+									"key": "choiceID",
+									"value": "",
+									"description": "(Required) ID du choix"
 								}
 							]
-						}
-					},
-					"status": "Conflict",
-					"code": 409,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				},
-				{
-					"name": "Echec de connexion à la base de données.",
-					"originalRequest": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
 						},
-						"url": {
-							"raw": "{{baseUrl}}/votes/:surveyID/:choiceID",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"votes",
-								":surveyID",
-								":choiceID"
-							],
-							"variable": [
-								{
-									"key": "surveyID"
-								},
-								{
-									"key": "choiceID"
-								}
-							]
-						}
+						"description": "Participation de l'utilisateur au sondage"
 					},
-					"status": "Internal Server Error",
-					"code": 500,
-					"_postman_previewlanguage": "text",
-					"header": [
+					"response": [
 						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				},
-				{
-					"name": "Opération réussie",
-					"originalRequest": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
+							"name": "opération réussie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"id\": 27104792,\n \"name\": \"cupidatat nostrud\",\n \"description\": \"minim et cillum id cupidatat\",\n \"isAvailable\": false,\n \"endDate\": \"1968-04-12T07:44:40.216Z\",\n \"comments\": [\n  {\n   \"id\": 0,\n   \"name\": \"Commentaire numéro 1\"\n  },\n  {\n   \"id\": 0,\n   \"name\": \"Commentaire numéro 1\"\n  }\n ],\n \"votes\": [\n  {\n   \"id\": 83697545,\n   \"option\": \"1976-03-22T10:01:04.186Z\",\n   \"answers\": {\n    \"available\": [\n     \"sint consectetur Lorem\",\n     \"culpa dolore laboris\"\n    ],\n    \"unavailable\": [\n     \"do eu en\",\n     \"ut consectetur et\"\n    ],\n    \"unknown\": [\n     \"esse ut\",\n     \"ullamco nisi officia Lorem\"\n    ]\n   }\n  },\n  {\n   \"id\": 94551642,\n   \"option\": \"1980-05-06T04:32:43.280Z\",\n   \"answers\": {\n    \"available\": [\n     \"et labo\",\n     \"ut fugiat ipsum Excepteur incididunt\"\n    ],\n    \"unavailable\": [\n     \"in\",\n     \"magna nisi\"\n    ],\n    \"unknown\": [\n     \"laboris\",\n     \"non\"\n    ]\n   }\n  }\n ]\n}"
 						},
-						"url": {
-							"raw": "{{baseUrl}}/votes/:surveyID/:choiceID",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"votes",
-								":surveyID",
-								":choiceID"
-							],
-							"variable": [
-								{
-									"key": "surveyID"
-								},
-								{
-									"key": "choiceID"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
 						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"id\": -53631275,\n \"option\": \"2000-06-08T10:24:21.336Z\",\n \"answers\": {\n  \"available\": [\n   \"ea pariatur\",\n   \"pariatur in occaecat\"\n  ],\n  \"unavailable\": [\n   \"minim ullamco\",\n   \"cillum in\"\n  ],\n  \"unknown\": [\n   \"deserunt ullamco\",\n   \"qui irure in labore dolor\"\n  ]\n }\n}"
-				},
-				{
-					"name": "Ressource introuvable",
-					"originalRequest": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"<long>\",\n    \"option\": \"<dateTime>\",\n    \"answers\": {\n        \"available\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unavailable\": [\n            \"<string>\",\n            \"<string>\"\n        ],\n        \"unknown\": [\n            \"<string>\",\n            \"<string>\"\n        ]\n    }\n}"
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
 						},
-						"url": {
-							"raw": "{{baseUrl}}/votes/:surveyID/:choiceID",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"votes",
-								":surveyID",
-								":choiceID"
-							],
-							"variable": [
-								{
-									"key": "surveyID"
-								},
-								{
-									"key": "choiceID"
-								}
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "text",
-					"header": [
 						{
-							"key": "Content-Type",
-							"value": "text/plain"
+							"name": "Ressource introuvable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
 						}
-					],
-					"cookie": [],
-					"body": ""
+					]
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "options",
+			"item": [
+				{
+					"name": "Retourne toutes les options",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/option/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"option/"
+							]
+						},
+						"description": "Retourne les votes qui correspondent à l'ID du choix envoyé en paramètre."
+					},
+					"response": [
+						{
+							"name": "opération réussie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"id\": 27104792,\n \"name\": \"cupidatat nostrud\",\n \"description\": \"minim et cillum id cupidatat\",\n \"isAvailable\": false,\n \"endDate\": \"1968-04-12T07:44:40.216Z\",\n \"comments\": [\n  {\n   \"id\": 0,\n   \"name\": \"Commentaire numéro 1\"\n  },\n  {\n   \"id\": 0,\n   \"name\": \"Commentaire numéro 1\"\n  }\n ],\n \"votes\": [\n  {\n   \"id\": 83697545,\n   \"option\": \"1976-03-22T10:01:04.186Z\",\n   \"answers\": {\n    \"available\": [\n     \"sint consectetur Lorem\",\n     \"culpa dolore laboris\"\n    ],\n    \"unavailable\": [\n     \"do eu en\",\n     \"ut consectetur et\"\n    ],\n    \"unknown\": [\n     \"esse ut\",\n     \"ullamco nisi officia Lorem\"\n    ]\n   }\n  },\n  {\n   \"id\": 94551642,\n   \"option\": \"1980-05-06T04:32:43.280Z\",\n   \"answers\": {\n    \"available\": [\n     \"et labo\",\n     \"ut fugiat ipsum Excepteur incididunt\"\n    ],\n    \"unavailable\": [\n     \"in\",\n     \"magna nisi\"\n    ],\n    \"unknown\": [\n     \"laboris\",\n     \"non\"\n    ]\n   }\n  }\n ]\n}"
+						},
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Ressource introuvable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Ajout d'une option",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "Nouvelle option",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/Alex57x/Projet/1.0.0/Alex57x/Projet/1.0.0/option/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"Alex57x",
+								"Projet",
+								"1.0.0",
+								"option/"
+							]
+						},
+						"description": "Participation de l'utilisateur au sondage"
+					},
+					"response": [
+						{
+							"name": "opération réussie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"id\": 27104792,\n \"name\": \"cupidatat nostrud\",\n \"description\": \"minim et cillum id cupidatat\",\n \"isAvailable\": false,\n \"endDate\": \"1968-04-12T07:44:40.216Z\",\n \"comments\": [\n  {\n   \"id\": 0,\n   \"name\": \"Commentaire numéro 1\"\n  },\n  {\n   \"id\": 0,\n   \"name\": \"Commentaire numéro 1\"\n  }\n ],\n \"votes\": [\n  {\n   \"id\": 83697545,\n   \"option\": \"1976-03-22T10:01:04.186Z\",\n   \"answers\": {\n    \"available\": [\n     \"sint consectetur Lorem\",\n     \"culpa dolore laboris\"\n    ],\n    \"unavailable\": [\n     \"do eu en\",\n     \"ut consectetur et\"\n    ],\n    \"unknown\": [\n     \"esse ut\",\n     \"ullamco nisi officia Lorem\"\n    ]\n   }\n  },\n  {\n   \"id\": 94551642,\n   \"option\": \"1980-05-06T04:32:43.280Z\",\n   \"answers\": {\n    \"available\": [\n     \"et labo\",\n     \"ut fugiat ipsum Excepteur incididunt\"\n    ],\n    \"unavailable\": [\n     \"in\",\n     \"magna nisi\"\n    ],\n    \"unknown\": [\n     \"laboris\",\n     \"non\"\n    ]\n   }\n  }\n ]\n}"
+						},
+						{
+							"name": "Echec de connexion à la base de données.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Ressource introuvable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/surveys/:surveyID",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"surveys",
+										":surveyID"
+									],
+									"variable": [
+										{
+											"key": "surveyID",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"variable": [
