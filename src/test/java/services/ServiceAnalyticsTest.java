@@ -1,3 +1,5 @@
+package services;
+
 import io.swagger.model.Choice;
 import io.swagger.service.AnalyticsService;
 import org.junit.Assert;

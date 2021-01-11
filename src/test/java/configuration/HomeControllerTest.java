@@ -1,17 +1,17 @@
 package configuration;
-
 import io.swagger.configuration.HomeController;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * Test en rapport avec la classe "HomeController"
  */
-
+@SpringBootTest
 public class HomeControllerTest {
 
     /**
-     * Setter / Getter Description
+     * Fonction du homeController
      */
     @Test
     public void homeController(){

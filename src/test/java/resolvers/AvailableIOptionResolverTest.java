@@ -1,7 +1,7 @@
 package resolvers;
 
 import io.swagger.model.Option;
-import io.swagger.resolvers.MaybeIOptionResolver;
+import io.swagger.resolvers.AvailableIOptionResolver;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * Test en rapport avec la classe "AvailableIOptionResolver"
  */
 @SpringBootTest
-public class AvailableIOptionResolver {
+public class AvailableIOptionResolverTest {
 
     /**
      * Resolver pour les Analytics

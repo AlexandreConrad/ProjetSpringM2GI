@@ -2,12 +2,14 @@ package models;
 import io.swagger.model.Survey;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Timestamp;
 
 /**
  * Test en rapport avec la classe "surveyModel"
  */
+@SpringBootTest
 public class SurveyModelTest {
 
     /**

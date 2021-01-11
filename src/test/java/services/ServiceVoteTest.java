@@ -1,13 +1,17 @@
+package services;
+
 import io.swagger.model.Vote;
 import io.swagger.service.VoteService;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 /**
  * Test en rapport avec la classe "VoteService"
  */
+@SpringBootTest
 public class ServiceVoteTest {
 
     /**
