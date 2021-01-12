@@ -2,7 +2,6 @@ package io.swagger;
 
 import io.swagger.api.SurveysApi;
 import io.swagger.api.SurveysApiController;
-import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
 import io.swagger.service.SurveyService;
 import org.springframework.boot.CommandLineRunner;
