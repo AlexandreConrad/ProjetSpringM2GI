@@ -26,10 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor // Constructeur par défaut impossible
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode(of = {"idSurvey", "name", "description", "isAvailable", "endDate"})
-@ToString(of = {"idSurvey", "name", "description", "isAvailable", "endDate"})
+@Data // annotation is the combination of @ToString, @EqualsAndHashCode, @Getter and @Setter.
 
 /** Hibernate*/
 @Entity

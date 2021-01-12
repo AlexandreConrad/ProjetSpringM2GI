@@ -1,13 +1,17 @@
+package services;
+
 import io.swagger.model.Option;
 import io.swagger.service.OptionsService;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 /**
  * Test en rapport avec la classe "OptionsService"
  */
+@SpringBootTest
 public class ServiceOptionTest {
 
     /**

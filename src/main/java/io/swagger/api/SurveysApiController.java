@@ -89,7 +89,8 @@ public class SurveysApiController implements SurveysApi {
     public ResponseEntity<List<Survey>> getSurveys() {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            List<Survey> surveys = SurveyService.getSurveys();
+            SurveyService surveyService = new SurveyService();
+            List<Survey> surveys = surveyService.getSurveys();
             return new ResponseEntity<List<Survey>>(surveys, HttpStatus.OK);
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles

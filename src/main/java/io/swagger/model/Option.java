@@ -22,10 +22,7 @@ import java.io.Serializable;
 @RequiredArgsConstructor // Constructeur par défaut impossible
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode(of = {"idOption", "name"})
-@ToString(of = {"idOption", "name"})
+@Data // annotation is the combination of @ToString, @EqualsAndHashCode, @Getter and @Setter.
 
 /** Hibernate*/
 @Entity
