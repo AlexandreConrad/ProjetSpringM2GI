@@ -1,5 +1,6 @@
 package services;
 
+import io.swagger.exceptions.BadRequestException;
 import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Survey;
 import io.swagger.service.SurveyService;
@@ -42,7 +43,7 @@ public class ServiceSurveyTest {
      * Doit retourner le surveys.
      */
     @Test
-    public void getSurveys(){
+    public void getSurveys() throws Exception {
         List<Survey> surveysTest = SurveyService.getSurveys();
         for (Survey s: surveysTest)
             Assert.assertNotNull(s);
@@ -53,7 +54,7 @@ public class ServiceSurveyTest {
      * Doit retourner les surveys Actifs.
      */
     @Test
-    public void getSurveysIsActives(){
+    public void getSurveysIsActives()  throws Exception {
         List<Survey> surveysTest = SurveyService.getSurveysIsActives();
         for (Survey s: surveysTest)
             Assert.assertTrue(s.getIsAvailable());
@@ -64,7 +65,7 @@ public class ServiceSurveyTest {
      * Doit retourner les surveys inactifs.
      */
     @Test
-    public void getSurveysIsExpireds(){
+    public void getSurveysIsExpireds()  throws Exception {
         List<Survey> surveysTest = SurveyService.getSurveysIsExpireds();
         for (Survey s: surveysTest)
             Assert.assertFalse(s.getIsAvailable());
@@ -76,6 +77,10 @@ public class ServiceSurveyTest {
      */
     @Test
     public void updateSurvey() throws Exception{
+
+        /** Gestion des exceptions **/
+        Assertions.assertThrows(BadRequestException.class,() -> SurveyService.updateSurvey(null,null));
+        Assertions.assertThrows(NotFoundException.class,() -> SurveyService.updateSurvey(10000L,new Survey()));
 
         //Ancienne valeurs
         Long id_survey = 2L;
@@ -103,7 +108,11 @@ public class ServiceSurveyTest {
      * Supprime le survey en fonction du surveyID
      */
     @Test
-    public void deleteSurvey(){
+    public void deleteSurvey() throws Exception{
+
+        /** Gestion des exceptions **/
+        Assertions.assertThrows(NotFoundException.class,() -> SurveyService.deleteSurvey(10000L));
+
         Long id_survey = 2L;
         SurveyService.deleteSurvey(id_survey);
         List<Survey> surveysTest = SurveyService.getSurveys();
@@ -116,7 +125,7 @@ public class ServiceSurveyTest {
      * Permet la construction d'un survey
     */
     @Test
-    public void createSurvey(){
+    public void createSurvey() throws Exception{
 
         //Variables
         String name = "Test du sondage";
@@ -142,6 +151,9 @@ public class ServiceSurveyTest {
                 Assert.assertEquals(true,s.getIsAvailable());
                 //Assert.assertEquals(s.getEndDate(), date);
             }
+
+        /** Gestion des exceptions **/
+        Assertions.assertThrows(BadRequestException.class,() -> SurveyService.createSurvey(new Survey()));
     }
 
     /**
@@ -154,6 +166,10 @@ public class ServiceSurveyTest {
         SurveyService.endSurvey(id_survey);
         Survey survey = SurveyService.getSurveyByID(id_survey);
         Assert.assertEquals(false,survey.getIsAvailable());
+
+        /** Gestion des exceptions **/
+        Assertions.assertThrows(BadRequestException.class,() -> SurveyService.endSurvey(null));
+        Assertions.assertThrows(NotFoundException.class,() -> SurveyService.endSurvey(100000L));
     }
 
     /**
