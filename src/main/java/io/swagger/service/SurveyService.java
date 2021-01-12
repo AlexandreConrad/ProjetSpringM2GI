@@ -1,17 +1,15 @@
 package io.swagger.service;
 
 import io.swagger.api.SurveysApiController;
-import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
 import io.swagger.util.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.Transaction;;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -23,9 +21,10 @@ public class SurveyService {
 
     /**
      * Retourne un survey par ID
+     *
      * @return survey
      */
-    public static Survey getSurveyByID(Long surveyID){
+    public static Survey getSurveyByID(Long surveyID) {
         Session session = HibernateUtil.getSession();//Ouverture d'une session
         Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
         Survey survey = session.load(Survey.class, surveyID);//Récupération du sondage
@@ -36,9 +35,10 @@ public class SurveyService {
 
     /**
      * Retourne tous les surveys
+     *
      * @return List<Survey>
      */
-    public static List<Survey> getSurveys(){
+    public static List<Survey> getSurveys() {
         Session session = HibernateUtil.getSession();//Ouverture d'une session
         Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -52,6 +52,7 @@ public class SurveyService {
 
     /**
      * Retourne tous les surveys actifs
+     *
      * @return List<Survey>
      */
     public static List<Survey> getSurveysIsActives() {
@@ -62,6 +63,7 @@ public class SurveyService {
 
     /**
      * Retourne tous les Surveys inactifs
+     *
      * @return List<Survey>
      */
     public static List<Survey> getSurveysIsExpireds() {
@@ -72,10 +74,11 @@ public class SurveyService {
 
     /**
      * Fonction qui retourne tous les Surveys actifs ou inactifs à l'aide du boolean en entrée
+     *
      * @param bool
      * @return List<Survey>
      */
-    private static List<Survey> getSurveysIsActivesOrExpireds(Boolean bool){
+    private static List<Survey> getSurveysIsActivesOrExpireds(Boolean bool) {
         Session session = HibernateUtil.getSession();   //Ouverture d'une session
         Transaction transaction = session.beginTransaction();       //Ouverture d'une transaction en cas de problème
         CriteriaBuilder builder = session.getCriteriaBuilder();     //Création d'une requête
@@ -90,16 +93,17 @@ public class SurveyService {
 
     /**
      * Supprime le survey depuis surveyID
+     *
      * @param surveyID
      * @return survey
      */
-    public static Survey deleteSurvey(Long surveyID){
+    public static Survey deleteSurvey(Long surveyID) {
         Session session = HibernateUtil.getSession();//Ouverture d'une session
         Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaDelete<Survey> delete = builder.createCriteriaDelete(Survey.class);
         Root e = delete.from(Survey.class);
-        delete.where(builder.equal(e.get("id_survey"), surveyID));
+        delete.where(builder.equal(e.get("idSurvey"), surveyID));
         session.createQuery(delete).executeUpdate();
         log.info("Fonction deleteSurvey => OK");
         transaction.commit();//Annule les changements en cas de problème
@@ -108,6 +112,7 @@ public class SurveyService {
 
     /**
      * Mise a jour d'un survey depuis une ID.
+     *
      * @param surveyID
      * @param updateSurvey
      * @return survey
@@ -144,6 +149,7 @@ public class SurveyService {
 
     /**
      * Fonction qui permet la clôture d'un survey
+     *
      * @param surveyID
      * @return
      */
@@ -154,42 +160,38 @@ public class SurveyService {
         CriteriaUpdate<Survey> update = builder.createCriteriaUpdate(Survey.class);
         Root<Survey> root = update.from(Survey.class);
 
-        update.set(root.get("isAvailable"),0);
-        update.where(builder.equal(root.get("id_survey"),surveyID));
+        update.set(root.get("isAvailable"), 0);
+        update.where(builder.equal(root.get("idSurvey"), surveyID));
         Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
         session.createQuery(update).executeUpdate();
 
         transaction.commit();
         log.info("Fonction endSurvey => OK");
         return null;
-
-        /**  Code à retenir pour un select
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Survey> cq = builder.createQuery(Survey.class);
-        Root<Survey> stud = cq.from(Survey.class);
-        cq.select(stud).where(builder.equal(stud.get("id_survey"),surveyID));
-        Query<Survey> query = session.createQuery(cq);
-        List<Survey> results = query.getResultList();
-
-        for(Survey s : results)
-            System.out.println(s.getName());
-        **/
     }
 
     /**
      * Fonction qui permet la création d'un Survey
+     *
      * @param sondage
      * @return
      */
-    public static Survey createSurvey(Sondage sondage) {
+    public static Survey createSurvey(Survey sondage) {
+
+        /** Création d'un sondage
+         {
+         "name": "Test update",
+         "description": "update sondage !",
+         "endDate": 1606669212000
+         }
+         **/
 
         //Création du survey avec les informations
         Survey survey = new Survey();
         survey.setIsAvailable(true);
         survey.setName(sondage.getName());
         survey.setDescription(sondage.getDescription());
-        Timestamp ts = new Timestamp(1000 * sondage.getEndDate().toEpochSecond());
-        survey.setEndDate(ts);
+        survey.setEndDate(sondage.getEndDate());
 
         //Persistance dans la base de données
         Session session = HibernateUtil.getSession();//Ouverture d'une session

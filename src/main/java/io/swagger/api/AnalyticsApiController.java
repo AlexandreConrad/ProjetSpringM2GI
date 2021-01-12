@@ -2,17 +2,16 @@ package io.swagger.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
-import io.swagger.model.ChoicessurveyIDAnswers;
+import io.swagger.model.Choice;
+import io.swagger.service.AnalyticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.threeten.bp.OffsetDateTime;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-31T12:55:18.203Z")
 
@@ -31,46 +30,24 @@ public class AnalyticsApiController implements AnalyticsApi {
         this.request = request;
     }
 
-    public ResponseEntity<OffsetDateTime> findDateByAvailable(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir des statistiques", required = true) @PathVariable("surveyID") Long surveyID) {
+    public ResponseEntity<Choice> findDateByAvailable(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir des statistiques", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<OffsetDateTime>(objectMapper.readValue("\"2000-01-23T04:56:07.000+00:00\"", OffsetDateTime.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<OffsetDateTime>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            Choice maybe = AnalyticsService.findDateByAvailable(surveyID);
+            return new ResponseEntity<Choice>(maybe, HttpStatus.OK);
         }
-
-        return new ResponseEntity<OffsetDateTime>(HttpStatus.NOT_IMPLEMENTED);
+        //TODO Retourne un code d'erreur pour les différents cas possibles
+        return new ResponseEntity<Choice>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<OffsetDateTime> findDateByMaybeAvailable(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir des statistiques", required = true) @PathVariable("surveyID") Long surveyID) {
+    public ResponseEntity<Choice> findDateByMaybeAvailable(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir des statistiques", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<OffsetDateTime>(objectMapper.readValue("\"2000-01-23T04:56:07.000+00:00\"", OffsetDateTime.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<OffsetDateTime>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            Choice maybe = AnalyticsService.findDateByMaybeAvailable(surveyID);
+            return new ResponseEntity<Choice>(maybe, HttpStatus.OK);
         }
-
-        return new ResponseEntity<OffsetDateTime>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-    public ResponseEntity<ChoicessurveyIDAnswers> getAnalyticsById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir des statistiques", required = true) @PathVariable("surveyID") Long surveyID) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<ChoicessurveyIDAnswers>(objectMapper.readValue("{  \"unavailable\" : [ \"unavailable\", \"unavailable\" ],  \"available\" : [ \"available\", \"available\" ],  \"unknown\" : [ \"unknown\", \"unknown\" ]}", ChoicessurveyIDAnswers.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<ChoicessurveyIDAnswers>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<ChoicessurveyIDAnswers>(HttpStatus.NOT_IMPLEMENTED);
+        //TODO Retourne un code d'erreur pour les différents cas possibles
+        return new ResponseEntity<Choice>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 }

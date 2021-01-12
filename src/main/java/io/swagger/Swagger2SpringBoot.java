@@ -28,6 +28,7 @@ public class Swagger2SpringBoot implements CommandLineRunner {
         new SpringApplication(Swagger2SpringBoot.class).run(args);
     }
 
+
     @Override
     public void run(String... arg0) {
 

@@ -41,6 +41,7 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Supprime un survey depuis un surveyID
+     *
      * @param surveyID
      * @return
      */
@@ -58,6 +59,7 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Clôture un sondage
+     *
      * @param surveyID
      * @return
      */
@@ -78,6 +80,7 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Récupération d'un survey à l'aide d'un ID
+     *
      * @param surveyID
      * @return survey
      */
@@ -95,6 +98,7 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Récupération de tous les surveys
+     *
      * @return List<survey>
      */
     public ResponseEntity<List<Survey>> getSurveys() {
@@ -111,6 +115,7 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Récupération de tous les surveys actifs
+     *
      * @return List<Survey>
      */
     public ResponseEntity<List<Survey>> getSurveysIsActifs() {
@@ -129,6 +134,7 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Récupération de tous les surveys inactifs
+     *
      * @return List<Survey>
      */
     public ResponseEntity<List<Survey>> getSurveysIsInactifs() {
@@ -147,6 +153,7 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Mise a jour d'un survey
+     *
      * @param surveyID
      * @param body
      * @return Survey
@@ -169,7 +176,8 @@ public class SurveysApiController implements SurveysApi {
 
     /**
      * Création d'un sondage
-     * @param sondage
+     *
+     * @param Survey
      * @return
      */
     public ResponseEntity<Survey> createSurvey(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.", required = true) @Valid @RequestBody Survey sondage) {
