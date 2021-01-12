@@ -51,7 +51,7 @@ public class OptionControllerTest {
      * Pour le status "NotImplemented" ou "OK"
      */
     @Test
-    public void optionGetOptionsNotImplemented() {
+    public void getOptions() {
 
         /** Test not implemented **/
         OptionsApiController optsNull = new OptionsApiController(objectMapper,httpServletRequest);
