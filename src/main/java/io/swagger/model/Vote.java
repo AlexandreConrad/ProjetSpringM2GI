@@ -10,11 +10,9 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.List;
 
 /**
- * Survey
+ * Vote
  */
 
 /**
@@ -28,44 +26,38 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"idSurvey", "name", "description", "isAvailable", "endDate"})
-@ToString(of = {"idSurvey", "name", "description", "isAvailable", "endDate"})
+@EqualsAndHashCode(of = {"idVote", "author", "idChoice", "idOption"})
+@ToString(of = {"idVote", "author", "idChoice", "idOption"})
 
 /** Hibernate*/
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Survey implements Serializable {
+public class Vote implements Serializable {
 
-    @JsonProperty("idSurvey")
-    @ApiModelProperty(hidden = true)
+    @JsonProperty("idVote")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_SURVEY")
-    Long idSurvey;
+    @Column(name = "ID_VOTE")
+    Long idVote;
 
-    @JsonProperty("name")
+    @JsonProperty("author")
     @NonNull
-    @Column(name = "NAME")
-    String name;
+    @Column(name = "AUTHOR")
+    String author;
 
-    @JsonProperty("description")
+    @JsonProperty("idChoice")
     @NonNull
-    @Column(name = "DESCRIPTION")
-    String description;
+    @Column(name = "ID_CHOICE")
+    Long idChoice;
 
-    @JsonProperty("isAvailable")
+    @JsonProperty("idOption")
     @NonNull
-    @Column(name = "IS_AVAILABLE")
-    Boolean isAvailable;
+    @Column(name = "ID_OPTION")
+    Long idOption;
 
-    @JsonProperty("endDate")
-    @NonNull
-    @Column(name = "END_DATE")
-    Timestamp endDate;
-
-    @OneToMany(targetEntity = Choice.class, fetch = FetchType.LAZY, mappedBy = "idSurvey")
-    @ApiModelProperty(hidden = true)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    List<Choice> choices;
-
+    @ApiModelProperty(hidden = true)
+    @JoinColumn(name = "ID_OPTION", referencedColumnName = "ID_OPTION", insertable = false, updatable = false)
+    Option option;
 }

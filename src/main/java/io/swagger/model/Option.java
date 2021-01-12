@@ -1,20 +1,16 @@
 package io.swagger.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.List;
 
 /**
- * Choice
+ * Option
  */
 
 /**
@@ -28,33 +24,22 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"idChoice", "date", "idSurvey"})
-@ToString(of = {"idChoice", "date", "id_Survey"})
+@EqualsAndHashCode(of = {"idOption", "name"})
+@ToString(of = {"idOption", "name"})
 
 /** Hibernate*/
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Choice implements Serializable {
+public class Option implements Serializable {
 
-    @JsonProperty("idChoice")
+    @JsonProperty("idOption")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_CHOICE")
-    Long idChoice;
+    @Column(name = "ID_OPTION")
+    Long idOption;
 
-    @JsonProperty("date")
+    @JsonProperty("name")
     @NonNull
-    @Column(name = "DATE")
-    Timestamp date;
-
-    @JsonProperty("idSurvey")
-    @NonNull
-    @Column(name = "ID_SURVEY")
-    Long idSurvey;
-
-    @OneToMany(targetEntity = Vote.class, mappedBy = "idChoice", fetch = FetchType.LAZY)
-    @ApiModelProperty(hidden = true)
-    @JsonIgnore
-    List<Vote> votes;
+    @Column(name = "NAME")
+    String name;
 }
-

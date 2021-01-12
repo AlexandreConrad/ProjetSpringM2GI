@@ -1,10 +1,9 @@
-import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
 import io.swagger.service.SurveyService;
 import org.junit.*;
-import org.threeten.bp.OffsetDateTime;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -21,7 +20,7 @@ public class ServiceSurveyTest {
     @Test
     public void getSurveyByID(){
         Survey surveyTest = SurveyService.getSurveyByID(1L);
-        Assert.assertEquals(surveyTest.getId_survey(),(Long)1L);
+        Assert.assertEquals(surveyTest.getIdSurvey(),(Long)1L);
         Assert.assertEquals("Anniversaire suprise pour Alexandre ?", surveyTest.getName());
         Assert.assertEquals(true, surveyTest.getIsAvailable());
         Assert.assertEquals("On fait une surprise, ne lui dites pas !!", surveyTest.getDescription());
@@ -85,7 +84,7 @@ public class ServiceSurveyTest {
 
         //On test les changements
         Survey newSurvey = SurveyService.getSurveyByID(id_survey);
-        Assert.assertEquals(id_survey,newSurvey.getId_survey());
+        Assert.assertEquals(id_survey,newSurvey.getIdSurvey());
         Assert.assertEquals(bool,newSurvey.getIsAvailable());
         Assert.assertNotEquals(name,newSurvey.getName());
         Assert.assertNotEquals(description,newSurvey.getDescription());
@@ -101,7 +100,7 @@ public class ServiceSurveyTest {
         SurveyService.deleteSurvey(id_survey);
         List<Survey> surveysTest = SurveyService.getSurveys();
         for (Survey s: surveysTest)
-            Assert.assertNotEquals(s.getId_survey(), id_survey);
+            Assert.assertNotEquals(s.getIdSurvey(), id_survey);
     }
 
     /**
@@ -114,12 +113,12 @@ public class ServiceSurveyTest {
         //Variables
         String name = "Test du sondage";
         String description = "Test description";
-        OffsetDateTime dateTime = OffsetDateTime.now();
-        //Timestamp date = Timestamp.valueOf(dateTime.toString());
+        Date dateTime = new Date();
+        Long time = dateTime.getTime();
 
         //Création d'un sondage
-        Sondage survey = new Sondage();
-        survey.setEndDate(dateTime);
+        Survey survey = new Survey();
+        survey.setEndDate(new Timestamp(time));
         survey.setName(name);
         survey.setDescription(description);
 
@@ -132,7 +131,7 @@ public class ServiceSurveyTest {
             if(s.getName().equals(name)) {
                 Assert.assertEquals(s.getName(), name);
                 Assert.assertEquals(s.getDescription(), description);
-                Assert.assertEquals(s.getIsAvailable(), true);
+                Assert.assertEquals(true,s.getIsAvailable());
                 //Assert.assertEquals(s.getEndDate(), date);
             }
     }
@@ -146,6 +145,6 @@ public class ServiceSurveyTest {
         Long id_survey = 2L;
         SurveyService.endSurvey(id_survey);
         Survey survey = SurveyService.getSurveyByID(id_survey);
-        Assert.assertEquals(survey.getIsAvailable(), false);
+        Assert.assertEquals(false,survey.getIsAvailable());
     }
 }

@@ -39,8 +39,8 @@ public class CommentsApiController implements CommentsApi {
         if (auteur.length() == 0 || message.length() == 0)
             return new ResponseEntity<Comment>(HttpStatus.BAD_REQUEST);
         if (accept != null && accept.contains("application/json")) {
-            Comment comment = CommentService.addComments(surveyID,message,auteur);
-            return new ResponseEntity<Comment>(comment,HttpStatus.OK);
+            Comment comment = CommentService.addComments(surveyID, message, auteur);
+            return new ResponseEntity<Comment>(comment, HttpStatus.OK);
         }
         else
             return new ResponseEntity<Comment>(HttpStatus.INTERNAL_SERVER_ERROR);

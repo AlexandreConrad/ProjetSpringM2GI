@@ -6,15 +6,12 @@
 package io.swagger.api;
 
 import io.swagger.annotations.*;
-import io.swagger.model.InlineResponse201;
-import io.swagger.model.Sondage;
 import io.swagger.model.Survey;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.threeten.bp.OffsetDateTime;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -115,6 +112,6 @@ public interface SurveysApi {
     @RequestMapping(value = "/surveys",
             produces = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<Survey> createSurvey(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.", required = true) @Valid @RequestBody Sondage sondage);
+    ResponseEntity<Survey> createSurvey(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.", required = true) @Valid @RequestBody Survey sondage);
 
 }
