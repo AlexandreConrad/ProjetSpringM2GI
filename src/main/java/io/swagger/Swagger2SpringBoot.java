@@ -30,7 +30,10 @@ public class Swagger2SpringBoot implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) {
-           }
+        if (arg0.length > 0 && arg0[0].equals("exitcode")) {
+            throw new ExitException();
+        }
+    }
 
     class ExitException extends RuntimeException implements ExitCodeGenerator {
         private static final long serialVersionUID = 1L;
