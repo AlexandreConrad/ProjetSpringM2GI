@@ -1,13 +1,17 @@
+package services;
+
 import io.swagger.model.Comment;
 import io.swagger.service.CommentService;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 /**
  * Test en rapport avec la classe "CommentService"
  */
+@SpringBootTest
 public class ServiceCommentTest {
 
     /**

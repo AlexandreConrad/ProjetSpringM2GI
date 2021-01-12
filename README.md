@@ -3,10 +3,10 @@
 _Badges :_
 
 [![forthebadge](https://gitlab.cedricmtta.com/Alexandre/surveys/badges/master/pipeline.svg)](https://gitlab.cedricmtta.com/Alexandre/surveys/-/commits/master)
-Build
 ![coverage](https://gitlab.cedricmtta.com/Alexandre/surveys/badges/master/coverage.svg?job=coverage)
-Dependancy
-chat
+[![Generic badge](https://img.shields.io/badge/Chat-Slack-<COLOR>.svg)](https://app.slack.com/client/T019TJG5J7P/C01A5KA2F0T/thread/C019FUK2RQF-1600883746.002500)
+[![Generic badge](https://img.shields.io/badge/Contributeurs-4-red.svg)](https://gitlab.cedricmtta.com/Alexandre/surveys/-/graphs/master)
+[![Generic badge](https://img.shields.io/badge/Le%20meilleur%20projet%20%3f-Oui%20,%20%C3%A9videmment-yellow.svg)](https://gitlab.cedricmtta.com/help/user/project/badges)
 
 Projet de production logiciel réalisé par Monsieur Cédric Moschetta pour les Master 2 Génie informatique 2020/2021.
 L'objectif du projet est de réaliser une API pour des sondages en ligne.
@@ -46,8 +46,11 @@ Liste les programmes/logiciels/ressources que nous avons utilisé pour développ
 * [Hibernate](https://hibernate.org/) - FrameWork pour le mapping
 * [Lombok](https://projectlombok.org/) - Générateur de code
 * [Maven](https://maven.apache.org/) - Pour les dépendances
+* [Maven Docker](https://registry.hub.docker.com/_/maven) - Pour la gestion de maven dans le pipeline
 * [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) - Version du JAVA
 * [Git](https://gitlab.cedricmtta.com/Alexandre/surveys) - Projet Git
+* [Jacoco](https://www.jacoco.org/jacoco/trunk/doc/) - Coverage
+* [Jacoco](https://www.codeflow.site/fr/article/maven__maven-jacoco-code-coverage-example) - Maven jacoco
 
 Pipline d'intégration avec :
 
@@ -59,7 +62,7 @@ Pipline d'intégration avec :
 * [Swagger Editor](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/alexandre_conrad/docs/swagger.txt) - Document réalisé en Swagger
 * [Carnet de bord](https://gitlab.cedricmtta.com/Alexandre/surveys/) - Carnet de bord  #A FAIRE#
 * [Gantt](https://gitlab.cedricmtta.com/Alexandre/surveys/) - Diagramme de Gantt  #A FAIRE#
-* [Postman](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/Projet%20M2%20GI.postman_collection.json) - Document Postman  #EN TRAVAIL#
+* [Postman](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/Projet%20M2%20GI.postman_collection.json) - Document Postman
 * [BDD](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/Sondages.svg) - Schéma de la base de données 
 * [BDD_verbose](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/verbose.md) - Verbose de la base de données
 

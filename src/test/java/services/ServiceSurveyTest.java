@@ -1,6 +1,9 @@
+package services;
+
 import io.swagger.model.Survey;
 import io.swagger.service.SurveyService;
 import org.junit.*;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -10,8 +13,8 @@ import java.util.List;
 /**
  * Test en rapport avec la classe "SurveyService"
  */
+@SpringBootTest
 public class ServiceSurveyTest {
-
 
     /**
      * Fonction getSurveyByID
@@ -147,4 +150,14 @@ public class ServiceSurveyTest {
         Survey survey = SurveyService.getSurveyByID(id_survey);
         Assert.assertEquals(false,survey.getIsAvailable());
     }
+
+    /**
+     * Constructeur
+     */
+    @Test
+    public void surveyService (){
+        SurveyService surveyService = new SurveyService();
+        Assert.assertEquals(surveyService.getClass(),SurveyService.class);
+    }
+
 }

@@ -27,7 +27,8 @@ public class AnalyticsService {
      * @return MostMaybe
      */
     public static Choice findDateByMaybeAvailable(Long surveyID) {
-        Survey survey = SurveyService.getSurveyByID(surveyID);
+        SurveyService surveyService = new SurveyService();
+        Survey survey = surveyService.getSurveyByID(surveyID);
         IOptionResolver IOptionResolver = new MaybeIOptionResolver();
         log.info("Fonction findDateByMaybeAvailable => OK");
         return getBestChoice(survey, IOptionResolver);
