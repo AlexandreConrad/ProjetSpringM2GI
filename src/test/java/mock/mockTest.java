@@ -1,7 +1,6 @@
 package mock;
 import io.swagger.model.Option;
 import io.swagger.resolvers.MaybeIOptionResolver;
-import io.swagger.service.SurveyService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

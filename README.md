@@ -46,10 +46,12 @@ Liste les programmes/logiciels/ressources que nous avons utilisé pour développ
 * [Hibernate](https://hibernate.org/) - FrameWork pour le mapping
 * [Lombok](https://projectlombok.org/) - Générateur de code
 * [Maven](https://maven.apache.org/) - Pour les dépendances
+* [Maven Docker](https://registry.hub.docker.com/_/maven) - Pour la gestion de maven dans le pipeline
 * [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) - Version du JAVA
 * [Git](https://gitlab.cedricmtta.com/Alexandre/surveys) - Projet Git
 * [Jacoco](https://www.jacoco.org/jacoco/trunk/doc/) - Coverage
 * [Jacoco](https://www.codeflow.site/fr/article/maven__maven-jacoco-code-coverage-example) - Maven jacoco
+
 Pipline d'intégration avec :
 
 * [Gitea](https://gitlab.cedricmtta.com/Alexandre/surveys/-/pipelines) - Build / Compile / Package
