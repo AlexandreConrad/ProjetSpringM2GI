@@ -2,6 +2,7 @@ package controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.api.CommentsApiController;
 import io.swagger.model.Comment;
+import io.swagger.service.CommentService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,13 +56,13 @@ public class CommentControllerTest {
         String author = "Alexandre";
         String message = "soirée null";
 
-         /** Test not found **/
+         /** Test bad request **/
          CommentsApiController commentsIsNull = new CommentsApiController(objectMapper,httpServletRequest);
          ResponseEntity<Comment> commentNotFound = new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
          ResponseEntity<Comment> commentAddNotFound =  commentsIsNull.addComments(surveyID,"","");
          Assert.assertEquals(commentNotFound,commentAddNotFound);
 
-         /** Test not implemented **/
+         /** Test internal server error **/
          Mockito.when(httpServletRequestAccept.getHeader("Accept")).thenReturn("");
          CommentsApiController commentsNotImplemented = new CommentsApiController(objectMapper,httpServletRequest);
          ResponseEntity<Comment> commentNotImplemented = new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -86,7 +88,14 @@ public class CommentControllerTest {
         /** Variables **/
         Long surveyID = 1L;
 
-        /** Test not found
+        /** Test internal server error
+        CommentsApiController commentsInternalError = new CommentsApiController(objectMapper,httpServletRequest);
+        ResponseEntity<List<Comment>> commentInternalError = new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity<List<Comment>> commentAddInternalError =  commentsInternalError.getComments(surveyID);
+        Assert.assertEquals(commentInternalError,commentAddInternalError);
+
+        /** Test not found **/
+        Mockito.when(CommentService.getComments(surveyID)).thenReturn(null);
         CommentsApiController commentsNotFound = new CommentsApiController(objectMapper,httpServletRequest);
         ResponseEntity<List<Comment>> listCommentsNotFound = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         ResponseEntity<List<Comment>> commentsGetNotFound =  commentsNotFound.getComments(surveyID);
