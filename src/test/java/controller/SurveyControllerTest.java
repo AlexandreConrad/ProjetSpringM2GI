@@ -86,4 +86,25 @@ public class SurveyControllerTest {
         Assert.assertEquals(getSurveysByIDIsOk.getStatusCodeValue(),getSurveyByIDOK.getStatusCodeValue());
     }
 
+    /**
+     * Fonction getSurveysIsActifs
+     * Retourne les sondages actifs
+     * Pour le status "NotImplemented" ou "OK"
+     */
+    @Test
+    public void getSurveysIsActifs() {
+
+        /** Test not implemented **/
+        SurveysApiController surveyControllerIsNull = new SurveysApiController(objectMapper,httpServletRequest);
+        ResponseEntity<List<Survey>> surveysIsActifsNotImplemented = new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
+        ResponseEntity<List<Survey>> surveyIsActifsNotImplemented =  surveyControllerIsNull.getSurveysIsActifs();
+        Assert.assertEquals(surveysIsActifsNotImplemented,surveyIsActifsNotImplemented);
+
+        /** Test OK **/
+        Mockito.when(httpServletRequestAccept.getHeader("Accept")).thenReturn("application/json");
+        SurveysApiController surveyControllerAccept = new SurveysApiController(objectMapper,httpServletRequestAccept);
+        ResponseEntity<List<Survey>> surveysIsActifsIsDOK = new ResponseEntity<>(null, HttpStatus.OK);
+        ResponseEntity<List<Survey>> surveysIsActifsIsOk =  surveyControllerAccept.getSurveysIsActifs();
+        Assert.assertEquals(surveysIsActifsIsOk.getStatusCodeValue(),surveysIsActifsIsDOK.getStatusCodeValue());
+    }
 }

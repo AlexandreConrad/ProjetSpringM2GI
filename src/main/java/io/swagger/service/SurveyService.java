@@ -1,13 +1,16 @@
 package io.swagger.service;
 
+import io.swagger.exceptions.DatabaseException;
+import io.swagger.exceptions.NotFoundException;
 import io.swagger.api.SurveysApiController;
 import io.swagger.model.Survey;
 import io.swagger.util.HibernateUtil;
+import io.swagger.util.ServicesUtil;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.List;
@@ -24,13 +27,19 @@ public class SurveyService {
      *
      * @return survey
      */
-    public static Survey getSurveyByID(Long surveyID) {
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
-        Survey survey = session.load(Survey.class, surveyID);//Récupération du sondage
-        transaction.commit();//Annule les changements en cas de problème
-        log.info("Fonction getSurveyByID => OK");
-        return survey;
+    public static Survey getSurveyByID(Long surveyID) throws NotFoundException, DatabaseException {
+        Session session = ServicesUtil.createSession();
+        Transaction transaction = ServicesUtil.createTransaction(session);
+        try{
+            Survey survey = session.load(Survey.class, surveyID);//Récupération du sondage
+            survey.getName();   //Lancement de l'erreur ObjectNotFoundException
+            transaction.commit();//Annule les changements en cas de problème
+            log.info("Fonction getSurveyByID => OK");
+            return survey;
+        }catch(ObjectNotFoundException e){ // Gestion exception par Hibernate
+            transaction.rollback(); // Annule les changements
+            throw new NotFoundException("SurveyByID non trouvé !");
+        }
     }
 
     /**

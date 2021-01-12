@@ -44,8 +44,6 @@ public class ChoicesApiController implements ChoicesApi {
      */
     public ResponseEntity<List<Choice>> getChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir les choix", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
-        Survey survey = SurveyService.getSurveyByID(surveyID);
-
         if (accept != null && accept.contains("application/json")) {
             List<Choice> choices = ChoiceService.getChoiceById(surveyID);
             return new ResponseEntity<List<Choice>>(choices, HttpStatus.OK);

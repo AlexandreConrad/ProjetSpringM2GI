@@ -2,6 +2,8 @@ package io.swagger.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
+import io.swagger.exceptions.DatabaseException;
+import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Survey;
 import io.swagger.service.SurveyService;
 import org.slf4j.Logger;
@@ -74,10 +76,15 @@ public class SurveysApiController implements SurveysApi {
     public ResponseEntity<Survey> getSurvey(@ApiParam(value = "ID du sondage", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            Survey survey = SurveyService.getSurveyByID(surveyID);
-            return new ResponseEntity<Survey>(survey, HttpStatus.OK);
+            try{
+                Survey survey = SurveyService.getSurveyByID(surveyID);
+                return new ResponseEntity<Survey>(survey, HttpStatus.OK);
+            }catch (NotFoundException e){
+                return new ResponseEntity<Survey>(HttpStatus.NOT_FOUND);
+            }catch (DatabaseException d){
+                return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
-        //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
     }
 

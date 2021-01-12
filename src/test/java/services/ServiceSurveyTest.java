@@ -1,8 +1,10 @@
 package services;
 
+import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Survey;
 import io.swagger.service.SurveyService;
 import org.junit.*;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Timestamp;
@@ -21,7 +23,7 @@ public class ServiceSurveyTest {
      * Doit retourner le survey en fonction d'une ID.
      */
     @Test
-    public void getSurveyByID(){
+    public void getSurveyByID() throws Exception{
         Survey surveyTest = SurveyService.getSurveyByID(1L);
         Assert.assertEquals(surveyTest.getIdSurvey(),(Long)1L);
         Assert.assertEquals("Anniversaire suprise pour Alexandre ?", surveyTest.getName());
@@ -30,6 +32,9 @@ public class ServiceSurveyTest {
         Timestamp date = Timestamp.valueOf("2020-06-11 12:22:44");
         // A FIX SERVEUR
         //Assert.assertEquals(surveyTest.getEndDate(),date);
+
+        /** Gestion des exceptions **/
+        Assertions.assertThrows(NotFoundException.class,() -> SurveyService.getSurveyByID(10000L));
     }
 
     /**
@@ -70,7 +75,7 @@ public class ServiceSurveyTest {
      * Mise à jour d'un survey
      */
     @Test
-    public void updateSurvey(){
+    public void updateSurvey() throws Exception{
 
         //Ancienne valeurs
         Long id_survey = 2L;
@@ -144,7 +149,7 @@ public class ServiceSurveyTest {
      * Clôture un survey
      */
     @Test
-    public void endSurvey(){
+    public void endSurvey() throws Exception{
         Long id_survey = 2L;
         SurveyService.endSurvey(id_survey);
         Survey survey = SurveyService.getSurveyByID(id_survey);
