@@ -86,8 +86,8 @@ public class SurveysApiController implements SurveysApi {
      */
     public ResponseEntity<Survey> getSurvey(@ApiParam(value = "ID du sondage", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
+        Survey survey = SurveyService.getSurveyByID(surveyID);
         if (accept != null && accept.contains("application/json")) {
-            Survey survey = SurveyService.getSurveyByID(surveyID);
             if (survey == null)
                 return new ResponseEntity<Survey>(HttpStatus.NOT_FOUND);
             return new ResponseEntity<Survey>(survey, HttpStatus.OK);
@@ -105,8 +105,8 @@ public class SurveysApiController implements SurveysApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             List<Survey> surveys = SurveyService.getSurveys();
-            for (Survey survey : surveys)
-                if (survey == null) {return new ResponseEntity<List<Survey>>(HttpStatus.NOT_FOUND);};
+            if (surveys == null)
+                return new ResponseEntity<List<Survey>>(HttpStatus.NOT_FOUND);
             return new ResponseEntity<List<Survey>>(surveys,HttpStatus.OK);
         }
         else
@@ -160,16 +160,16 @@ public class SurveysApiController implements SurveysApi {
      */
     public ResponseEntity<Survey> updateSurvey(@ApiParam(value = "Identifiant du sondage à modifier.", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Sondage modifié", required = true) @Valid @RequestBody Survey body) {
         String accept = request.getHeader("Accept");
+        Survey survey = SurveyService.updateSurvey(surveyID,body);
         if (accept != null && accept.contains("application/json")) {
-            if (body == null)
-                return new ResponseEntity<Survey>(HttpStatus.CONFLICT);
-            if (body.getDescription().length() == 0 || body.getName().length() == 0)
-                return new ResponseEntity<Survey>(HttpStatus.BAD_REQUEST);
-            Survey survey = SurveyService.updateSurvey(surveyID,body);
-            if (survey == null)
-                return new ResponseEntity<Survey>(HttpStatus.NOT_FOUND);
             return new ResponseEntity<Survey>(survey,HttpStatus.OK);
         }
+        else if (body == null)
+            return new ResponseEntity<Survey>(HttpStatus.CONFLICT);
+        else if (body.getDescription().length() == 0 || body.getName().length() == 0)
+            return new ResponseEntity<Survey>(HttpStatus.BAD_REQUEST);
+        else if (survey == null)
+            return new ResponseEntity<Survey>(HttpStatus.NOT_FOUND);
         else
             return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -183,13 +183,13 @@ public class SurveysApiController implements SurveysApi {
     public ResponseEntity<Survey> createSurvey(@ApiParam(value = "Un sondage doit être construit à l'aide d'un nom, d'une description et d'une date de fin.", required = true) @Valid @RequestBody Survey sondage) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            if (sondage.getDescription().length() == 0 || sondage.getName().length() == 0)
-                return new ResponseEntity<Survey>(HttpStatus.BAD_REQUEST);
-            if (sondage.getEndDate().before(new Timestamp(System.currentTimeMillis())))
-                return new ResponseEntity<Survey>(HttpStatus.CONFLICT);
             Survey survey = SurveyService.createSurvey(sondage);
             return new ResponseEntity<Survey>(survey,HttpStatus.CREATED);
         }
+        else if (sondage.getEndDate().before(new Timestamp(System.currentTimeMillis())))
+            return new ResponseEntity<Survey>(HttpStatus.CONFLICT);
+        else if (sondage.getDescription().length() == 0 || sondage.getName().length() == 0)
+            return new ResponseEntity<Survey>(HttpStatus.BAD_REQUEST);
         else
             return new ResponseEntity<Survey>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
