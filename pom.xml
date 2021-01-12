@@ -18,6 +18,7 @@
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <spring-boot.run.jvmArguments>-Duser.timezone=Europe/Paris</spring-boot.run.jvmArguments>
         <sonar.language>java</sonar.language>
+        <sonar.exclusions>src/main/java/io/swagger/configuration/*</sonar.exclusions>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
