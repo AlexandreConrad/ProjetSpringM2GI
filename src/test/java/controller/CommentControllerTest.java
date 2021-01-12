@@ -55,7 +55,7 @@ public class CommentControllerTest {
         String message = "soirée null";
 
         /** Test not implemented **/
-        CommentsApiController commentsIsNull = new CommentsApiController(objectMapper,httpServletRequest);
+        /**CommentsApiController commentsIsNull = new CommentsApiController(objectMapper,httpServletRequest);
         ResponseEntity<Comment> commentNotImplemented = new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
         ResponseEntity<Comment> commentAddNotImplemented =  commentsIsNull.addComments(surveyID,author,message);
         Assert.assertEquals(commentNotImplemented,commentAddNotImplemented);
@@ -80,10 +80,10 @@ public class CommentControllerTest {
         Long surveyID = 1L;
 
         /** Test not implemented **/
-        CommentsApiController commentsIsNull = new CommentsApiController(objectMapper,httpServletRequest);
+       /** CommentsApiController commentsIsNull = new CommentsApiController(objectMapper,httpServletRequest);
         ResponseEntity<List<Comment>> listCommentsNotImplemented = new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
         ResponseEntity<List<Comment>> commentsNotImplemented =  commentsIsNull.getComments(surveyID);
-        Assert.assertEquals(commentsNotImplemented,listCommentsNotImplemented);
+        Assert.assertEquals(commentsNotImplemented,listCommentsNotImplemented);**/
 
         /** Test OK **/
         Mockito.when(httpServletRequestAccept.getHeader("Accept")).thenReturn("application/json");

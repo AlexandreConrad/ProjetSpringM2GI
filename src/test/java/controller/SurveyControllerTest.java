@@ -49,9 +49,9 @@ public class SurveyControllerTest {
     public void getSurveys() {
         /** Test not implemented **/
         SurveysApiController surveyControllerIsNull = new SurveysApiController(objectMapper,httpServletRequest);
-        ResponseEntity<List<Survey>> surveysNotImplemented = new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
-        ResponseEntity<List<Survey>> getSurveysNotImplemented =  surveyControllerIsNull.getSurveys();
-        Assert.assertEquals(surveysNotImplemented,getSurveysNotImplemented);
+        ResponseEntity<List<Survey>> surveysNotFound = new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity<List<Survey>> getSurveysNotFound =  surveyControllerIsNull.getSurveys();
+        Assert.assertEquals(surveysNotFound,getSurveysNotFound);
 
         /** Test OK **/
         Mockito.when(httpServletRequestAccept.getHeader("Accept")).thenReturn("application/json");
@@ -74,9 +74,9 @@ public class SurveyControllerTest {
 
         /** Test not implemented **/
         SurveysApiController surveyControllerIsNull = new SurveysApiController(objectMapper,httpServletRequest);
-        ResponseEntity<Survey> surveysNotImplemented = new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
-        ResponseEntity<Survey> getSurveysByIDNotImplemented =  surveyControllerIsNull.getSurvey(surveyID);
-        Assert.assertEquals(surveysNotImplemented,getSurveysByIDNotImplemented);
+        ResponseEntity<Survey> surveysNotFound = new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity<Survey> getSurveysByIDNotFound =  surveyControllerIsNull.getSurvey(surveyID);
+        Assert.assertEquals(surveysNotFound,getSurveysByIDNotFound);
 
         /** Test OK **/
         Mockito.when(httpServletRequestAccept.getHeader("Accept")).thenReturn("application/json");
