@@ -50,10 +50,8 @@ public class CommentsApiController implements CommentsApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             List<Comment> comments = CommentService.getComments(surveyID);
-            for (Comment comment : comments) {
-                if (comment.getComment().length() == 0 || comment.getAuthor().length() == 0)
-                    return new ResponseEntity<List<Comment>>(HttpStatus.NOT_FOUND);
-            }
+            if (comments == null)
+                return new ResponseEntity<List<Comment>>(HttpStatus.NOT_FOUND);
             return new ResponseEntity<List<Comment>>(comments,HttpStatus.OK);
         }
         else
