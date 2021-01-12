@@ -1,7 +1,6 @@
 package controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.api.VotesApiController;
-import io.swagger.model.Option;
 import io.swagger.model.Vote;
 import org.junit.Assert;
 import org.junit.Before;
@@ -41,9 +40,6 @@ public class VotesControllerTest {
 
     @Mock
     HttpServletRequest httpServletRequestAccept;
-
-    @Mock
-    VotesApiController votesApiController;
 
     /**
      * Fonction getVoteChoice
