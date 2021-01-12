@@ -54,11 +54,18 @@ public class CommentControllerTest {
         String author = "Alexandre";
         String message = "soirée null";
 
-        /** Test not implemented **/
-        CommentsApiController commentsIsNull = new CommentsApiController(objectMapper,httpServletRequest);
-        ResponseEntity<Comment> commentNotImplemented = new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
-        ResponseEntity<Comment> commentAddNotImplemented =  commentsIsNull.addComments(surveyID,author,message);
-        Assert.assertEquals(commentNotImplemented,commentAddNotImplemented);
+         /** Test not found **/
+         CommentsApiController commentsIsNull = new CommentsApiController(objectMapper,httpServletRequest);
+         ResponseEntity<Comment> commentNotFound = new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+         ResponseEntity<Comment> commentAddNotFound =  commentsIsNull.addComments(surveyID,"","");
+         Assert.assertEquals(commentNotFound,commentAddNotFound);
+
+         /** Test not implemented **/
+         Mockito.when(httpServletRequestAccept.getHeader("Accept")).thenReturn("");
+         CommentsApiController commentsNotImplemented = new CommentsApiController(objectMapper,httpServletRequest);
+         ResponseEntity<Comment> commentNotImplemented = new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+         ResponseEntity<Comment> commentAddNotImplemented =  commentsNotImplemented.addComments(surveyID,author,message);
+         Assert.assertEquals(commentNotImplemented,commentAddNotImplemented);
 
         /** Test OK **/
         Mockito.when(httpServletRequestAccept.getHeader("Accept")).thenReturn("application/json");
@@ -79,11 +86,11 @@ public class CommentControllerTest {
         /** Variables **/
         Long surveyID = 1L;
 
-        /** Test not implemented **/
-        CommentsApiController commentsIsNull = new CommentsApiController(objectMapper,httpServletRequest);
-        ResponseEntity<List<Comment>> listCommentsNotImplemented = new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
-        ResponseEntity<List<Comment>> commentsNotImplemented =  commentsIsNull.getComments(surveyID);
-        Assert.assertEquals(commentsNotImplemented,listCommentsNotImplemented);
+        /** Test not found
+        CommentsApiController commentsNotFound = new CommentsApiController(objectMapper,httpServletRequest);
+        ResponseEntity<List<Comment>> listCommentsNotFound = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        ResponseEntity<List<Comment>> commentsGetNotFound =  commentsNotFound.getComments(surveyID);
+        Assert.assertEquals(listCommentsNotFound,commentsGetNotFound);
 
         /** Test OK **/
         Mockito.when(httpServletRequestAccept.getHeader("Accept")).thenReturn("application/json");

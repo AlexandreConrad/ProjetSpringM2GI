@@ -44,7 +44,6 @@ public class CommentsApiController implements CommentsApi {
         }
         else
             return new ResponseEntity<Comment>(HttpStatus.INTERNAL_SERVER_ERROR);
-        //TODO Retourne un code d'erreur pour les différents cas possibles
     }
 
     public ResponseEntity<List<Comment>> getComments(@ApiParam(value = "ID du sondage pour lequel on souhaite les commentaires", required = true) @PathVariable("surveyID") Long surveyID) {
@@ -59,7 +58,6 @@ public class CommentsApiController implements CommentsApi {
         }
         else
             return new ResponseEntity<List<Comment>>(HttpStatus.INTERNAL_SERVER_ERROR);
-        //TODO Retourne un code d'erreur pour les différents cas possibles
     }
 }
 
