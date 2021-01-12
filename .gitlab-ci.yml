@@ -1,4 +1,4 @@
-image: JAVA_HOME
+image: maven:3.6-jdk-11
 
 stages:
   - build
