@@ -1,6 +1,8 @@
 package io.swagger.service;
 
 import io.swagger.api.AnalyticsApiController;
+import io.swagger.exceptions.DatabaseException;
+import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Choice;
 import io.swagger.model.Option;
 import io.swagger.model.Survey;
@@ -26,7 +28,7 @@ public class AnalyticsService {
      *
      * @return MostMaybe
      */
-    public static Choice findDateByMaybeAvailable(Long surveyID) {
+    public static Choice findDateByMaybeAvailable(Long surveyID) throws NotFoundException, DatabaseException {
         SurveyService surveyService = new SurveyService();
         Survey survey = surveyService.getSurveyByID(surveyID);
         IOptionResolver IOptionResolver = new MaybeIOptionResolver();
@@ -40,7 +42,7 @@ public class AnalyticsService {
      * @param surveyID
      * @return
      */
-    public static Choice findDateByAvailable(Long surveyID) {
+    public static Choice findDateByAvailable(Long surveyID) throws NotFoundException, DatabaseException {
         Survey survey = SurveyService.getSurveyByID(surveyID);
         IOptionResolver IOptionResolver = new AvailableIOptionResolver();
         log.info("Fonction findDateByAvailable => OK");

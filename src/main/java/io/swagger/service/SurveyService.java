@@ -1,15 +1,20 @@
 package io.swagger.service;
 
+import io.swagger.exceptions.BadRequestException;
+import io.swagger.exceptions.DatabaseException;
+import io.swagger.exceptions.NotFoundException;
 import io.swagger.api.SurveysApiController;
 import io.swagger.model.Survey;
-import io.swagger.util.HibernateUtil;
+import io.swagger.util.ServicesUtil;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,13 +29,25 @@ public class SurveyService {
      *
      * @return survey
      */
-    public static Survey getSurveyByID(Long surveyID) {
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
-        Survey survey = session.load(Survey.class, surveyID);//Récupération du sondage
-        transaction.commit();//Annule les changements en cas de problème
-        log.info("Fonction getSurveyByID => OK");
-        return survey;
+    public static Survey getSurveyByID(Long surveyID) throws NotFoundException, DatabaseException {
+
+        Session session = ServicesUtil.createSession();
+        Transaction transaction = ServicesUtil.createTransaction(session);
+
+        try{
+
+            Survey survey = session.load(Survey.class, surveyID);//Récupération du sondage
+            survey.getName();   //Lancement de l'erreur ObjectNotFoundException
+            transaction.commit();//Annule les changements en cas de problème
+            log.info("Fonction getSurveyByID => OK");
+            return survey;
+
+        }catch(ObjectNotFoundException e){ // Gestion exception par Hibernate
+
+            transaction.rollback(); // Annule les changements
+            throw new NotFoundException("SurveyByID non trouvé !");
+
+        }
     }
 
     /**
@@ -38,16 +55,28 @@ public class SurveyService {
      *
      * @return List<Survey>
      */
-    public static List<Survey> getSurveys() {
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Survey> criteria = builder.createQuery(Survey.class); //Récupération de tous les sondages
-        criteria.from(Survey.class);
-        List<Survey> surveys = session.createQuery(criteria).getResultList();
-        transaction.commit();
-        log.info("Fonction getSurveys => OK");
-        return surveys;
+    public static List<Survey> getSurveys() throws DatabaseException, NotFoundException {
+
+        Session session = ServicesUtil.createSession();
+        Transaction transaction = ServicesUtil.createTransaction(session);
+
+        try{
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Survey> criteria = builder.createQuery(Survey.class); //Récupération de tous les sondages
+            criteria.from(Survey.class);
+            List<Survey> surveys = session.createQuery(criteria).getResultList();
+            transaction.commit();
+            surveys.size(); // => survey not found
+            log.info("Fonction getSurveys => OK");
+            return surveys;
+
+        }catch(ObjectNotFoundException e){ // Gestion exception par Hibernate
+
+            transaction.rollback(); // Annule les changements
+            throw new NotFoundException("SurveyByID non trouvé !");
+
+        }
     }
 
     /**
@@ -55,10 +84,16 @@ public class SurveyService {
      *
      * @return List<Survey>
      */
-    public static List<Survey> getSurveysIsActives() {
-        List<Survey> surveys = getSurveysIsActivesOrExpireds(true);
-        log.info("Fonction getSurveysIsActives => OK");
-        return surveys;
+    public static List<Survey> getSurveysIsActives() throws DatabaseException, NotFoundException {
+
+        try{
+            List<Survey> surveys = getSurveysIsActivesOrExpireds(true);
+            log.info("Fonction getSurveysIsActives => OK");
+            surveys.size(); // => survey not found
+            return surveys;
+        }catch(ObjectNotFoundException e){ // Gestion exception par Hibernate
+            throw new NotFoundException("SurveyByID non trouvé !");
+        }
     }
 
     /**
@@ -66,10 +101,15 @@ public class SurveyService {
      *
      * @return List<Survey>
      */
-    public static List<Survey> getSurveysIsExpireds() {
-        List<Survey> surveys = getSurveysIsActivesOrExpireds(false);
-        log.info("Fonction getSurveysIsExpireds => OK");
-        return surveys;
+    public static List<Survey> getSurveysIsExpireds() throws DatabaseException, NotFoundException {
+        try{
+            List<Survey> surveys = getSurveysIsActivesOrExpireds(false);
+            log.info("Fonction getSurveysIsExpireds => OK");
+            surveys.size(); // => survey not found
+            return surveys;
+        }catch(ObjectNotFoundException e){ // Gestion exception par Hibernate
+            throw new NotFoundException("SurveyByID non trouvé !");
+        }
     }
 
     /**
@@ -78,9 +118,9 @@ public class SurveyService {
      * @param bool
      * @return List<Survey>
      */
-    private static List<Survey> getSurveysIsActivesOrExpireds(Boolean bool) {
-        Session session = HibernateUtil.getSession();   //Ouverture d'une session
-        Transaction transaction = session.beginTransaction();       //Ouverture d'une transaction en cas de problème
+    private static List<Survey> getSurveysIsActivesOrExpireds(Boolean bool) throws DatabaseException {
+        Session session = ServicesUtil.createSession();
+        Transaction transaction = ServicesUtil.createTransaction(session);
         CriteriaBuilder builder = session.getCriteriaBuilder();     //Création d'une requête
         CriteriaQuery<Survey> criteria = builder.createQuery(Survey.class); //Récupération de tous les surveys
         Root<Survey> myObjectRoot = criteria.from(Survey.class);            //Représentation d'un objet
@@ -97,9 +137,14 @@ public class SurveyService {
      * @param surveyID
      * @return survey
      */
-    public static Survey deleteSurvey(Long surveyID) {
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
+    public static Survey deleteSurvey(Long surveyID) throws DatabaseException, NotFoundException {
+
+        /** Exceptions **/
+        getSurveyByID(surveyID); // => survey not found
+
+        Session session = ServicesUtil.createSession();
+        Transaction transaction = ServicesUtil.createTransaction(session);
+
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaDelete<Survey> delete = builder.createCriteriaDelete(Survey.class);
         Root e = delete.from(Survey.class);
@@ -117,7 +162,7 @@ public class SurveyService {
      * @param updateSurvey
      * @return survey
      */
-    public static Survey updateSurvey(Long surveyID, Survey updateSurvey) {
+    public static Survey updateSurvey(Long surveyID, Survey updateSurvey) throws DatabaseException, BadRequestException, NotFoundException {
 
         /** Test de mise a jour
          {
@@ -129,8 +174,13 @@ public class SurveyService {
          }
          */
 
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
+        /** Exceptions **/
+        if(surveyID == null || updateSurvey == null)    // => BadRequestException
+            throw new BadRequestException("Fonction updateSurvey => informations non valide !");
+        getSurveyByID(surveyID); // => survey not found
+
+        Session session = ServicesUtil.createSession();
+        Transaction transaction = ServicesUtil.createTransaction(session);
         Survey survey = session.load(Survey.class, surveyID);//Récupération du sondage
 
         //Modification par les nouvelles valeurs
@@ -153,16 +203,21 @@ public class SurveyService {
      * @param surveyID
      * @return
      */
-    public static Survey endSurvey(Long surveyID) {
+    public static Survey endSurvey(Long surveyID) throws DatabaseException, NotFoundException, BadRequestException {
 
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
+        /** Exceptions **/
+        if(surveyID == null)    // => BadRequestException
+            throw new BadRequestException("Fonction endSurvey => informations non valide !");
+        getSurveyByID(surveyID); // => survey not found
+
+        Session session = ServicesUtil.createSession();
+        Transaction transaction = ServicesUtil.createTransaction(session);
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaUpdate<Survey> update = builder.createCriteriaUpdate(Survey.class);
         Root<Survey> root = update.from(Survey.class);
 
         update.set(root.get("isAvailable"), 0);
         update.where(builder.equal(root.get("idSurvey"), surveyID));
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
         session.createQuery(update).executeUpdate();
 
         transaction.commit();
@@ -176,7 +231,7 @@ public class SurveyService {
      * @param sondage
      * @return
      */
-    public static Survey createSurvey(Survey sondage) {
+    public static Survey createSurvey(Survey sondage) throws DatabaseException, BadRequestException {
 
         /** Création d'un sondage
          {
@@ -186,6 +241,14 @@ public class SurveyService {
          }
          **/
 
+        /** Variables **/
+        Date now = new Date();
+        Timestamp t = new Timestamp(now.getTime());
+
+        /** Exception 400 Bad Request **/
+        if(sondage == null || sondage.getName() == null || sondage.getDescription() == null)
+            throw new BadRequestException("Fonction createSurvey => informations non valide !");
+
         //Création du survey avec les informations
         Survey survey = new Survey();
         survey.setIsAvailable(true);
@@ -194,12 +257,12 @@ public class SurveyService {
         survey.setEndDate(sondage.getEndDate());
 
         //Persistance dans la base de données
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
+        Session session = ServicesUtil.createSession(); //Ouverture d'une session
+        Transaction transaction = ServicesUtil.createTransaction(session); //Ouverture d'une transaction en cas de problème
         session.persist(survey);
         transaction.commit();
         log.info("Fonction createSurvey => OK");
-
         return survey;
+
     }
 }

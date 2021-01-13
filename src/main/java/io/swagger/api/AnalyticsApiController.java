@@ -2,7 +2,10 @@ package io.swagger.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
+import io.swagger.exceptions.DatabaseException;
+import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Choice;
+import io.swagger.model.Survey;
 import io.swagger.service.AnalyticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +36,14 @@ public class AnalyticsApiController implements AnalyticsApi {
     public ResponseEntity<Choice> findDateByAvailable(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir des statistiques", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            Choice maybe = AnalyticsService.findDateByAvailable(surveyID);
-            return new ResponseEntity<Choice>(maybe, HttpStatus.OK);
+            try {
+                Choice maybe = AnalyticsService.findDateByAvailable(surveyID);
+                return new ResponseEntity<Choice>(maybe, HttpStatus.OK);
+            }catch (NotFoundException e){
+                return new ResponseEntity<Choice>(HttpStatus.NOT_FOUND);
+            }catch (DatabaseException d){
+                return new ResponseEntity<Choice>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Choice>(HttpStatus.NOT_IMPLEMENTED);
@@ -43,8 +52,14 @@ public class AnalyticsApiController implements AnalyticsApi {
     public ResponseEntity<Choice> findDateByMaybeAvailable(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir des statistiques", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            Choice maybe = AnalyticsService.findDateByMaybeAvailable(surveyID);
-            return new ResponseEntity<Choice>(maybe, HttpStatus.OK);
+            try {
+                Choice maybe = AnalyticsService.findDateByMaybeAvailable(surveyID);
+                return new ResponseEntity<Choice>(maybe, HttpStatus.OK);
+            }catch (NotFoundException e){
+                return new ResponseEntity<Choice>(HttpStatus.NOT_FOUND);
+            }catch (DatabaseException d){
+                return new ResponseEntity<Choice>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
         //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Choice>(HttpStatus.NOT_IMPLEMENTED);
