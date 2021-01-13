@@ -1,5 +1,8 @@
 package services;
 
+import io.swagger.exceptions.BadRequestException;
+import io.swagger.exceptions.DatabaseException;
+import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Comment;
 import io.swagger.service.CommentService;
 import org.junit.Assert;
@@ -19,7 +22,7 @@ public class ServiceCommentTest {
      * Ajoute un commentaire à un sondage.
      */
     @Test
-    public void addComments(){
+    public void addComments() throws Exception{
 
         //Variables
         Long surveyID = 1L;
@@ -46,10 +49,24 @@ public class ServiceCommentTest {
      * Retourne tous les commentaires d'un sondage.
      */
     @Test
-    public void getComments(){
+    public void getComments()throws Exception{
         Long idSurvey = 1L;
         List<Comment> comments = CommentService.getComments(idSurvey); //Récupération de tous les commentaires d'un sondage.
         for( Comment c : comments )
             Assert.assertEquals(c.getIdSurvey(),idSurvey); // Vérification si les commentaires sont du bon sondage.
+    }
+
+    /**
+     * Gestions des exceptions
+     */
+    @Test(expected = NotFoundException.class)
+    public void commentsExceptionsNotFoundException() throws BadRequestException, DatabaseException, NotFoundException {
+        CommentService.addComments(10000L,"test","test");
+        CommentService.getComments(10000L);
+    }
+
+    @Test(expected = BadRequestException.class)
+    public void commentsExceptionsBadRequestException() throws BadRequestException, DatabaseException, NotFoundException {
+        CommentService.addComments(null,null,null);
     }
 }
