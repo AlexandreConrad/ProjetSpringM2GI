@@ -66,6 +66,14 @@ public class CommentControllerTest {
         ResponseEntity<Comment> commentOK = new ResponseEntity<>(null, HttpStatus.OK);
         ResponseEntity<Comment> commentAddOk =  commentAccept.addComments(surveyID,author,message);
         Assert.assertEquals(commentAddOk.getStatusCodeValue(),commentOK.getStatusCodeValue());
+
+        /** Test not found **/
+        ResponseEntity<Comment> commentAddNotFound =  commentAccept.addComments(1000L,author,message);
+        Assert.assertEquals(commentAddNotFound.getStatusCodeValue(),HttpStatus.NOT_FOUND.value());
+
+        /** Test BAD_REQUEST **/
+        ResponseEntity<Comment> commentAddServerBad =  commentAccept.addComments(null,author,message);
+        Assert.assertEquals(commentAddServerBad.getStatusCodeValue(),HttpStatus.BAD_REQUEST.value());
     }
 
     /**
@@ -91,5 +99,9 @@ public class CommentControllerTest {
         ResponseEntity<List<Comment>> listCommentsOK = new ResponseEntity<>(null, HttpStatus.OK);
         ResponseEntity<List<Comment>> commentsOk =  commentsAccept.getComments(surveyID);
         Assert.assertEquals(commentsOk.getStatusCodeValue(),listCommentsOK.getStatusCodeValue());
+
+        /** Test not found **/
+        ResponseEntity<List<Comment>> getCommentsIdNotFound =  commentsAccept.getComments(10000L);;
+        Assert.assertEquals(getCommentsIdNotFound.getStatusCodeValue(),HttpStatus.NOT_FOUND.value());
     }
 }

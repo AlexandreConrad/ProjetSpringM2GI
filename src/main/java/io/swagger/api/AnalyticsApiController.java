@@ -44,7 +44,6 @@ public class AnalyticsApiController implements AnalyticsApi {
                 return new ResponseEntity<Choice>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-        //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Choice>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -60,7 +59,6 @@ public class AnalyticsApiController implements AnalyticsApi {
                 return new ResponseEntity<Choice>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-        //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Choice>(HttpStatus.NOT_IMPLEMENTED);
     }
 
