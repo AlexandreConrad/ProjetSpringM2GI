@@ -20,25 +20,6 @@ import java.util.List;
 public class ServiceSurveyTest {
 
     /**
-     * Fonction getSurveyByID
-     * Doit retourner le survey en fonction d'une ID.
-     */
-    @Test
-    public void getSurveyByID() throws Exception{
-        Survey surveyTest = SurveyService.getSurveyByID(1L);
-        Assert.assertEquals(surveyTest.getIdSurvey(),(Long)1L);
-        Assert.assertEquals("Anniversaire suprise pour Alexandre ?", surveyTest.getName());
-        Assert.assertEquals(true, surveyTest.getIsAvailable());
-        Assert.assertEquals("On fait une surprise, ne lui dites pas !!", surveyTest.getDescription());
-        Timestamp date = Timestamp.valueOf("2020-06-11 12:22:44");
-        // A FIX SERVEUR
-        //Assert.assertEquals(surveyTest.getEndDate(),date);
-
-        /** Gestion des exceptions **/
-        Assertions.assertThrows(NotFoundException.class,() -> SurveyService.getSurveyByID(10000L));
-    }
-
-    /**
      * Fonction getSurveys
      * Doit retourner le surveys.
      */
@@ -181,4 +162,22 @@ public class ServiceSurveyTest {
         Assert.assertEquals(surveyService.getClass(),SurveyService.class);
     }
 
+    /**
+     * Fonction getSurveyByID
+     * Doit retourner le survey en fonction d'une ID.
+     */
+    @Test
+    public void getSurveyByID() throws Exception{
+        Survey surveyTest = SurveyService.getSurveyByID(1L);
+        Assert.assertEquals(surveyTest.getIdSurvey(),(Long)1L);
+        Assert.assertEquals("Anniversaire suprise pour Alexandre ?", surveyTest.getName());
+        //Assert.assertEquals(true, surveyTest.getIsAvailable());
+        Assert.assertEquals("On fait une surprise, ne lui dites pas !!", surveyTest.getDescription());
+        // A FIX SERVEUR
+        //Timestamp date = Timestamp.valueOf("2020-06-11 12:22:44");
+        //Assert.assertEquals(surveyTest.getEndDate(),date);
+
+        /** Gestion des exceptions **/
+        Assertions.assertThrows(NotFoundException.class,() -> SurveyService.getSurveyByID(10000L));
+    }
 }

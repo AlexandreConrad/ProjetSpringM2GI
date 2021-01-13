@@ -1,10 +1,14 @@
 package controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.api.SurveysApiController;
+import io.swagger.exceptions.BadRequestException;
+import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Survey;
+import io.swagger.service.SurveyService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -33,6 +37,9 @@ public class SurveyControllerTest {
 
     @Mock
     ObjectMapper objectMapper;
+
+    @Mock
+    Survey survey;
 
     @Mock
     HttpServletRequest httpServletRequest;
@@ -107,4 +114,77 @@ public class SurveyControllerTest {
         ResponseEntity<List<Survey>> surveysIsActifsIsOk =  surveyControllerAccept.getSurveysIsActifs();
         Assert.assertEquals(surveysIsActifsIsOk.getStatusCodeValue(),surveysIsActifsIsDOK.getStatusCodeValue());
     }
+
+    /**
+     * Fonction deleteSurvey
+     * Supprime un survey
+     * Pour le status "NotImplemented" ou "OK"
+     */
+    @Test
+    public void deleteSurvey() {
+
+        /** Variables **/
+        Long surveyID = 1L;
+
+        /** Test not implemented **/
+        SurveysApiController surveyControllerIsNull = new SurveysApiController(objectMapper,httpServletRequest);
+        ResponseEntity<Survey> surveysDeleteNotImplemented = new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
+        ResponseEntity<Survey> surveysDelete =  surveyControllerIsNull.deleteSurvey(surveyID);
+        Assert.assertEquals(surveysDeleteNotImplemented,surveysDelete);
+
+    }
+
+    /**
+     * Fonction getSurveysIsInactifs
+     * Récupérations des sondages inactifs
+     * Pour le status "NotImplemented" ou "OK"
+     */
+    @Test
+    public void getSurveysIsInactifs() {
+
+        /** Test not implemented **/
+        SurveysApiController surveyControllerIsNull = new SurveysApiController(objectMapper,httpServletRequest);
+        ResponseEntity<List<Survey>> surveysIsInactifsNotImplemented = new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
+        ResponseEntity<List<Survey>> surveysIsInactifs =  surveyControllerIsNull.getSurveysIsInactifs();
+        Assert.assertEquals(surveysIsInactifsNotImplemented,surveysIsInactifs);
+
+        /** Test OK **/
+        Mockito.when(httpServletRequestAccept.getHeader("Accept")).thenReturn("application/json");
+        SurveysApiController surveyControllerAccept = new SurveysApiController(objectMapper,httpServletRequestAccept);
+        ResponseEntity<List<Survey>> surveysIsInactifsIsDOK = new ResponseEntity<>(null, HttpStatus.OK);
+        ResponseEntity<List<Survey>> surveysIsInactifsIsOk =  surveyControllerAccept.getSurveysIsInactifs();
+        Assert.assertEquals(surveysIsInactifsIsDOK.getStatusCodeValue(),surveysIsInactifsIsOk.getStatusCodeValue());
+
+    }
+
+    /**
+     * Fonction endSurveys
+     * Cloturation d'un sondage
+     * Pour le status "NotImplemented" ou "OK"
+     */
+    @Test
+    public void endSurveys(){
+
+        /** Variables **/
+        Long surveyID = 1L;
+
+        /** Test not implemented **/
+        SurveysApiController surveyControllerIsNull = new SurveysApiController(objectMapper,httpServletRequest);
+        ResponseEntity<Survey> endSurveyNotImplemented = new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
+        ResponseEntity<Survey> endSurvey =  surveyControllerIsNull.endSurveys(surveyID);
+        Assert.assertEquals(endSurveyNotImplemented,endSurvey);
+
+        /** Test OK **/
+        Mockito.when(httpServletRequestAccept.getHeader("Accept")).thenReturn("application/json");
+        SurveysApiController surveyControllerAccept = new SurveysApiController(objectMapper,httpServletRequestAccept);
+        ResponseEntity<Survey> endSurveyIsOK = new ResponseEntity<>(null, HttpStatus.OK);
+        ResponseEntity<Survey> endSurveyOk =  surveyControllerAccept.endSurveys(surveyID);
+        Assert.assertEquals(endSurveyIsOK.getStatusCodeValue(),endSurveyOk.getStatusCodeValue());
+
+        /** Test not found **/
+        ResponseEntity<Survey> endSurveyNotFound =  surveyControllerAccept.endSurveys(10000L);
+        Assert.assertEquals(endSurveyNotFound.getStatusCodeValue(),HttpStatus.NOT_FOUND.value());
+
+    }
+
 }

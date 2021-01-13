@@ -1,17 +1,19 @@
 package services;
 
+import io.swagger.exceptions.BadRequestException;
+import io.swagger.exceptions.DatabaseException;
+import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Choice;
-
+import io.swagger.service.ChoiceService;
+import org.junit.*;
+import org.springframework.boot.test.context.SpringBootTest;
 import java.sql.Timestamp;
 import java.util.List;
 
-import io.swagger.model.Comment;
-import io.swagger.model.Survey;
-import io.swagger.service.ChoiceService;
-import io.swagger.service.CommentService;
-import io.swagger.service.SurveyService;
-import org.junit.*;
-
+/**
+ * Test en rapport avec la classe "ServiceChoice"
+ */
+@SpringBootTest
 public class ServiceChoiceTest {
 
     /**
@@ -19,7 +21,7 @@ public class ServiceChoiceTest {
      * Retourne tous les choix d'un sondage.
      */
     @Test
-    public void getChoiceById() {
+    public void getChoiceById() throws Exception{
         Long idSurvey = 1L;
         List<Choice> choices = ChoiceService.getChoiceById(idSurvey); //Récupération de tous les choix d'un sondage.
         for( Choice c : choices )
@@ -27,25 +29,11 @@ public class ServiceChoiceTest {
     }
 
     /**
-     * Fonction getDeleteById
-     * Delete le choix
-     */
-    @Test
-    public void getDeleteById(){
-        Long idSurvey = 1L;
-        Long id_choice = 2L;
-        ChoiceService.getDeleteById(id_choice);
-        List<Choice> choicesTest = ChoiceService.getChoiceById(idSurvey);
-        for (Choice c: choicesTest)
-            Assert.assertNotEquals(c.getIdSurvey(), id_choice);
-    }
-
-    /**
      * Fonction postChoiceById
      * Ajoute un choix
      */
     @Test
-    public void  postChoiceById(){
+    public void  postChoiceById() throws Exception{
         //Variables
         Long surveyID = 1L;
         Timestamp date = Timestamp.valueOf("2020-06-11 12:22:44");
@@ -63,4 +51,33 @@ public class ServiceChoiceTest {
                 Assert.assertEquals(c.getDate(), date);
             }
     }
+
+    /**
+     * Gestions exceptions
+     * @throws NotFoundException
+     * @throws DatabaseException
+     */
+    @Test(expected = NotFoundException.class)
+    public void getChoiceByIDNotFound() throws NotFoundException, DatabaseException, BadRequestException {
+        /** Gestion des exceptions **/
+        ChoiceService.getChoiceById(10000L);
+        ChoiceService.getDeleteById(10000L);
+        Timestamp t = new Timestamp(1598957264);
+        ChoiceService.postChoiceById(t,10000L);
+    }
+
+    /**
+     * Fonction getDeleteById
+     * Delete le choix
+     */
+    @Test
+    public void getDeleteById() throws Exception{
+        Long idSurvey = 1L;
+        Long id_choice = 2L;
+        ChoiceService.getDeleteById(id_choice);
+        List<Choice> choicesTest = ChoiceService.getChoiceById(idSurvey);
+        for (Choice c: choicesTest)
+            Assert.assertNotEquals(c.getIdSurvey(), id_choice);
+    }
+
 }

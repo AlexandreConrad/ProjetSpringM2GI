@@ -182,7 +182,6 @@ public class SurveysApiController implements SurveysApi {
                 return new ResponseEntity<Survey>(HttpStatus.BAD_REQUEST);
             }
         }
-        //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Survey>(HttpStatus.NOT_IMPLEMENTED);
     }
 

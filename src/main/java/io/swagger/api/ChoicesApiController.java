@@ -2,6 +2,9 @@ package io.swagger.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
+import io.swagger.exceptions.BadRequestException;
+import io.swagger.exceptions.DatabaseException;
+import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Choice;
 import io.swagger.service.ChoiceService;
 import org.slf4j.Logger;
@@ -43,10 +46,15 @@ public class ChoicesApiController implements ChoicesApi {
     public ResponseEntity<List<Choice>> getChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite avoir les choix", required = true) @PathVariable("surveyID") Long surveyID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            List<Choice> choices = ChoiceService.getChoiceById(surveyID);
-            return new ResponseEntity<List<Choice>>(choices, HttpStatus.OK);
+            try{
+                List<Choice> choices = ChoiceService.getChoiceById(surveyID);
+                return new ResponseEntity<List<Choice>>(choices, HttpStatus.OK);
+            }catch (NotFoundException e){
+                return new ResponseEntity<List<Choice>>(HttpStatus.NOT_FOUND);
+            }catch (DatabaseException d){
+                return new ResponseEntity<List<Choice>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
-        //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<List<Choice>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -59,10 +67,15 @@ public class ChoicesApiController implements ChoicesApi {
     public ResponseEntity<Choice> getDeleteById(@ApiParam(value = "ID du choix", required = true) @PathVariable("choiceID") Long choiceID) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            Choice choice = ChoiceService.getDeleteById(choiceID);
-            return new ResponseEntity<Choice>(choice, HttpStatus.OK);
+            try{
+                Choice choice = ChoiceService.getDeleteById(choiceID);
+                return new ResponseEntity<Choice>(choice, HttpStatus.OK);
+            }catch (NotFoundException e){
+                return new ResponseEntity<Choice>(HttpStatus.NOT_FOUND);
+            }catch (DatabaseException d){
+                return new ResponseEntity<Choice>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
-        //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Choice>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -76,10 +89,17 @@ public class ChoicesApiController implements ChoicesApi {
     public ResponseEntity<Choice> postChoiceById(@ApiParam(value = "ID du sondage pour lequel on souhaite ajouter un choix", required = true) @PathVariable("surveyID") Long surveyID, @ApiParam(value = "Ajout d'un choix.", required = true) @Valid @RequestBody Timestamp choice) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            Choice cho = ChoiceService.postChoiceById(choice,surveyID);
-            return new ResponseEntity<Choice>(cho, HttpStatus.OK);
+            try{
+                Choice cho = ChoiceService.postChoiceById(choice,surveyID);
+                return new ResponseEntity<Choice>(cho, HttpStatus.OK);
+            }catch (NotFoundException e){
+                return new ResponseEntity<Choice>(HttpStatus.NOT_FOUND);
+            }catch (DatabaseException d){
+                return new ResponseEntity<Choice>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }catch (BadRequestException d){
+                return new ResponseEntity<Choice>(HttpStatus.BAD_REQUEST);
+            }
         }
-        //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Choice>(HttpStatus.NOT_IMPLEMENTED);
     }
 
