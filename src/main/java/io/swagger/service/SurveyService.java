@@ -241,10 +241,6 @@ public class SurveyService {
          }
          **/
 
-        /** Variables **/
-        Date now = new Date();
-        Timestamp t = new Timestamp(now.getTime());
-
         /** Exception 400 Bad Request **/
         if(sondage == null || sondage.getName() == null || sondage.getDescription() == null)
             throw new BadRequestException("Fonction createSurvey => informations non valide !");

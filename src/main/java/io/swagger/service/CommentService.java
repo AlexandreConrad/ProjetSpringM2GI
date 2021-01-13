@@ -5,7 +5,6 @@ import io.swagger.exceptions.BadRequestException;
 import io.swagger.exceptions.DatabaseException;
 import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Comment;
-import io.swagger.util.HibernateUtil;
 import io.swagger.util.ServicesUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

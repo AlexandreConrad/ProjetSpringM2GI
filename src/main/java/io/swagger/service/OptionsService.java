@@ -31,12 +31,8 @@ public class OptionsService {
      */
     public static Option postOption(String optionName) throws DatabaseException, BadRequestException {
 
-        System.out.println("booba");
-        System.out.println(optionName);
         if(optionName == null || optionName.isEmpty())
             throw new BadRequestException("Fonction postOption => informations non valide !");
-
-        System.out.println("booba1");
 
         //Création de l'option
         Option op = new Option();

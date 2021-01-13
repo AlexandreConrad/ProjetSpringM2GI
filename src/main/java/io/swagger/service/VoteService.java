@@ -37,7 +37,7 @@ public class VoteService {
         if(auteur == null || choiceID == null || optionID == null || auteur.isEmpty())
             throw new BadRequestException("Fonction postVote => informations non valide !");
 
-        if(!VoteService.optionNotFound(optionID))
+        if(!VoteService.optionIsExist(optionID))
             throw new NotFoundException("Fonction postVote => optionID non valide !");
 
         //Création d'un vote
@@ -68,7 +68,7 @@ public class VoteService {
             throw new BadRequestException("Fonction getVoteOption => optionID non valide !");
 
         // Exception NotFound => 404
-        if(!VoteService.optionNotFound(optionID))
+        if(!VoteService.optionIsExist(optionID))
             throw new NotFoundException("Fonction postVote => optionID non valide !");
 
         List<Vote> votes = getVote("idOption", optionID);
@@ -126,11 +126,11 @@ public class VoteService {
      * @throws DatabaseException
      * @throws NotFoundException
      */
-    private static Boolean optionNotFound(Long optionID) throws BadRequestException, DatabaseException, NotFoundException {
+    private static Boolean optionIsExist(Long optionID) throws DatabaseException, NotFoundException {
         List<Option> options = OptionsService.getOptions();
         Boolean optionIsExist = false;
         for(Option opt : options)
-            if(opt.getIdOption() == optionID)
+            if(opt.getIdOption().equals(optionID))
                 optionIsExist = true;
 
         return optionIsExist;

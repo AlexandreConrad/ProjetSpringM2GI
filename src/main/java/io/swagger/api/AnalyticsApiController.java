@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.exceptions.DatabaseException;
 import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Choice;
-import io.swagger.model.Survey;
 import io.swagger.service.AnalyticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -55,7 +55,7 @@ public class OptionModelTest {
 
         /** Tests **/
         Assert.assertTrue(optionX.equals(optionY) && optionY.equals(optionX));
-        Assert.assertTrue(optionX.hashCode() == optionY.hashCode());
+        Assert.assertEquals(optionX.hashCode() , optionY.hashCode());
     }
 
     /**
