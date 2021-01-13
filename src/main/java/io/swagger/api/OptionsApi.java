@@ -24,8 +24,6 @@ public interface OptionsApi {
     @ApiOperation(value = "Ajout d'une option", nickname = "postOption", notes = "Option possible", response = Option.class, tags = {"votes",})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Opération réussie", response = Option.class),
-            @ApiResponse(code = 400, message = "Manque des informations dans le corps."),
-            @ApiResponse(code = 404, message = "Ressource introuvable"),
             @ApiResponse(code = 409, message = "Certaines informations ne respectent pas les conditions."),
             @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
     @RequestMapping(value = "/option/",
@@ -36,9 +34,7 @@ public interface OptionsApi {
     @ApiOperation(value = "Retourne toutes les options", nickname = "getOption", notes = "Toutes les options", response = Option.class, tags = {"votes",})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Opération réussie", response = Option.class, responseContainer = "List"),
-            @ApiResponse(code = 400, message = "Manque des informations dans le corps."),
             @ApiResponse(code = 404, message = "Ressource introuvable"),
-            @ApiResponse(code = 409, message = "Certaines informations ne respectent pas les conditions."),
             @ApiResponse(code = 500, message = "Echec de connexion à la base de données.")})
     @RequestMapping(value = "/option/",
             produces = {"application/json"},

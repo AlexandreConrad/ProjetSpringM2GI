@@ -23,7 +23,7 @@ public class SurveyModelTest {
         Survey survey = new Survey(name,description,true,t);
         Assert.assertEquals(survey.getName(), name);
         Assert.assertEquals(survey.getDescription(), description);
-        Assert.assertEquals(survey.getIsAvailable(), true);
+        Assert.assertEquals(true, survey.getIsAvailable());
         Assert.assertEquals(survey.getEndDate(), t);
     }
 
@@ -56,7 +56,7 @@ public class SurveyModelTest {
     public void setIsAvailable(){
         Survey survey = new Survey();
         survey.setIsAvailable(true);
-        Assert.assertEquals(survey.getIsAvailable(), true);
+        Assert.assertEquals(true, survey.getIsAvailable());
     }
 
     /**

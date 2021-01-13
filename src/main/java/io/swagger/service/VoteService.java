@@ -1,8 +1,12 @@
 package io.swagger.service;
 
 import io.swagger.api.VotesApiController;
+import io.swagger.exceptions.BadRequestException;
+import io.swagger.exceptions.DatabaseException;
+import io.swagger.exceptions.NotFoundException;
+import io.swagger.model.Option;
 import io.swagger.model.Vote;
-import io.swagger.util.HibernateUtil;
+import io.swagger.util.ServicesUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -27,7 +31,15 @@ public class VoteService {
      * @param
      * @return
      */
-    public static Vote postVote(String auteur, Long choiceID, Long optionID) {
+    public static Vote postVote(String auteur, Long choiceID, Long optionID) throws DatabaseException, BadRequestException, NotFoundException {
+
+        // Gestions des exceptions
+        if(auteur == null || choiceID == null || optionID == null || auteur.isEmpty())
+            throw new BadRequestException("Fonction postVote => informations non valide !");
+
+        if(!VoteService.optionIsExist(optionID))
+            throw new NotFoundException("Fonction postVote => optionID non valide !");
+
         //Création d'un vote
         Vote vote = new Vote();
         vote.setAuthor(auteur);
@@ -35,8 +47,8 @@ public class VoteService {
         vote.setIdOption(optionID);
 
         //Persistance dans la base de données
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
+        Session session = ServicesUtil.createSession();
+        Transaction transaction = ServicesUtil.createTransaction(session);
         session.persist(vote);
         transaction.commit();
         log.info("Fonction postVote => OK");
@@ -49,7 +61,16 @@ public class VoteService {
      * @param optionID
      * @return
      */
-    public static List<Vote> getVoteOption(Long optionID) {
+    public static List<Vote> getVoteOption(Long optionID) throws DatabaseException, NotFoundException, BadRequestException {
+
+        //Gestions des exceptions
+        if(optionID == null)
+            throw new BadRequestException("Fonction getVoteOption => optionID non valide !");
+
+        // Exception NotFound => 404
+        if(!VoteService.optionIsExist(optionID))
+            throw new NotFoundException("Fonction postVote => optionID non valide !");
+
         List<Vote> votes = getVote("idOption", optionID);
         log.info("Fonction getVoteOption => OK");
         return votes;
@@ -61,7 +82,15 @@ public class VoteService {
      * @param choiceID
      * @return
      */
-    public static List<Vote> getVoteChoice(Long choiceID) {
+    public static List<Vote> getVoteChoice(Long choiceID) throws DatabaseException, NotFoundException, BadRequestException {
+
+        //Gestions des exceptions
+        if(choiceID == null)
+            throw new BadRequestException("Fonction getVoteChoice => choiceID non valide !");
+
+        // Exception NotFound => 404
+        ChoiceService.getChoiceById(choiceID);
+
         List<Vote> votes = getVote("idChoice", choiceID);
         log.info("Fonction getVoteChoice => OK");
         return votes;
@@ -74,9 +103,11 @@ public class VoteService {
      * @param id
      * @return
      */
-    private static List<Vote> getVote(String idName, Long id) {
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
+    private static List<Vote> getVote(String idName, Long id) throws DatabaseException {
+
+        Session session = ServicesUtil.createSession();
+        Transaction transaction = ServicesUtil.createTransaction(session);
+
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Vote> cq = builder.createQuery(Vote.class);
         Root<Vote> stud = cq.from(Vote.class);
@@ -85,5 +116,23 @@ public class VoteService {
         List<Vote> votes = query.getResultList();
         transaction.commit();//Annule les changements en cas de problème
         return votes;
+    }
+
+    /**
+     * Permet de savoir si l'option reçu existe dans la base de données.
+     * @param optionID
+     * @return
+     * @throws BadRequestException
+     * @throws DatabaseException
+     * @throws NotFoundException
+     */
+    private static Boolean optionIsExist(Long optionID) throws DatabaseException, NotFoundException {
+        List<Option> options = OptionsService.getOptions();
+        Boolean optionIsExist = false;
+        for(Option opt : options)
+            if(opt.getIdOption().equals(optionID))
+                optionIsExist = true;
+
+        return optionIsExist;
     }
 }

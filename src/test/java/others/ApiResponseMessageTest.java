@@ -47,15 +47,15 @@ public class ApiResponseMessageTest {
 
         /** Test du Type */
         api.setType("Code1");
-        Assert.assertEquals(api.getType(),"Code1");
+        Assert.assertEquals("Code1", api.getType());
         Mockito.when(apiResponseMessage.getType()).thenReturn("Code");
-        Assert.assertEquals(apiResponseMessage.getType(),"Code");
+        Assert.assertEquals("Code", apiResponseMessage.getType());
 
         /** Test du Message */
         api.setMessage("Message 1");
-        Assert.assertEquals(api.getMessage(),"Message 1");
+        Assert.assertEquals("Message 1", api.getMessage());
         Mockito.when(apiResponseMessage.getMessage()).thenReturn("Message");
-        Assert.assertEquals(apiResponseMessage.getMessage(),"Message");
+        Assert.assertEquals("Message", apiResponseMessage.getMessage());
     }
 
     /**
@@ -66,22 +66,22 @@ public class ApiResponseMessageTest {
 
         /** Tests des types **/
         ApiResponseMessage errorMessage = new ApiResponseMessage(ApiResponseMessage.ERROR,"error");
-        Assert.assertEquals(errorMessage.getMessage(),"error");
+        Assert.assertEquals("error", errorMessage.getMessage());
 
         ApiResponseMessage infoMessage = new ApiResponseMessage(ApiResponseMessage.INFO,"info");
-        Assert.assertEquals(infoMessage.getMessage(),"info");
+        Assert.assertEquals("info", infoMessage.getMessage());
 
         ApiResponseMessage warningMessage = new ApiResponseMessage(ApiResponseMessage.WARNING,"warning");
-        Assert.assertEquals(warningMessage.getMessage(),"warning");
+        Assert.assertEquals("warning", warningMessage.getMessage());
 
         ApiResponseMessage okMessage = new ApiResponseMessage(ApiResponseMessage.OK,"ok");
-        Assert.assertEquals(okMessage.getCode(),ApiResponseMessage.OK);
+        Assert.assertEquals(ApiResponseMessage.OK, okMessage.getCode());
 
         ApiResponseMessage busyMessage = new ApiResponseMessage(ApiResponseMessage.TOO_BUSY,"too busy");
-        Assert.assertEquals(busyMessage.getMessage(),"too busy");
+        Assert.assertEquals("too busy", busyMessage.getMessage());
 
         ApiResponseMessage unknowMessage = new ApiResponseMessage(42,"unknown");
-        Assert.assertEquals(unknowMessage.getMessage(),"unknown");
+        Assert.assertEquals("unknown", unknowMessage.getMessage());
     }
 
 }

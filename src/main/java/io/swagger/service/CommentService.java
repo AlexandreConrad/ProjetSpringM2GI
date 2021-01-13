@@ -1,8 +1,11 @@
 package io.swagger.service;
 
 import io.swagger.api.CommentsApiController;
+import io.swagger.exceptions.BadRequestException;
+import io.swagger.exceptions.DatabaseException;
+import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Comment;
-import io.swagger.util.HibernateUtil;
+import io.swagger.util.ServicesUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -28,7 +31,15 @@ public class CommentService {
      * @param message
      * @return
      */
-    public static Comment addComments(Long surveyID, String message, String auteur) {
+    public static Comment addComments(Long surveyID, String message, String auteur) throws DatabaseException, NotFoundException, BadRequestException {
+
+        // Exception => 409
+        if(surveyID == null || message.isEmpty() || auteur.isEmpty() || message == null || auteur == null)
+            throw new BadRequestException("Fonction addComments => informations non valide !");
+
+        //Exception NotFound => 404
+        SurveyService.getSurveyByID(surveyID);
+
         //Création du commentaire avec les informations
         Comment comment = new Comment();
         comment.setComment(message);
@@ -36,8 +47,8 @@ public class CommentService {
         comment.setAuthor(auteur);
 
         //Persistance dans la base de données
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
+        Session session = ServicesUtil.createSession();
+        Transaction transaction = ServicesUtil.createTransaction(session);
         session.persist(comment);
         transaction.commit();
         log.info("Fonction createComment => OK");
@@ -50,9 +61,14 @@ public class CommentService {
      * @param surveyID
      * @return comments
      */
-    public static List<Comment> getComments(Long surveyID) {
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
+    public static List<Comment> getComments(Long surveyID) throws DatabaseException, NotFoundException {
+
+        //Exception NotFound => 404
+        SurveyService.getSurveyByID(surveyID);
+
+        Session session = ServicesUtil.createSession();
+        Transaction transaction = ServicesUtil.createTransaction(session);
+
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Comment> cq = builder.createQuery(Comment.class);
         Root<Comment> stud = cq.from(Comment.class);

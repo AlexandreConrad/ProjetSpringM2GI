@@ -112,7 +112,7 @@ public class OptionControllerTest {
         /** Tests **/
         Mockito.when(optionsApiController.getOptions()).thenReturn(list);
         Assert.assertEquals(optionsApiController.getOptions(),list);
-        Assert.assertTrue(optionsApiController.getOptions().equals(list));
+        Assert.assertEquals(optionsApiController.getOptions(),list);
         Mockito.verify(optionsApiController, Mockito.times(2)).getOptions();
     }
 
