@@ -1,9 +1,11 @@
 package services;
 
+import io.swagger.exceptions.BadRequestException;
 import io.swagger.model.Option;
 import io.swagger.service.OptionsService;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class ServiceOptionTest {
      * Ajoute une option pour les sondages.
      */
     @Test
-    public void postOption(){
+    public void postOption() throws Exception{
 
         //Variables
         String message = "Test";
@@ -41,11 +43,20 @@ public class ServiceOptionTest {
      * Retourne toutes les options possible.
      */
     @Test
-    public void getOptions(){
+    public void getOptions() throws Exception{
         List<Option> op = OptionsService.getOptions(); //Récupération de toutes les options
         String name = "Disponible";
         for( Option o : op )
             if(o.getName().equals(name))
                 Assert.assertEquals(name,o.getName());
+    }
+
+    /**
+     * Gestions des exceptions
+     */
+    @Test
+    public void optionsException() {
+        Assertions.assertThrows(BadRequestException.class,() -> OptionsService.postOption(null));
+        Assertions.assertThrows(BadRequestException.class,() -> OptionsService.postOption(""));
     }
 }

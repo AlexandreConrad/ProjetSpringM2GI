@@ -2,6 +2,9 @@ package io.swagger.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
+import io.swagger.exceptions.BadRequestException;
+import io.swagger.exceptions.DatabaseException;
+import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Option;
 import io.swagger.service.OptionsService;
 import org.slf4j.Logger;
@@ -33,20 +36,30 @@ public class OptionsApiController implements OptionsApi {
     public ResponseEntity<Option> postOption(@ApiParam(value = "Nom de l'option", required = true) @Valid @RequestBody String optionName) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            Option option = OptionsService.postOption(optionName);
-            return new ResponseEntity<Option>(option, HttpStatus.OK);
+            try{
+                Option option = OptionsService.postOption(optionName);
+                return new ResponseEntity<Option>(option, HttpStatus.OK);
+            }catch (DatabaseException d){
+                return new ResponseEntity<Option>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }catch (BadRequestException d){
+                return new ResponseEntity<Option>(HttpStatus.BAD_REQUEST);
+            }
         }
-        //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<Option>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<List<Option>> getOptions() {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            List<Option> options = OptionsService.getOptions();
-            return new ResponseEntity<List<Option>>(options, HttpStatus.OK);
+            try{
+                List<Option> options = OptionsService.getOptions();
+                return new ResponseEntity<List<Option>>(options, HttpStatus.OK);
+            } catch (DatabaseException e) {
+                return new ResponseEntity<List<Option>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            } catch (NotFoundException e) {
+                return new ResponseEntity<List<Option>>(HttpStatus.NOT_FOUND);
+            }
         }
-        //TODO Retourne un code d'erreur pour les différents cas possibles
         return new ResponseEntity<List<Option>>(HttpStatus.NOT_IMPLEMENTED);
     }
 }

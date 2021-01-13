@@ -1,8 +1,12 @@
 package io.swagger.service;
 
 import io.swagger.api.OptionsApiController;
+import io.swagger.exceptions.BadRequestException;
+import io.swagger.exceptions.DatabaseException;
+import io.swagger.exceptions.NotFoundException;
 import io.swagger.model.Option;
-import io.swagger.util.HibernateUtil;
+import io.swagger.util.ServicesUtil;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
@@ -25,14 +29,23 @@ public class OptionsService {
      * @param optionName
      * @return Option
      */
-    public static Option postOption(String optionName) {
+    public static Option postOption(String optionName) throws DatabaseException, BadRequestException {
+
+        System.out.println("booba");
+        System.out.println(optionName);
+        if(optionName == null || optionName.isEmpty())
+            throw new BadRequestException("Fonction postOption => informations non valide !");
+
+        System.out.println("booba1");
+
         //Création de l'option
         Option op = new Option();
         op.setName(optionName);
 
         //Persistance dans la base de données
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
+        Session session = ServicesUtil.createSession(); //Ouverture d'une session
+        Transaction transaction = ServicesUtil.createTransaction(session); //Ouverture d'une transaction en cas de problème
+
         session.persist(op);
         transaction.commit();
         log.info("Fonction postOption => OK");
@@ -44,15 +57,24 @@ public class OptionsService {
      *
      * @return options
      */
-    public static List<Option> getOptions() {
-        Session session = HibernateUtil.getSession();//Ouverture d'une session
-        Transaction transaction = session.beginTransaction();//Ouverture d'une transaction en cas de problème
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Option> criteria = builder.createQuery(Option.class); //Récupération de tous les sondages
-        criteria.from(Option.class);
-        List<Option> options = session.createQuery(criteria).getResultList();
-        transaction.commit();
-        log.info("Fonction getOptions => OK");
-        return options;
+    public static List<Option> getOptions() throws DatabaseException, NotFoundException {
+
+        //Persistance dans la base de données
+        Session session = ServicesUtil.createSession(); //Ouverture d'une session
+        Transaction transaction = ServicesUtil.createTransaction(session); //Ouverture d'une transaction en cas de problème
+
+        try{
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Option> criteria = builder.createQuery(Option.class); //Récupération de tous les sondages
+            criteria.from(Option.class);
+            List<Option> options = session.createQuery(criteria).getResultList();
+            transaction.commit();
+            options.size();
+            log.info("Fonction getOptions => OK");
+            return options;
+        }catch(ObjectNotFoundException e){ // Gestion exception par Hibernate
+            transaction.rollback(); // Annule les changements
+            throw new NotFoundException("getOptions non trouvé !");
+        }
     }
 }
