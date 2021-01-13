@@ -64,6 +64,14 @@ public class VotesControllerTest {
         ResponseEntity<List<Vote>> listOK = new ResponseEntity<>(null, HttpStatus.OK);
         ResponseEntity<List<Vote>> votesOk =  votesAccept.getVoteChoice(choiceID);
         Assert.assertEquals(votesOk.getStatusCodeValue(),listOK.getStatusCodeValue());
+
+        /** Test not found **/
+        ResponseEntity<List<Vote>> getVoteChoiceNotFound =  votesAccept.getVoteChoice(10000L);
+        Assert.assertEquals(getVoteChoiceNotFound.getStatusCodeValue(),HttpStatus.NOT_FOUND.value());
+
+        /** Test BAD_REQUEST **/
+        ResponseEntity<List<Vote>> getVoteChoiceBad =  votesAccept.getVoteChoice(null);
+        Assert.assertEquals(getVoteChoiceBad.getStatusCodeValue(),HttpStatus.BAD_REQUEST.value());
     }
 
     /**
@@ -88,6 +96,14 @@ public class VotesControllerTest {
         ResponseEntity<List<Vote>> listOK = new ResponseEntity<>(null, HttpStatus.OK);
         ResponseEntity<List<Vote>> optionOk =  votesAccept.getVoteOption(optionID);
         Assert.assertEquals(optionOk.getStatusCodeValue(),listOK.getStatusCodeValue());
+
+        /** Test not found **/
+        ResponseEntity<List<Vote>> getVoteOptionNotFound =  votesAccept.getVoteOption(10000L);
+        Assert.assertEquals(getVoteOptionNotFound.getStatusCodeValue(),HttpStatus.NOT_FOUND.value());
+
+        /** Test BAD_REQUEST **/
+        ResponseEntity<List<Vote>> getVoteOptionBad =  votesAccept.getVoteOption(null);
+        Assert.assertEquals(getVoteOptionBad.getStatusCodeValue(),HttpStatus.BAD_REQUEST.value());
     }
 
     /**
@@ -114,5 +130,13 @@ public class VotesControllerTest {
         ResponseEntity<Vote> voteOk = new ResponseEntity<>(null, HttpStatus.OK);
         ResponseEntity<Vote> optionOk =  votesAccept.postVote(optionID,choiceID,author);
         Assert.assertEquals(optionOk.getStatusCodeValue(),voteOk.getStatusCodeValue());
+
+        /** Test not found **/
+        ResponseEntity<Vote> postOptionFound =  votesAccept.postVote(1000L,choiceID,author);
+        Assert.assertEquals(postOptionFound.getStatusCodeValue(),HttpStatus.NOT_FOUND.value());
+
+        /** Test BAD_REQUEST **/
+        ResponseEntity<Vote> postOptionBad =  votesAccept.postVote(null,choiceID,author);
+        Assert.assertEquals(postOptionBad.getStatusCodeValue(),HttpStatus.BAD_REQUEST.value());
     }
 }
