@@ -1,16 +1,16 @@
 package io.swagger.util;
 
-import io.swagger.api.SurveysApiController;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HibernateUtil {
+public final class HibernateUtil {
 
-    private static final Logger log = LoggerFactory.getLogger(SurveysApiController.class);
+    private static final Logger log = LoggerFactory.getLogger(HibernateUtil.class);
     private static Session session;
+    private HibernateUtil(){}
 
     /**
      * Ouvre une session de connexion avec la base de données
@@ -23,9 +23,8 @@ public class HibernateUtil {
             log.info("Configuration d'annotation Hibernate chargée");
             SessionFactory sessionFactory = configuration.buildSessionFactory();
             session = sessionFactory.openSession();
-        } catch (Throwable ex) {
-            log.error("La création de SessionFactory a échoué." + ex);
-            throw new ExceptionInInitializerError(ex);
+        } catch (Exception ex) {
+            log.error("La création de SessionFactory a échoué. : {0}",ex);
         }
     }
 

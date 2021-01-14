@@ -1,5 +1,6 @@
 package others;
 import io.swagger.Swagger2SpringBoot;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,6 +43,7 @@ public class Swagger2SpringBootTest {
         String[] args = new String[0];
         Swagger2SpringBoot s = new Swagger2SpringBoot();
         s.run(args);
+        Assert.assertNotNull(s);
     }
 
     @Test(expected = Exception.class)

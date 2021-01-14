@@ -1,6 +1,5 @@
 package io.swagger.service;
 
-import io.swagger.api.CommentsApiController;
 import io.swagger.exceptions.BadRequestException;
 import io.swagger.exceptions.DatabaseException;
 import io.swagger.exceptions.NotFoundException;
@@ -20,10 +19,10 @@ import java.util.List;
 /**
  * Service pour toutes les requêtes BDD en liaison "Comments"
  */
-public class CommentService {
+public final class CommentService {
 
-    private static final Logger log = LoggerFactory.getLogger(CommentsApiController.class);
-
+    private static final Logger log = LoggerFactory.getLogger(CommentService.class);
+    private CommentService(){}
     /**
      * Fonction qui ajoute un commentaire à un sondage
      *

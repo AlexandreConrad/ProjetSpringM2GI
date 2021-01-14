@@ -4,7 +4,10 @@ import io.swagger.exceptions.DatabaseException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ServicesUtil {
+public final class ServicesUtil {
+
+    private ServicesUtil(){}
+
     /**
      * Ouverture d'une session
      * @return

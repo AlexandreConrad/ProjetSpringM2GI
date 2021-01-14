@@ -15,22 +15,20 @@ public class ServiceAnalyticsTest {
      * Retourne la date qui dispose du plus de "Disponible" et "Peut-être"
      */
     @Test
-    public void findDateByMaybeAvailable(){
+    public void findDateByMaybeAvailable() throws Exception{
         //Variables
-        Long surveyID = 1L;
+        Long surveyID = 2L;
 
-        //Meilleur choix pour le sondage 1 est le choice 1
-        Long choiceID = 1L;
-
-        /**
+        //Meilleur choix pour le sondage 2 est le choice 3
+        Long choiceID = 3L;
 
         //Récupération du meilleur choix
         Choice c = AnalyticsService.findDateByMaybeAvailable(surveyID);
 
         //Vérifications des informations
-        //Assert.assertEquals(c.getIdSurvey(), surveyID);
-        //Assert.assertEquals(c.getIdChoice(), choiceID);
-         **/
+        Assert.assertEquals(c.getIdSurvey(), surveyID);
+        Assert.assertEquals(c.getIdChoice(), choiceID);
+
     }
 
     /**
@@ -38,21 +36,20 @@ public class ServiceAnalyticsTest {
      * Retourne la date qui dispose du plus de "Disponible"
      */
     @Test
-    public void findDateByAvailable(){
+    public void findDateByAvailable() throws Exception{
 
         //Variables
-        Long surveyID = 1L;
+        Long surveyID = 4L;
 
-        //Meilleur choix pour le sondage 1 est le choice 1
-        Long choiceID = 1L;
+        //Meilleur choix pour le sondage 4 est le choice 7
+        Long choiceID = 7L;
 
-        /**
         //Récupération du meilleur choix
         Choice c = AnalyticsService.findDateByAvailable(surveyID);
 
         //Vérifications des informations
         Assert.assertEquals(c.getIdSurvey(), surveyID);
         Assert.assertEquals(c.getIdChoice(), choiceID);
-        **/
+
     }
 }

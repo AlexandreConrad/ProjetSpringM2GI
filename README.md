@@ -2,6 +2,7 @@
 
 _Badges :_
 
+[![Quality Gate Status](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=io.swagger%3Aswagger-spring&metric=alert_status)](https://sonarqube.cedricmtta.com/dashboard?id=io.swagger%3Aswagger-spring)
 [![forthebadge](https://gitlab.cedricmtta.com/Alexandre/surveys/badges/master/pipeline.svg)](https://gitlab.cedricmtta.com/Alexandre/surveys/-/commits/master)
 ![coverage](https://gitlab.cedricmtta.com/Alexandre/surveys/badges/master/coverage.svg?job=coverage)
 [![Generic badge](https://img.shields.io/badge/Chat-Slack-<COLOR>.svg)](https://app.slack.com/client/T019TJG5J7P/C01A5KA2F0T/thread/C019FUK2RQF-1600883746.002500)
