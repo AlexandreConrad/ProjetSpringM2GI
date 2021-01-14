@@ -154,15 +154,6 @@ public class ServiceSurveyTest {
     }
 
     /**
-     * Constructeur
-     */
-    @Test
-    public void surveyService (){
-        SurveyService surveyService = new SurveyService();
-        Assert.assertEquals(surveyService.getClass(),SurveyService.class);
-    }
-
-    /**
      * Fonction getSurveyByID
      * Doit retourner le survey en fonction d'une ID.
      */

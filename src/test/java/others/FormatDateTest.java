@@ -1,6 +1,7 @@
 package others;
 import io.swagger.MyDate;
 import io.swagger.RFC3339DateFormat;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -34,6 +35,7 @@ public class FormatDateTest {
 
         /** RFC3339DateFormat  **/
         RFC3339DateFormat rfc3339DateFormat = new RFC3339DateFormat();
-        rfc3339DateFormat.format(date,stringBuffer,fieldPosition);
+        StringBuffer s = rfc3339DateFormat.format(date,stringBuffer,fieldPosition);
+        Assert.assertNotNull(s);
     }
 }

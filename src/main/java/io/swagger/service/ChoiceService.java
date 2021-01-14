@@ -1,6 +1,5 @@
 package io.swagger.service;
 
-import io.swagger.api.ChoicesApiController;
 import io.swagger.exceptions.BadRequestException;
 import io.swagger.exceptions.DatabaseException;
 import io.swagger.exceptions.NotFoundException;
@@ -21,9 +20,10 @@ import java.util.List;
 /**
  * Service pour toutes les requêtes BDD en liaison "Choices"
  */
-public class ChoiceService {
+public final class ChoiceService {
 
-    private static final Logger log = LoggerFactory.getLogger(ChoicesApiController.class);
+    private static final Logger log = LoggerFactory.getLogger(ChoiceService.class);
+    private ChoiceService(){}
 
     /**
      * Retourne tous les choix d'un sondage
@@ -64,7 +64,7 @@ public class ChoiceService {
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaDelete<Choice> delete = builder.createCriteriaDelete(Choice.class);
-        Root e = delete.from(Choice.class);
+        Root<? extends Choice> e = delete.from(Choice.class);
         delete.where(builder.equal(e.get("idChoice"), choiceID));
         session.createQuery(delete).executeUpdate();
         log.info("Fonction deleteChoice => OK");
@@ -93,8 +93,7 @@ public class ChoiceService {
         if(choice.after(survey.getEndDate()))
             throw new BadRequestException("Fonction postChoiceById => Date surpérieur à la date de fin !");
 
-        // TODO a FIX
-        if(survey.getIsAvailable())
+        if(Boolean.TRUE.equals(survey.getIsAvailable()))
             throw new BadRequestException("Fonction postChoiceById => Le sondage est fini !");
 
         //Création du choix

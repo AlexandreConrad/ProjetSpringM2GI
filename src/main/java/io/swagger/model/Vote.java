@@ -56,5 +56,5 @@ public class Vote implements Serializable {
     @JsonIgnore
     @ApiModelProperty(hidden = true)
     @JoinColumn(name = "ID_OPTION", referencedColumnName = "ID_OPTION", insertable = false, updatable = false)
-    Option option;
+    Option option ;
 }

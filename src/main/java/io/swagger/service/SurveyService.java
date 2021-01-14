@@ -3,7 +3,6 @@ package io.swagger.service;
 import io.swagger.exceptions.BadRequestException;
 import io.swagger.exceptions.DatabaseException;
 import io.swagger.exceptions.NotFoundException;
-import io.swagger.api.SurveysApiController;
 import io.swagger.model.Survey;
 import io.swagger.util.ServicesUtil;
 import org.hibernate.ObjectNotFoundException;
@@ -18,9 +17,10 @@ import java.util.List;
 /**
  * Service pour toutes les requêtes BDD en liaison "Survey"
  */
-public class SurveyService {
+public final class SurveyService {
 
-    private static final Logger log = LoggerFactory.getLogger(SurveysApiController.class);
+    private static final Logger log = LoggerFactory.getLogger(SurveyService.class);
+    private SurveyService(){}
 
     /**
      * Retourne un survey par ID
@@ -72,7 +72,7 @@ public class SurveyService {
         }catch(ObjectNotFoundException e){ // Gestion exception par Hibernate
 
             transaction.rollback(); // Annule les changements
-            throw new NotFoundException("SurveyByID non trouvé !");
+            throw new NotFoundException("getSurveys non trouvé !");
 
         }
     }
@@ -90,7 +90,7 @@ public class SurveyService {
             surveys.size(); // => survey not found
             return surveys;
         }catch(ObjectNotFoundException e){ // Gestion exception par Hibernate
-            throw new NotFoundException("SurveyByID non trouvé !");
+            throw new NotFoundException("getSurveysIsActives non trouvé !");
         }
     }
 
@@ -106,7 +106,7 @@ public class SurveyService {
             surveys.size(); // => survey not found
             return surveys;
         }catch(ObjectNotFoundException e){ // Gestion exception par Hibernate
-            throw new NotFoundException("SurveyByID non trouvé !");
+            throw new NotFoundException("getSurveysIsExpireds non trouvé !");
         }
     }
 
@@ -145,7 +145,7 @@ public class SurveyService {
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaDelete<Survey> delete = builder.createCriteriaDelete(Survey.class);
-        Root e = delete.from(Survey.class);
+        Root<Survey> e = delete.from(Survey.class);
         delete.where(builder.equal(e.get("idSurvey"), surveyID));
         session.createQuery(delete).executeUpdate();
         log.info("Fonction deleteSurvey => OK");

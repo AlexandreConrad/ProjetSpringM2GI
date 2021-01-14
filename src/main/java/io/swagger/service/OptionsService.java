@@ -1,6 +1,5 @@
 package io.swagger.service;
 
-import io.swagger.api.OptionsApiController;
 import io.swagger.exceptions.BadRequestException;
 import io.swagger.exceptions.DatabaseException;
 import io.swagger.exceptions.NotFoundException;
@@ -19,9 +18,10 @@ import java.util.List;
 /**
  * Service pour toutes les requêtes BDD en liaison "Option"
  */
-public class OptionsService {
+public final class OptionsService {
 
-    private static final Logger log = LoggerFactory.getLogger(OptionsApiController.class);
+    private static final Logger log = LoggerFactory.getLogger(OptionsService.class);
+    private OptionsService(){}
 
     /**
      * Ajout d'une nouvelle option pour les sondages

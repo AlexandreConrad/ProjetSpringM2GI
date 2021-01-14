@@ -1,6 +1,5 @@
 package io.swagger.service;
 
-import io.swagger.api.VotesApiController;
 import io.swagger.exceptions.BadRequestException;
 import io.swagger.exceptions.DatabaseException;
 import io.swagger.exceptions.NotFoundException;
@@ -21,10 +20,10 @@ import java.util.List;
 /**
  * Service pour toutes les requêtes BDD en liaison "Votes"
  */
-public class VoteService {
+public final class VoteService {
 
-    private static final Logger log = LoggerFactory.getLogger(VotesApiController.class);
-
+    private static final Logger log = LoggerFactory.getLogger(VoteService.class);
+    private VoteService(){}
     /**
      * Fonction qui permet de faire un vote
      *
@@ -37,7 +36,7 @@ public class VoteService {
         if(auteur == null || choiceID == null || optionID == null || auteur.isEmpty())
             throw new BadRequestException("Fonction postVote => informations non valide !");
 
-        if(!VoteService.optionIsExist(optionID))
+        if(Boolean.FALSE.equals(VoteService.optionIsExist(optionID)))
             throw new NotFoundException("Fonction postVote => optionID non valide !");
 
         //Création d'un vote
@@ -68,7 +67,7 @@ public class VoteService {
             throw new BadRequestException("Fonction getVoteOption => optionID non valide !");
 
         // Exception NotFound => 404
-        if(!VoteService.optionIsExist(optionID))
+        if(Boolean.FALSE.equals(VoteService.optionIsExist(optionID)))
             throw new NotFoundException("Fonction postVote => optionID non valide !");
 
         List<Vote> votes = getVote("idOption", optionID);
