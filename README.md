@@ -3,11 +3,14 @@
 _Badges :_
 
 [![Quality Gate Status](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=io.swagger%3Aswagger-spring&metric=alert_status)](https://sonarqube.cedricmtta.com/dashboard?id=io.swagger%3Aswagger-spring)
+[![Reliability Rating](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=io.swagger%3Aswagger-spring&metric=reliability_rating)](https://sonarqube.cedricmtta.com/dashboard?id=io.swagger%3Aswagger-spring)
 [![forthebadge](https://gitlab.cedricmtta.com/Alexandre/surveys/badges/master/pipeline.svg)](https://gitlab.cedricmtta.com/Alexandre/surveys/-/commits/master)
-![coverage](https://gitlab.cedricmtta.com/Alexandre/surveys/badges/master/coverage.svg?job=coverage)
+[![Coverage](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=io.swagger%3Aswagger-spring&metric=coverage)](https://sonarqube.cedricmtta.com/dashboard?id=io.swagger%3Aswagger-spring)
 [![Generic badge](https://img.shields.io/badge/Chat-Slack-<COLOR>.svg)](https://app.slack.com/client/T019TJG5J7P/C01A5KA2F0T/thread/C019FUK2RQF-1600883746.002500)
 [![Generic badge](https://img.shields.io/badge/Contributeurs-4-red.svg)](https://gitlab.cedricmtta.com/Alexandre/surveys/-/graphs/master)
 [![Generic badge](https://img.shields.io/badge/Le%20meilleur%20projet%20%3f-Oui%20,%20%C3%A9videmment-yellow.svg)](https://gitlab.cedricmtta.com/help/user/project/badges)
+[![Code Smells](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=io.swagger%3Aswagger-spring&metric=code_smells)](https://sonarqube.cedricmtta.com/dashboard?id=io.swagger%3Aswagger-spring)
+[![Duplicated Lines (%)](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=io.swagger%3Aswagger-spring&metric=duplicated_lines_density)](https://sonarqube.cedricmtta.com/dashboard?id=io.swagger%3Aswagger-spring)
 
 Projet de production logiciel réalisé par Monsieur Cédric Moschetta pour les Master 2 Génie informatique 2020/2021.
 L'objectif du projet est de réaliser une API pour des sondages en ligne.
