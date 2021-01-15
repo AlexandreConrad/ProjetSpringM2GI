@@ -1,9 +1,9 @@
 package services;
 
-import io.swagger.exceptions.BadRequestException;
-import io.swagger.exceptions.NotFoundException;
-import io.swagger.model.Survey;
-import io.swagger.service.SurveyService;
+import fr.univlorraine.m2.gi.groupe2.exceptions.BadRequestException;
+import fr.univlorraine.m2.gi.groupe2.exceptions.NotFoundException;
+import fr.univlorraine.m2.gi.groupe2.model.Survey;
+import fr.univlorraine.m2.gi.groupe2.service.SurveyService;
 import org.junit.*;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,6 +1,6 @@
 package mock;
-import io.swagger.model.Option;
-import io.swagger.resolvers.MaybeIOptionResolver;
+import fr.univlorraine.m2.gi.groupe2.model.Option;
+import fr.univlorraine.m2.gi.groupe2.resolvers.MaybeIOptionResolver;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

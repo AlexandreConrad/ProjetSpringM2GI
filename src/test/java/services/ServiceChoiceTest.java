@@ -1,10 +1,10 @@
 package services;
 
-import io.swagger.exceptions.BadRequestException;
-import io.swagger.exceptions.DatabaseException;
-import io.swagger.exceptions.NotFoundException;
-import io.swagger.model.Choice;
-import io.swagger.service.ChoiceService;
+import fr.univlorraine.m2.gi.groupe2.exceptions.BadRequestException;
+import fr.univlorraine.m2.gi.groupe2.exceptions.DatabaseException;
+import fr.univlorraine.m2.gi.groupe2.exceptions.NotFoundException;
+import fr.univlorraine.m2.gi.groupe2.model.Choice;
+import fr.univlorraine.m2.gi.groupe2.service.ChoiceService;
 import org.junit.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.sql.Timestamp;

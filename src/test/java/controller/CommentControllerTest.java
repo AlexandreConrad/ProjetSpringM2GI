@@ -1,7 +1,7 @@
 package controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.api.CommentsApiController;
-import io.swagger.model.Comment;
+import fr.univlorraine.m2.gi.groupe2.api.CommentsApiController;
+import fr.univlorraine.m2.gi.groupe2.model.Comment;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

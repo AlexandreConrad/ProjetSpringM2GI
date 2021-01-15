@@ -1,5 +1,5 @@
 package models;
-import io.swagger.model.Survey;
+import fr.univlorraine.m2.gi.groupe2.model.Survey;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

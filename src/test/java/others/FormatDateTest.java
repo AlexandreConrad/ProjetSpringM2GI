@@ -1,6 +1,6 @@
 package others;
-import io.swagger.MyDate;
-import io.swagger.RFC3339DateFormat;
+import fr.univlorraine.m2.gi.groupe2.MyDate;
+import fr.univlorraine.m2.gi.groupe2.RFC3339DateFormat;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

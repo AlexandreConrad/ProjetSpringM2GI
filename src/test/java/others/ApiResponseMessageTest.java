@@ -1,5 +1,5 @@
 package others;
-import io.swagger.api.ApiResponseMessage;
+import fr.univlorraine.m2.gi.groupe2.api.ApiResponseMessage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

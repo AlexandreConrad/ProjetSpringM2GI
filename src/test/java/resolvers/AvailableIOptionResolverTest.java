@@ -1,7 +1,7 @@
 package resolvers;
 
-import io.swagger.model.Option;
-import io.swagger.resolvers.AvailableIOptionResolver;
+import fr.univlorraine.m2.gi.groupe2.model.Option;
+import fr.univlorraine.m2.gi.groupe2.resolvers.AvailableIOptionResolver;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

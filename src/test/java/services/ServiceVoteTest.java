@@ -1,9 +1,9 @@
 package services;
 
-import io.swagger.exceptions.BadRequestException;
-import io.swagger.exceptions.NotFoundException;
-import io.swagger.model.Vote;
-import io.swagger.service.VoteService;
+import fr.univlorraine.m2.gi.groupe2.exceptions.BadRequestException;
+import fr.univlorraine.m2.gi.groupe2.exceptions.NotFoundException;
+import fr.univlorraine.m2.gi.groupe2.model.Vote;
+import fr.univlorraine.m2.gi.groupe2.service.VoteService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;

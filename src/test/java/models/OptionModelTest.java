@@ -1,12 +1,9 @@
 package models;
 
-import io.swagger.model.Option;
-import io.swagger.service.OptionsService;
+import fr.univlorraine.m2.gi.groupe2.model.Option;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 /**
  * Test en rapport avec la classe "Option"

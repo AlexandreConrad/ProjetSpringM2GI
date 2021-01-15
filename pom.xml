@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.swagger</groupId>
-    <artifactId>swagger-spring</artifactId>
+    <groupId>fr.univ-lorraine.m2.gi</groupId>
+    <artifactId>groupe-2</artifactId>
     <packaging>jar</packaging>
     <name>swagger-spring</name>
     <version>1.0.0</version>
@@ -13,12 +13,12 @@
         <springfox-version>2.7.0</springfox-version>
         <!-- Installation de sonarQube -->
         <sonar.host.url>https://sonarqube.cedricmtta.com</sonar.host.url>
-        <sonar.projectName>groupe-2-surveys</sonar.projectName>
+        <sonar.projectName>fr.univ-lorraine.m2.gi.groupe-2</sonar.projectName>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <spring-boot.run.jvmArguments>-Duser.timezone=Europe/Paris</spring-boot.run.jvmArguments>
         <sonar.language>java</sonar.language>
-        <sonar.exclusions>src/main/java/io/swagger/configuration/*</sonar.exclusions>
+        <sonar.exclusions>src/main/java/fr/univlorraine/m2/gi/groupe2/configuration/*</sonar.exclusions>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>

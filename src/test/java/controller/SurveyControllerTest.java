@@ -1,7 +1,7 @@
 package controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.api.SurveysApiController;
-import io.swagger.model.Survey;
+import fr.univlorraine.m2.gi.groupe2.api.SurveysApiController;
+import fr.univlorraine.m2.gi.groupe2.model.Survey;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

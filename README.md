@@ -2,16 +2,16 @@
 
 _Badges :_
 
-[![Quality Gate Status](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=io.swagger%3Aswagger-spring&metric=alert_status)](https://sonarqube.cedricmtta.com/dashboard?id=io.swagger%3Aswagger-spring)
-[![Reliability Rating](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=io.swagger%3Aswagger-spring&metric=reliability_rating)](https://sonarqube.cedricmtta.com/dashboard?id=io.swagger%3Aswagger-spring)
-[![Maintainability Rating](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=io.swagger%3Aswagger-spring&metric=sqale_rating)](https://sonarqube.cedricmtta.com/dashboard?id=io.swagger%3Aswagger-spring)
+[![Quality Gate Status](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=fr.univ-lorraine.m2.gi%3Agroupe-2&metric=alert_status)](https://sonarqube.cedricmtta.com/dashboard?id=fr.univ-lorraine.m2.gi%3Agroupe-2)
+[![Reliability Rating](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=fr.univ-lorraine.m2.gi%3Agroupe-2&metric=reliability_rating)](https://sonarqube.cedricmtta.com/dashboard?id=fr.univ-lorraine.m2.gi%3Agroupe-2)
+[![Maintainability Rating](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=fr.univ-lorraine.m2.gi%3Agroupe-2&metric=sqale_rating)](https://sonarqube.cedricmtta.com/dashboard?id=fr.univ-lorraine.m2.gi%3Agroupe-2)
 [![forthebadge](https://gitlab.cedricmtta.com/Alexandre/surveys/badges/master/pipeline.svg)](https://gitlab.cedricmtta.com/Alexandre/surveys/-/commits/master)
-[![Coverage](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=io.swagger%3Aswagger-spring&metric=coverage)](https://sonarqube.cedricmtta.com/dashboard?id=io.swagger%3Aswagger-spring)
+[![Coverage](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=fr.univ-lorraine.m2.gi%3Agroupe-2&metric=coverage)](https://sonarqube.cedricmtta.com/dashboard?id=fr.univ-lorraine.m2.gi%3Agroupe-2)
 [![Generic badge](https://img.shields.io/badge/Chat-Slack-<COLOR>.svg)](https://app.slack.com/client/T019TJG5J7P/C01A5KA2F0T/thread/C019FUK2RQF-1600883746.002500)
 [![Generic badge](https://img.shields.io/badge/Contributeurs-4-red.svg)](https://gitlab.cedricmtta.com/Alexandre/surveys/-/graphs/master)
 [![Generic badge](https://img.shields.io/badge/Le%20meilleur%20projet%20%3f-Oui%20,%20%C3%A9videmment-yellow.svg)](https://gitlab.cedricmtta.com/help/user/project/badges)
-[![Code Smells](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=io.swagger%3Aswagger-spring&metric=code_smells)](https://sonarqube.cedricmtta.com/dashboard?id=io.swagger%3Aswagger-spring)
-[![Duplicated Lines (%)](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=io.swagger%3Aswagger-spring&metric=duplicated_lines_density)](https://sonarqube.cedricmtta.com/dashboard?id=io.swagger%3Aswagger-spring)
+[![Code Smells](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=fr.univ-lorraine.m2.gi%3Agroupe-2&metric=code_smells)](https://sonarqube.cedricmtta.com/dashboard?id=fr.univ-lorraine.m2.gi%3Agroupe-2)
+[![Duplicated Lines (%)](https://sonarqube.cedricmtta.com/api/project_badges/measure?project=fr.univ-lorraine.m2.gi%3Agroupe-2&metric=duplicated_lines_density)](https://sonarqube.cedricmtta.com/dashboard?id=fr.univ-lorraine.m2.gi%3Agroupe-2)
 
 Projet de production logiciel réalisé par Monsieur Cédric Moschetta pour les Master 2 Génie informatique 2020/2021.
 L'objectif du projet est de réaliser une API pour des sondages en ligne.
@@ -30,7 +30,7 @@ Pour utiliser notre projet, il suffit d'avoir la liste des applications ou logic
 
 Pour utiliser notre API, il suffit :
 
-* [API](http://localhost:8080/Alex57x/Projet/1.0.0/swagger-ui.html) - Accès à l'interface de l'API
+* [API](http://localhost:8082/Alex57x/Projet/1.0.0/swagger-ui.html) - Accès à l'interface de l'API
 * [PATH/PORT](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/src/main/resources/application.properties) - Pour changer le PATH ou le port d'écoute
 
 
@@ -38,7 +38,7 @@ Pour utiliser notre API, il suffit :
 
 Afin de lancer le projet
 
-* [Documentation](http://localhost:8080/Alex57x/Projet/1.0.0/swagger-ui.html) - Documentation
+* [Documentation](http://localhost:8082/Alex57x/Projet/1.0.0/swagger-ui.html) - Documentation
 * [H2](http://localhost:8080/Alex57x/Projet/1.0.0/h2-console) - Base de données
 
 ## Fabriqué avec
@@ -60,13 +60,16 @@ Liste les programmes/logiciels/ressources que nous avons utilisé pour développ
 Pipline d'intégration avec :
 
 * [Gitea](https://gitlab.cedricmtta.com/Alexandre/surveys/-/pipelines) - Build / Compile / Package
-* [SonarQube](https://sonarqube.cedricmtta.com/dashboard?id=io.swagger%3Aswagger-spring) - Notation du code
+* [SonarQube](https://sonarqube.cedricmtta.com/dashboard?id=fr.univ-lorraine.m2.gi%3Agroupe-2) - Notation du code
 
 ## Documentation
 
 * [Swagger Editor](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/alexandre_conrad/docs/swagger.txt) - Document réalisé en Swagger
-* [Carnet de bord](https://gitlab.cedricmtta.com/Alexandre/surveys/) - Carnet de bord  #A FAIRE#
-* [Gantt](https://gitlab.cedricmtta.com/Alexandre/surveys/) - Diagramme de Gantt  #A FAIRE#
+* [Carnet de bord](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/carnetDeBord.pdf) - Carnet de bord du projet
+* [Documentation fonctionnelle](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/DocumentationFonctionnelle.pdf) - Documentation fonctionnelle
+* [Documentation Technique](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/DocumentationTechnique.pdf) - Documentation technique
+* [Rapport Test XML Jacoco](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/jacoco.xml) - Rapport des test sous le format xml
+* [Rapport Test Image Jacoco](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/index.html) - Rapport des test sous le format image
 * [Postman](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/Projet%20M2%20GI.postman_collection.json) - Document Postman
 * [BDD](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/Sondages.svg) - Schéma de la base de données 
 * [BDD_verbose](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/verbose.md) - Verbose de la base de données

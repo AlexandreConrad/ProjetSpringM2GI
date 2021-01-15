@@ -32,11 +32,11 @@
         <property name="hibernate.connection.useUnicode">true</property>
 
         <!-- Mappage avec les classes de modèle contenant des annotations  -->
-        <mapping class="io.swagger.model.Survey"/>
-        <mapping class="io.swagger.model.Comment"/>
-        <mapping class="io.swagger.model.Choice"/>
-        <mapping class="io.swagger.model.Option"/>
-        <mapping class="io.swagger.model.Vote"/>
+        <mapping class="fr.univlorraine.m2.gi.groupe2.model.Survey"/>
+        <mapping class="fr.univlorraine.m2.gi.groupe2.model.Comment"/>
+        <mapping class="fr.univlorraine.m2.gi.groupe2.model.Choice"/>
+        <mapping class="fr.univlorraine.m2.gi.groupe2.model.Option"/>
+        <mapping class="fr.univlorraine.m2.gi.groupe2.model.Vote"/>
 
     </session-factory>
 </hibernate-configuration>
