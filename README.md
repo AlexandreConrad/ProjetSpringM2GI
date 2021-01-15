@@ -65,7 +65,7 @@ Pipline d'intégration avec :
 ## Documentation
 
 * [Swagger Editor](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/alexandre_conrad/docs/swagger.txt) - Document réalisé en Swagger
-* [Carnet de bord](https://gitlab.cedricmtta.com/Alexandre/surveys/) - Carnet de bord du projet
+* [Carnet de bord](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/carnetDeBord.pdf) - Carnet de bord du projet
 * [Documentation fonctionnelle](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/DocumentationFonctionnelle.pdf) - Documentation fonctionnelle
 * [Documentation Technique](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/DocumentationTechnique.pdf) - Documentation technique
 * [Rapport Test XML Jacoco](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/jacoco.xml) - Rapport des test sous le format xml
