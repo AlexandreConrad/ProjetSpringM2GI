@@ -1,5 +1,5 @@
 package configuration;
-import io.swagger.configuration.HomeController;
+import fr.univlorraine.m2.gi.groupe2.configuration.HomeController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

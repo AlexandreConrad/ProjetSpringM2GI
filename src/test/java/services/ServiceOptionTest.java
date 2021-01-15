@@ -1,8 +1,8 @@
 package services;
 
-import io.swagger.exceptions.BadRequestException;
-import io.swagger.model.Option;
-import io.swagger.service.OptionsService;
+import fr.univlorraine.m2.gi.groupe2.exceptions.BadRequestException;
+import fr.univlorraine.m2.gi.groupe2.model.Option;
+import fr.univlorraine.m2.gi.groupe2.service.OptionsService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;

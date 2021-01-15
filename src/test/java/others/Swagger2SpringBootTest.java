@@ -1,5 +1,5 @@
 package others;
-import io.swagger.Swagger2SpringBoot;
+import fr.univlorraine.m2.gi.groupe2.Swagger2SpringBoot;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

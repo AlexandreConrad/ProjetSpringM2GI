@@ -1,6 +1,6 @@
 package exceptions;
-import io.swagger.api.NotFoundException;
-import io.swagger.exceptions.DatabaseException;
+import fr.univlorraine.m2.gi.groupe2.api.NotFoundException;
+import fr.univlorraine.m2.gi.groupe2.exceptions.DatabaseException;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.Test;
 

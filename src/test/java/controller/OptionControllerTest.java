@@ -1,7 +1,7 @@
 package controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.api.OptionsApiController;
-import io.swagger.model.Option;
+import fr.univlorraine.m2.gi.groupe2.api.OptionsApiController;
+import fr.univlorraine.m2.gi.groupe2.model.Option;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
