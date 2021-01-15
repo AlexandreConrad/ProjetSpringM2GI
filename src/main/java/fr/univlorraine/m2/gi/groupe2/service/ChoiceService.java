@@ -89,13 +89,6 @@ public final class ChoiceService {
         Survey survey = SurveyService.getSurveyByID(surveyID);
         survey.getName();
 
-        // Exceptions 409
-        if(choice.after(survey.getEndDate()))
-            throw new BadRequestException("Fonction postChoiceById => Date surpérieur à la date de fin !");
-
-        if(Boolean.TRUE.equals(survey.getIsAvailable()))
-            throw new BadRequestException("Fonction postChoiceById => Le sondage est fini !");
-
         //Création du choix
         Choice cho = new Choice();
         cho.setDate(choice);
