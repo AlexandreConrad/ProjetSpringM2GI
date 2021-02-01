@@ -73,6 +73,7 @@ Pipline d'intégration avec :
 * [Postman](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/Projet%20M2%20GI.postman_collection.json) - Document Postman
 * [BDD](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/Sondages.svg) - Schéma de la base de données 
 * [BDD_verbose](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/verbose.md) - Verbose de la base de données
+* [PowerPoint](https://gitlab.cedricmtta.com/Alexandre/surveys/-/blob/master/docs/PresentationFinal.pdf) - Présentation PowerPoint
 
 ## Versions
 
